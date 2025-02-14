@@ -27,7 +27,8 @@ def update_profile(request):
         if form.is_valid():
             form.save()
             return redirect('profile')  
-        form = CustomerProfileForm(instance=customer)
+    else:
+        form = CustomerProfileForm(instance=customer) 
     return render(request, 'accounts/update_profile.html', {'form': form})
 
 @login_required
