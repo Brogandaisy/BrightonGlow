@@ -1,32 +1,33 @@
 from django.shortcuts import render, redirect
 from .models import Order, OrderItem
 from .forms import CheckoutForm
-from cart.cart import Cart
+bag.bag import Bag
 from django.shortcuts import get_object_or_404
 
 
 def checkout_view(request):
-    cart = Cart(request)
+    bag = Bag(request)  # Use Bag instead of Cart
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
             order = Order.objects.create(
                 user=request.user,
                 status='PENDING',
-                total_price=cart.get_total_price()
+                total_price=bag.get_total_price()  # Changed cart to bag
             )
-            for item in cart:
+            for item in bag:  # Changed cart to bag
                 OrderItem.objects.create(
                     order=order,
                     product=item['product'],
                     quantity=item['quantity'],
                     price=item['price']
                 )
-            cart.clear()
+            bag.clear()  # Changed cart.clear() to bag.clear()
             return redirect('order_confirmation', order_id=order.id)
     else:
         form = CheckoutForm()
-    return render(request, 'orders/checkout.html', {'cart': cart, 'form': form})
+    return render(request, 'orders/checkout.html', {'bag': bag, 'form': form})  # Changed cart to bag
+
 
 def order_confirmation(request, order_id):
     order = get_object_or_404(Order, id=order_id)
