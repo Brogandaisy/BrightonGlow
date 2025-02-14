@@ -1,0 +1,12 @@
+{% block content %}
+  <h2>Thank You for Your Order!</h2>
+  <p>Order Number: {{ order.id }}</p>
+  <h3>Order Details:</h3>
+  <ul>
+    {% for item in order.items.all %}
+      <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - ${{ item.price }}</li>
+    {% endfor %}
+  </ul>
+  <p><strong>Total Paid:</strong> ${{ order.total_price }}</p>
+  <p>Your order status is: <strong>{{ order.status }}</strong></p>
+{% endblock %}
