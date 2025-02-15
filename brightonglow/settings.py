@@ -16,22 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
-
-
-# Static files (CSS, JS, images)
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Global static folder
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# Media files (User-uploaded images)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -43,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 1209600
+
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
@@ -50,6 +39,7 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 if not STRIPE_PUBLIC_KEY or not STRIPE_SECRET_KEY:
     raise ValueError("Stripe API keys are missing! Check your .env file.")
 
+BAG_SESSION_ID = 'bag'
 
 # Application definition
 
@@ -64,6 +54,7 @@ INSTALLED_APPS = [
     'products',
     'orders',
     'payments',
+    'bag',
 ]
 
 MIDDLEWARE = [
@@ -146,11 +137,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JS, images)
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),  # Global static folder
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Media files (User-uploaded images)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-BAG_SESSION_ID = 'bag'
