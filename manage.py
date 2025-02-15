@@ -2,7 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import dotenv
+from django.core.management import execute_from_command_line
 
+dotenv.load_dotenv()
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "brightonglow.settings")
+    execute_from_command_line(sys.argv)
 
 def main():
     """Run administrative tasks."""

@@ -40,6 +40,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+# Security check to ensure keys are loaded
+if not STRIPE_PUBLIC_KEY or not STRIPE_SECRET_KEY:
+    raise ValueError("Stripe API keys are missing! Check your .env file.")
+
 
 # Application definition
 
@@ -53,6 +60,7 @@ INSTALLED_APPS = [
     'accounts',
     'products',
     'orders',
+    'payments',
 ]
 
 MIDDLEWARE = [
