@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from products.models import Product
 from bag.bag import Bag
 
-def home(request):
-    return render(request, 'products/home.html')
+def products_home(request):
+    return render(request, 'products/products_home.html')
 
 def product_list(request):
     products = Product.objects.all()
