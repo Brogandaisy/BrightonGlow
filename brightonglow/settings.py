@@ -80,7 +80,7 @@ ROOT_URLCONF = 'brightonglow.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "brightonglow/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

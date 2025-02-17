@@ -1,0 +1,10 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home - BrightonGlow{% endblock %}
+
+{% block content %}
+    <h1>Welcome to BrightonGlow</h1>
+    <p>Explore our products!</p>
+    <a href="{% url 'products_home' %}" class="btn btn-primary">View Products</a>
+{% endblock %}

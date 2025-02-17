@@ -3,7 +3,8 @@ from products.models import Product
 from bag.bag import Bag
 
 def products_home(request):
-    return render(request, 'products/products_home.html')
+    products = Product.objects.all()
+    return render(request, 'products/products_home.html', {'products': products})
 
 def product_list(request):
     products = Product.objects.all()

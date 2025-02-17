@@ -3,9 +3,10 @@ from django.urls import path, include
 from orders import views
 from payments import views
 from payments.views import webhook
-
+from . import views
 
 urlpatterns = [
+    path("", views.home, name="home"),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include('products.urls')),

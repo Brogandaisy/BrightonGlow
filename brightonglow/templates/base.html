@@ -1,0 +1,20 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BrightonGlow{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'products_home' %}">Products</a>
+            <a href="{% url 'bag_detail' %}">Shopping Bag</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

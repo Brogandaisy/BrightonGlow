@@ -1,18 +1,23 @@
 <!-- templates/products/products_home.html -->
-{% block title %}Products - BrightonGlow{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}Our Products{% endblock %}
 
 {% block content %}
-    <h1>Our Products</h1>
-    <div class="product-grid">
+    <h1 class="mb-4">Our Products</h1>
+    <div class="row">
         {% for product in products %}
-            <div class="product-card">
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <p>Price: ${{ product.price }}</p>
-                <form method="POST" action="{% url 'add_to_bag' product.id %}">
-                    <button type="submit">Add to Bag</button>
-                </form>
-            </div>
-        {% endfor %}
+        <div class="col-md-4 mb-4">
+            <h5>{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
+            <p><strong>${{ product.price }}</strong></p>
+            <form method="POST" action="{% url 'add_to_bag' product.id %}">
+                {% csrf_token %}
+                <button type="submit">Add to Bag</button>
+            </form>
+        </div>
+      {% empty %}
+        <p class="text-muted">No products available.</p>
+      {% endfor %}
     </div>
 {% endblock %}
