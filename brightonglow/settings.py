@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-+je*!m(7l%1eoag)ogeq1w&l^hvc(9-cw+#mm8vu5l(_4m_b&p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '292a-185-104-136-29.ngrok-free.app',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://292a-185-104-136-29.ngrok-free.app', 
+]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 1209600

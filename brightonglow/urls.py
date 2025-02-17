@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from orders import views
 from payments import views
+from payments.views import webhook
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,5 +15,5 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('payment-success/', views.payment_success, name='payment_success'),
     path('payment-cancel/', views.payment_cancel, name='payment_cancel'),
-
+    path('webhook/', webhook, name='stripe-webhook'),
 ]
