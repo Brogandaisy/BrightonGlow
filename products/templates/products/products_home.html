@@ -10,7 +10,7 @@
         <div class="col-md-4 mb-4">
             <h5>{{ product.name }}</h5>
             <p>{{ product.description }}</p>
-            <p><strong>${{ product.price }}</strong></p>
+            <p><strong>£{{ product.price }}</strong></p>
             <form method="POST" action="{% url 'add_to_bag' product.id %}">
                 {% csrf_token %}
                 <button type="submit">Add to Bag</button>
