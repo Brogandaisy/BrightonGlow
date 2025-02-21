@@ -28,11 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '292a-185-104-136-29.ngrok-free.app',
+    'e263-2a00-23c7-60f8-7d01-443d-a4d2-f858-b49b.ngrok-free.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://292a-185-104-136-29.ngrok-free.app', 
+    'https://e263-2a00-23c7-60f8-7d01-443d-a4d2-f858-b49b.ngrok-free.app', 
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
