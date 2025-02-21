@@ -3,9 +3,5 @@ from . import views
 
 urlpatterns = [
     path('checkout/', views.checkout_view, name='checkout'),
-    path('confirmation/', views.confirmation_view, name='confirmation'),
-]
-
-urlpatterns += [
-    path('order-confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),
+    path('confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),  # Standardized name
 ]

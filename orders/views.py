@@ -1,33 +1,29 @@
-from django.shortcuts import render, redirect
-from .models import Order, OrderItem
+from django.shortcuts import render, get_object_or_404
+from products.models import Product
 from .forms import CheckoutForm
+from decimal import Decimal
 from bag.bag import Bag
-from django.shortcuts import get_object_or_404
 
-def checkout_view(request):
-    bag = Bag(request)  
-    if request.method == 'POST':
-        form = CheckoutForm(request.POST)
-        if form.is_valid():
-            order = Order.objects.create(
-                user=request.user,
-                status='PENDING',
-                total_price=bag.get_total_price()  
-            )
-            for item in bag:  
-                OrderItem.objects.create(
-                    order=order,
-                    product=item['product'],
-                    quantity=item['quantity'],
-                    price=item['price']
-                )
-            bag.clear()  
-            return redirect('order_confirmation', order_id=order.id)
-    else:
-        form = CheckoutForm()
-    return render(request, 'orders/checkout.html', {'bag': bag, 'form': form})  # Changed cart to bag
+def checkout(request):
+    """Checkout view - retrieves bag contents from session and attaches product names."""
+    bag = request.session.get('bag', {})
+    total = request.session.get('total', 0)
 
+    bag_items = []
+    for product_id, item in bag.items():
+        product = get_object_or_404(Product, id=product_id) 
+        bag_items.append({
+            'id': product_id,
+            'name': product.name,
+            'quantity': item['quantity'],
+            'price': Decimal(item['price']),
+            'total_price': Decimal(item['price']) * item['quantity'],
+        })
 
-def order_confirmation(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    return render(request, 'orders/confirmation.html', {'order': order})
+    form = CheckoutForm()
+
+    return render(request, 'orders/checkout.html', {
+        'bag': bag_items,
+        'total': total,
+        'form': form,  
+    })

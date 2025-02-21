@@ -7,6 +7,10 @@ def home(request):
 def checkout(request):
     return render(request, 'orders/checkout.html')
 
+def checkout_view(request):
+    return render(request, 'orders/checkout.html')
+
+
 # Payment views in payments app
 def payment_success(request):
     return render(request, 'payments/payment_success.html')

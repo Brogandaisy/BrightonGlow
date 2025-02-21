@@ -12,6 +12,13 @@ def bag_add(request, product_id):
     bag = Bag(request)
     product = get_object_or_404(Product, id=product_id)
     bag.add(product=product)
+
+    session_bag = {str(k): {'quantity': v['quantity'], 'price': float(v['price'])} for k, v in bag.bag.items()}
+
+    request.session['bag'] = session_bag
+    request.session['total'] = float(bag.get_total_price())
+    request.session.modified = True
+
     return redirect('bag_detail')
 
 def bag_remove(request, product_id):
