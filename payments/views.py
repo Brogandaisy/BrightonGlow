@@ -63,16 +63,15 @@ def checkout(request):
             cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
 )
 
-
-        print("Stripe Session Data:", json.dumps(session, indent=4))
-
         order.stripe_payment_intent = session.id
         order.save()
+
+        request.session['bag'] = {}
+        request.session.modified = True
 
         return redirect(session.url, code=303)
 
     except Exception as e:
-        print(f"❌ Stripe Error: {str(e)}")
         return redirect('payment_error')
 
 
@@ -91,12 +90,14 @@ def webhook(request):
 
             if order:
                 order.status = "PAID"
+
                 if "shipping_details" in session:
                     order.shipping_name = session["shipping_details"]["name"]
                     order.shipping_address = session["shipping_details"]["address"]["line1"]
                     order.shipping_city = session["shipping_details"]["address"]["city"]
                     order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
                     order.shipping_country = session["shipping_details"]["address"]["country"]
+                
                 order.save()
                 print(f"✅ Order {order.id} updated to PAID!")
 
