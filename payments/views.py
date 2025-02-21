@@ -11,12 +11,16 @@ from bag.bag import Bag
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request):
-    total = request.session.get('total', 0)
+    total = float(request.session.get('total', 0))
+
     if not isinstance(total, (int, float)) or total <= 0:
         return redirect('payment_error')
 
     try:
+        bag = Bag(request)
+
         order = Order.objects.create(user=request.user, total_price=total, status='PENDING')
+
         for item in bag:
             OrderItem.objects.create(
                 order=order,
@@ -27,63 +31,84 @@ def checkout(request):
         
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            customer_email=request.user.email if request.user.is_authenticated else None,  
-            shipping_address_collection={  
-                "allowed_countries": ["GB"],  
-            },
-            allow_promotion_codes=True,
-            line_items=[{
-                'price_data': {
-                    'currency': 'gbp',
-                    'product_data': {'name': f'Order {order.id}'},
-                    'unit_amount': int(total * 100),
-                },
-                'quantity': 1,
-            }],
             mode='payment',
-            success_url=request.build_absolute_uri(reverse('order_confirmation', args=[order.id])),
+            currency="gbp",
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "gbp",
+                        "unit_amount": int(100 * total),
+                        "product_data": {
+                            "name": "Your Order",
+                            "description": "Physical product requiring shipping"
+                        },
+                    },
+                    "quantity": 1,
+                }
+            ],
+            shipping_address_collection={"allowed_countries": ["GB"]},
+            shipping_options=[
+                {
+                    "shipping_rate_data": {
+                        "display_name": "Standard Shipping",
+                        "type": "fixed_amount",
+                        "fixed_amount": {
+                            "amount": 300,
+                            "currency": "gbp"
+                        }
+                    }
+                }
+            ],
+            success_url=request.build_absolute_uri(reverse('payment_success')),
             cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
-        )
+)
+
+
+        print("Stripe Session Data:", json.dumps(session, indent=4))
 
         order.stripe_payment_intent = session.id
         order.save()
-        bag.clear()
 
-        return redirect(session.url)
+        return redirect(session.url, code=303)
 
-    except stripe.error.StripeError as e:
-        return render(request, 'payments/error.html', {'message': f'Stripe error: {e}'})
     except Exception as e:
-        return render(request, 'payments/error.html', {'message': f'Error processing payment: {e}'})
-
+        print(f"❌ Stripe Error: {str(e)}")
+        return redirect('payment_error')
 
 
 @csrf_exempt
 def webhook(request):
-    """ Process Stripe webhook events """
     payload = request.body
     sig_header = request.headers.get("Stripe-Signature")
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET  
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
 
         if event["type"] == "checkout.session.completed":
             session = event["data"]["object"]
-            order = Order.objects.filter(stripe_payment_intent=session["id"]).first()
+            order = Order.objects.filter(stripe_payment_intent=session.get("payment_intent")).first()
+
             if order:
                 order.status = "PAID"
+                if "shipping_details" in session:
+                    order.shipping_name = session["shipping_details"]["name"]
+                    order.shipping_address = session["shipping_details"]["address"]["line1"]
+                    order.shipping_city = session["shipping_details"]["address"]["city"]
+                    order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
+                    order.shipping_country = session["shipping_details"]["address"]["country"]
                 order.save()
                 print(f"✅ Order {order.id} updated to PAID!")
 
         return JsonResponse({"status": "success"}, status=200)
 
     except ValueError:
-        return JsonResponse({"error": "Invalid payload"}, status=400) 
+        return JsonResponse({"error": "Invalid payload"}, status=400)
     except stripe.error.SignatureVerificationError:
         return JsonResponse({"error": "Invalid signature"}, status=400)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 def payment_success(request):
     return render(request, 'payments/success.html')

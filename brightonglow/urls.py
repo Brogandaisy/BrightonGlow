@@ -14,7 +14,6 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('bag/', include('bag.urls')),
     path('payments/', include('payments.urls')),
-    path('checkout/', order_views.checkout_view, name='checkout'),
     path('orders/', include('orders.urls')),
     path('payment-success/', payment_views.payment_success, name='payment_success'),
     path('payment-cancel/', views.payment_cancel, name='payment_cancel'),

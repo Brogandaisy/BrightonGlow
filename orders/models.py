@@ -15,6 +15,11 @@ class Order(models.Model):
     stripe_payment_intent = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    shipping_name = models.CharField(max_length=255, blank=True, null=True)
+    shipping_address = models.CharField(max_length=255, blank=True, null=True)
+    shipping_city = models.CharField(max_length=100, blank=True, null=True)
+    shipping_postcode = models.CharField(max_length=20, blank=True, null=True)
+    shipping_country = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
