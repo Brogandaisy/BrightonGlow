@@ -5,7 +5,7 @@ from products.models import Product
 class Order(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
-        ('COMPLETED', 'Completed'),
+        ('PAID', 'Paid'),
         ('CANCELLED', 'Cancelled'),
     ]
 

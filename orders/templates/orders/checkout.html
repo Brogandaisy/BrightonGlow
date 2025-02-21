@@ -18,14 +18,4 @@
     <p>Your shopping bag is empty.</p>
   {% endif %}
 
-  <h3>Shipping Details</h3>
-  {% if form %}
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Place Order</button>
-    </form>
-  {% else %}
-    <p>Error loading form.</p>
-  {% endif %}
 {% endblock %}

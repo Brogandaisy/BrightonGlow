@@ -27,7 +27,7 @@ def checkout(request):
                 'quantity': 1,
             }],
             mode='payment',
-            success_url=request.build_absolute_uri(reverse('payment_success')),
+            success_url=request.build_absolute_uri(reverse('order_confirmation', args=[order.id])),
             cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
         )
         order.stripe_payment_intent = session.id
@@ -48,14 +48,16 @@ def webhook(request):
             session = payload['data']['object']
             order = Order.objects.filter(stripe_payment_intent=session['id']).first()
             if order:
-                order.status = 'COMPLETED'
+                order.status = 'PAID' 
                 order.save()
+                print(f"Order {order.id} updated to PAID!")
 
         return JsonResponse({'status': 'success'}, status=200)
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid payload'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 def payment_success(request):
     return render(request, 'payments/success.html')
