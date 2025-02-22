@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from products.models import Product
 from bag.bag import Bag
+from .models import Product
+
 
 def products_home(request):
     products = Product.objects.all()
@@ -25,3 +26,7 @@ def bag_detail(request):
     total = bag.get_total_price()
     request.session['total'] = total
     return render(request, 'bag/bag_detail.html', {'bag': bag, 'total': total})
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'products/product_detail.html', {'product': product})

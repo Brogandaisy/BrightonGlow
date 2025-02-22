@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p><strong>£{{ product.price }}</strong></p>
+
+    <!-- Add to Bag form -->
+    <form method="POST" action="{% url 'add_to_bag' product.id %}">
+        {% csrf_token %}
+        <button type="button" onclick="decrement()">-</button>
+        <span id="quantity">1</span>
+        <button type="button" onclick="increment()">+</button>
+
+        <input type="hidden" name="quantity" id="quantity-input" value="1">
+        <button type="submit">Add to Bag</button>
+    </form>
+</div>
+
+<script>
+let quantity = 1;
+function increment() {
+    quantity++;
+    document.getElementById('quantity').innerText = quantity;
+    document.getElementById('quantity-input').value = quantity;
+}
+function decrement() {
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantity').innerText = quantity;
+        document.getElementById('quantity-input').value = quantity;
+    }
+}
+</script>
+{% endblock %}
