@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>{{ category.name }}</h2>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <h5>{{ product.name }}</h5>
+            <p>{{ product.description }}</p>
+            <p><strong>£{{ product.price }}</strong></p>
+            <a href="{% url 'product_detail' product.id %}">View</a>
+        </div>
+        {% empty %}
+        <p>No products in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

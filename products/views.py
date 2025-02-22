@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
-from .models import Product
+from .models import Product, Category
 
 
 def products_home(request):
@@ -30,3 +30,11 @@ def bag_detail(request):
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     return render(request, 'products/product_detail.html', {'product': product})
+
+def category_detail(request, category_name):
+    category = get_object_or_404(Category, name=category_name)
+    products = Product.objects.filter(category=category)
+    return render(request, 'products/category_detail.html', {
+        'category': category,
+        'products': products
+    })

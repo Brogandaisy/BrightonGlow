@@ -23,7 +23,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">£{{ product.price }}</p>
-            <a href="#" class="btn btn-primary">View</a>
+            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View</a>
           </div>
         </div>
       </div>
