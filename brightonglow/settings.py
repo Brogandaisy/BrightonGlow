@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,17 +29,19 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'e263-2a00-23c7-60f8-7d01-443d-a4d2-f858-b49b.ngrok-free.app',
+    '1479-2a00-23c7-60f8-7d01-555f-bca2-7105-e6d3.ngrok-free.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://e263-2a00-23c7-60f8-7d01-443d-a4d2-f858-b49b.ngrok-free.app', 
+    'https://1479-2a00-23c7-60f8-7d01-555f-bca2-7105-e6d3.ngrok-free.app', 
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400
 SESSION_SAVE_EVERY_REQUEST = True
 BAG_SESSION_ID = "shopping_bag"
+
+load_dotenv()
 
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 
@@ -49,7 +52,6 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 if not STRIPE_PUBLIC_KEY or not STRIPE_SECRET_KEY:
     raise ValueError("Stripe API keys are missing! Check your .env file.")
 
-BAG_SESSION_ID = 'bag'
 
 # Application definition
 

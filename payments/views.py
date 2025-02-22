@@ -65,9 +65,12 @@ def checkout(request):
 
         order.stripe_payment_intent = session.id
         order.save()
-
+                
         request.session['bag'] = {}
+        
+        request.session.flush()  
         request.session.modified = True
+        request.session.save() 
 
         return redirect(session.url, code=303)
 
