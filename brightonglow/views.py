@@ -1,8 +1,11 @@
 # brightonglow/views.py
 from django.shortcuts import render
+from products.models import Product
+
 
 def home(request):
-    return render(request, 'home.html')
+    featured_products = Product.objects.order_by('?')[:3]
+    return render(request, 'home.html', {'featured_products': featured_products})
 
 def checkout(request):
     return render(request, 'orders/checkout.html')
