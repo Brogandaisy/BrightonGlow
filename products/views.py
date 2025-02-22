@@ -13,8 +13,11 @@ def product_list(request):
 def add_to_bag(request, product_id):
     bag = Bag(request)
     product = get_object_or_404(Product, id=product_id)
-    bag.add(product=product)
-    request.session['total'] = bag.get_total_price()  
+    quantity = int(request.POST.get('quantity', 1)) 
+
+    bag.add(product=product, quantity=quantity)
+
+    request.session['total'] = bag.get_total_price()
     return redirect('bag_detail')
 
 def bag_detail(request):
