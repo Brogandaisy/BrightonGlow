@@ -1,20 +1,32 @@
 {% extends 'base.html' %}
+{% block title %}Shopping Bag{% endblock %}
 
 {% block content %}
-  <h2>Your Shopping Bag</h2>
-  
-  {% if bag %}
-    <ul>
-      {% for item in bag %}  {# Uses Bag.__iter__() to loop through items #}
-        <li>
-          {{ item.product.name }} - Quantity: {{ item.quantity }} - £{{ item.total_price|floatformat:2 }}
-          <a href="{% url 'bag_remove' item.product.id %}">Remove</a>
-        </li>
-      {% endfor %}
-    </ul>
-    <p><strong>Total:</strong> £{{ total|floatformat:2 }}</p>
-    <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
-  {% else %}
-    <p>Your bag is empty.</p>
-  {% endif %}
+<h2>Your Shopping Bag</h2>
+
+{% for item in bag %}
+  <div>
+    <h5>{{ item.product.name }}</h5>
+    <p>Price: £{{ item.product.price }}</p>
+
+    <form method="POST" action="{% url 'adjust_bag' item.product.id %}">
+        {% csrf_token %}
+        <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}">-</button>
+        <span>{{ item.quantity }}</span>
+        <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}">+</button>
+    </form>
+
+    <form method="POST" action="{% url 'bag_remove' item.product.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+  </div>
+{% empty %}
+  <p>Your bag is empty.</p>
+{% endfor %}
+
+<p><strong>Total: £{{ total }}</strong></p>
+
+<a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+
 {% endblock %}
