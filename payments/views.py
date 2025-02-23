@@ -20,6 +20,7 @@ def checkout(request):
         bag = Bag(request)
 
         order = Order.objects.create(user=request.user, total_price=total, status='PENDING')
+        request.session['order_id'] = order.id
 
         for item in bag:
             OrderItem.objects.create(
@@ -69,8 +70,6 @@ def checkout(request):
                 
         request.session['bag'] = {}
         
-        request.session.flush()  
-        request.session.modified = True
         request.session.save() 
 
         return redirect(session.url, code=303)
@@ -120,6 +119,15 @@ def webhook(request):
 
 
 def payment_success(request):
+    order_id = request.session.get('order_id')
+
+    if order_id:
+        try:
+            order = Order.objects.get(id=order_id)
+            return render(request, 'payments/success.html', {'order': order})
+        except Order.DoesNotExist:
+            pass
+
     return render(request, 'payments/success.html')
 
 def payment_cancel(request):

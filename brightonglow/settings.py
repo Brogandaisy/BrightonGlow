@@ -38,7 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400
-SESSION_SAVE_EVERY_REQUEST = True
+SESSION_SAVE_EVERY_REQUEST = False
 BAG_SESSION_ID = "shopping_bag"
 
 load_dotenv()
@@ -115,24 +115,16 @@ LOGGING = {
     },
 }
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', #MySQL backend
         'NAME': 'brightonglow_db', #Database name
         'USER': 'brightonglow_user', #MySQL username
-        'PASSWORD': 'django123', #MySQL password
+        'PASSWORD': 'brightonglow1', #MySQL password
         'HOST': 'localhost', 
         'PORT': '',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
