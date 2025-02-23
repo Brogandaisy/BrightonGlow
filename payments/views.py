@@ -46,6 +46,7 @@ def checkout(request):
                     "quantity": 1,
                 }
             ],
+            metadata={'order_id': order.id},
             shipping_address_collection={"allowed_countries": ["GB"]},
             shipping_options=[
                 {
@@ -89,20 +90,24 @@ def webhook(request):
 
         if event["type"] == "checkout.session.completed":
             session = event["data"]["object"]
-            order = Order.objects.filter(stripe_payment_intent=session.get("payment_intent")).first()
+            order_id = session.get('metadata', {}).get('order_id')
 
-            if order:
-                order.status = "PAID"
+            if order_id:
+                try: 
+                    order=Order.objects.get(id=order_id)
+                    order.status = "PAID"
 
-                if "shipping_details" in session:
-                    order.shipping_name = session["shipping_details"]["name"]
-                    order.shipping_address = session["shipping_details"]["address"]["line1"]
-                    order.shipping_city = session["shipping_details"]["address"]["city"]
-                    order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
-                    order.shipping_country = session["shipping_details"]["address"]["country"]
-                
-                order.save()
-                print(f"✅ Order {order.id} updated to PAID!")
+                    if "shipping_details" in session:
+                        order.shipping_name = session["shipping_details"]["name"]
+                        order.shipping_address = session["shipping_details"]["address"]["line1"]
+                        order.shipping_city = session["shipping_details"]["address"]["city"]
+                        order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
+                        order.shipping_country = session["shipping_details"]["address"]["country"]
+                    
+                    order.save()
+                    print(f"✅ Order {order.id} updated to PAID!")
+                except Order.DoesNotExist:
+                    print('XXX Could not find the order')
 
         return JsonResponse({"status": "success"}, status=200)
 
