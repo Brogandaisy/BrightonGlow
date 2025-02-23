@@ -7,13 +7,16 @@
 {% block content %}
 
 <!-- Top Banner -->
-<div class="container-fluid bg-secondary text-white py-5 text-center">
+<div class="background-brown">
+<div class="home-banner container-fluid text-white py-5 text-center">
   <h1>Welcome to Brighton Glow</h1>
   <p>Your glow starts here.</p>
 </div>
 
 <!-- Featured Products -->
+
 <div class="container my-5">
+<div class="featured">
   <h2 class="text-center mb-4">Featured Products</h2>
   <div class="row">
     {% for product in featured_products %}
@@ -23,14 +26,17 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">£{{ product.price }}</p>
-            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View</a>
+            <a href="{% url 'product_detail' product.id %}" class="custom-btn-secondary">View</a>
           </div>
         </div>
       </div>
     {% endfor %}
   </div>
 </div>
+</div>
+</div>
 
+<div class="background-light-brown">
 <div class="container my-5">
   <div class="row align-items-center">
     <div class="col-md-6">
@@ -42,6 +48,8 @@
     </div>
   </div>
 </div>
+</div>
+
 
 <div class="container-fluid bg-light text-center py-5">
   <h3>Free Shipping on Orders Over £50!</h3>
