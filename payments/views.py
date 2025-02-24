@@ -67,16 +67,11 @@ def checkout(request):
 
         order.stripe_payment_intent = session.id
         order.save()
-                
-        request.session['bag'] = {}
-        
-        request.session.save() 
 
         return redirect(session.url, code=303)
 
     except Exception as e:
         return redirect('payment_error')
-
 
 @csrf_exempt
 def webhook(request):
@@ -92,8 +87,8 @@ def webhook(request):
             order_id = session.get('metadata', {}).get('order_id')
 
             if order_id:
-                try: 
-                    order=Order.objects.get(id=order_id)
+                try:
+                    order = Order.objects.get(id=order_id)
                     order.status = "PAID"
 
                     if "shipping_details" in session:
@@ -102,9 +97,14 @@ def webhook(request):
                         order.shipping_city = session["shipping_details"]["address"]["city"]
                         order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
                         order.shipping_country = session["shipping_details"]["address"]["country"]
-                    
+
                     order.save()
                     print(f"✅ Order {order.id} updated to PAID!")
+
+                    request.session['bag'] = {}
+                    request.session.flush()
+                    request.session.save()
+
                 except Order.DoesNotExist:
                     print('XXX Could not find the order')
 
@@ -116,6 +116,7 @@ def webhook(request):
         return JsonResponse({"error": "Invalid signature"}, status=400)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 
 def payment_success(request):

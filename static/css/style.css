@@ -224,7 +224,7 @@ img {
 
 /* --------- Product Page */
 
-.product-detail, h1 {
+.product-detail, h1, h5 {
     color: #7F5539;
 }
 

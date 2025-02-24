@@ -12,14 +12,15 @@ urlpatterns = [
     path("", views.home, name="home"),  # Homepage
     path('admin/', admin.site.urls),  # Django admin
     path('accounts/', include('accounts.urls')),  # Include URLs 'accounts'
-    path('', include('products.urls')),  # Include URLs 'products'
+    path('products/', include('products.urls')),  # Include URLs for 'products'
     path('bag/', include('bag.urls')),  # Include URLs from the 'bag' app
     path('payments/', include('payments.urls')),  # Include URLs 'payments'
     path('orders/', include('orders.urls')),  # Include URLs 'orders' app
     path('payment-success/', payment_views.payment_success, name='payment_success'),  # Payment success page
     path('payment-cancel/', views.payment_cancel, name='payment_cancel'),  # Payment cancellation page
-    path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook 
-    ]
+    path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook
+]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
