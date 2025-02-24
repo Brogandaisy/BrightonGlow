@@ -12,7 +12,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     stock = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    image_url = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

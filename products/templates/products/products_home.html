@@ -3,53 +3,58 @@
 {% block title %}Our Products{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Our Products</h1>
-    <div class="row">
-        {% for product in products %}
-        <div class="col-md-4 mb-4">
-            <h5>{{ product.name }}</h5>
-            <p>{{ product.description }}</p>
-            <p><strong>£{{ product.price }}</strong></p>
-            
-            <form method="POST" action="{% url 'add_to_bag' product.id %}">
-                {% csrf_token %}
-                
-                <button type="button" onclick="decrement('{{ product.id }}')">-</button>
-                <span id="quantity-{{ product.id }}">1</span>
-                <button type="button" onclick="increment('{{ product.id }}')">+</button>
-                
-                <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
-                <button type="submit">Add to Bag</button>
-            </form>
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Our Products</h1>
+        <div class="row justify-content-center">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text"><strong>£{{ product.price }}</strong></p>
+                        
+                        <form method="POST" action="{% url 'add_to_bag' product.id %}">
+                            {% csrf_token %}
+                            <button type="button" onclick="decrement('{{ product.id }}')">-</button>
+                            <span id="quantity-{{ product.id }}">1</span>
+                            <button type="button" onclick="increment('{{ product.id }}')">+</button>
+                            <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
+                            <button type="submit" class="btn custom-btn-primary mt-2">Add to Bag</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-muted text-center">No products available.</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p class="text-muted">No products available.</p>
-        {% endfor %}
     </div>
 
 <script>
-      function increment(productId) {
-          let quantitySpan = document.getElementById('quantity-' + productId);
-          let quantityInput = document.getElementById('quantity-input-' + productId);
-          
-          let quantity = parseInt(quantitySpan.innerText);
-          quantity++;
-          quantitySpan.innerText = quantity;
-          quantityInput.value = quantity;
-      }
-      
-      function decrement(productId) {
-          let quantitySpan = document.getElementById('quantity-' + productId);
-          let quantityInput = document.getElementById('quantity-input-' + productId);
-          
-          let quantity = parseInt(quantitySpan.innerText);
-          if (quantity > 1) {
-              quantity--;
-              quantitySpan.innerText = quantity;
-              quantityInput.value = quantity;
-          }
-      }
-</script>
+    function increment(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        quantity++;
+        quantitySpan.innerText = quantity;
+        quantityInput.value = quantity;
+    }
 
-    {% endblock %}
-  
+    function decrement(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.innerText = quantity;
+            quantityInput.value = quantity;
+        }
+    }
+</script>
+{% endblock %}

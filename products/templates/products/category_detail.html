@@ -7,6 +7,9 @@
     <div class="row">
         {% for product in products %}
         <div class="col-md-4 mb-4">
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            </a>
             <h5>{{ product.name }}</h5>
             <p>{{ product.description }}</p>
             <p><strong>£{{ product.price }}</strong></p>

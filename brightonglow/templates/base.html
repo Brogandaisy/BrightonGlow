@@ -11,12 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Shrikhand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Brighton Glow</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Brighton GLOW</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -24,7 +26,6 @@
             <div class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Shop</a>
-                    
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'category_detail' 'Cleansers' %}">Cleansers</a></li>
                       <li><a class="dropdown-item" href="{% url 'category_detail' 'Moisturisers' %}">Moisturisers</a></li>
@@ -36,6 +37,14 @@
                 </li>
               <a class="nav-link" href="#">About</a>
               <a class="nav-link" href="#">Contact</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a href="{% url 'bag_detail' %}" class="nav-link">
+                    <i class="fa-solid fa-basket-shopping fa-2x" style="color: #7f5539;"></i>
+                </a>
+                <a href="{% url 'login' %}" class="nav-link">
+                    <i class="fa-regular fa-circle-user fa-2x" style="color: #7f5539;"></i>
+                </a>
             </div>
           </div>
         </div>

@@ -4,21 +4,31 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <p><strong>£{{ product.price }}</strong></p>
+<div class="container my-5 background-light-brown">
+    <div class="row align-items-center">
+        <!-- Image Column -->
+        <div class="col-md-6 mb-4 mb-md-0 img">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid product-image">
+        </div>
 
-    <!-- Add to Bag form -->
-    <form method="POST" action="{% url 'add_to_bag' product.id %}">
-        {% csrf_token %}
-        <button type="button" onclick="decrement()">-</button>
-        <span id="quantity">1</span>
-        <button type="button" onclick="increment()">+</button>
+        <!-- Details Column -->
+        <div class="col-md-6 product-detail">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>    
+            <p><strong>£{{ product.price }}</strong></p>
 
-        <input type="hidden" name="quantity" id="quantity-input" value="1">
-        <button class="custom-btn-primary">Add to Bag</button>
-    </form>
+            <!-- Add to Bag form -->
+            <form method="POST" action="{% url 'add_to_bag' product.id %}">
+                {% csrf_token %}
+                <button type="button" onclick="decrement()">-</button>
+                <span id="quantity">1</span>
+                <button type="button" onclick="increment()">+</button>
+
+                <input type="hidden" name="quantity" id="quantity-input" value="1">
+                <button class="custom-btn-primary">Add to Bag</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>

@@ -1,10 +1,9 @@
-/* Base.html */
+/* ---------- Base.html */
 
 p {
     font-family: "Comfortaa", serif;    
     font-weight: 200;
     font-style: normal;
-    background-color: white;
   }
 
 h1, h2, h3, h4, h5 {
@@ -12,34 +11,6 @@ h1, h2, h3, h4, h5 {
     font-weight: 400;
     font-style: normal;
 }
-
-.navbar-brand {
-    font-family: "Shrikhand", serif;
-    font-weight: 400;
-    font-style: normal; 
-    color: #DDB892;
-}
-
-.navbar-brand {
-    font-family: "Shrikhand", serif;
-    font-weight: 400;
-    font-style: normal; 
-    font-size: xx-large;
-}
-
-.home-banner, p {
-    background-color: #7F5539;
-    
-}
-
-.featured {
-    background-color: #7F5539;
-}
-
-.featured, h2 {
-    color: #DDB892;
-}
-
 
 body {
     background-color: #DDB892;
@@ -53,9 +24,69 @@ body {
     background-color: #DDB892;
 }
 
+/* ---------- Navigation Bar */
+
+/* Nav Logo */
+
+.navbar-brand {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-style: normal; 
+    color: #DDB892;
+    font-size: xx-large;
+}
+
+.navbar-brand:focus, .navbar-brand:hover {
+    color: #7F5539;
+}
+
+/* Dropdown Items (Shop) */
+
+.dropdown-item, a {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #DDB892;
+}
+
+/* Other Nav Bar Links (About/Contact etc) */
+
+.nav-link, a {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #DDB892;
+}
+
+/* ---------- Homepage */
+
+/* Top Banner */
+
+.banner-image {
+    max-height: 700px;
+    object-fit: cover;
+  }
+  
+  .carousel-indicators [data-bs-target] {
+    width: 40px;
+    height: 5px;
+    background-color: #ddd;
+  }
+
+/* Featured Products Box */
+
+.featured, h2 {
+    color: #7F5539;
+}
+
 .card {
     background-color: #DDB892;
     border-radius: 10px;
+    border: none;
 }
 
 .card-text {
@@ -63,7 +94,7 @@ body {
     font: #7f5539;
 }
 
-/* Buttons */
+/* ---------- Buttons */
 
 button {
     border: 2px solid #DDB892 !important;
@@ -75,20 +106,12 @@ button {
     display: inline-block;
     text-decoration: none;
     border-radius: 10px;
+    color: #7F5539;
 }
 
-.custom-btn-primary {
-    background-color: #DDB892 !important;
-    color: #7F5539 !important;
-    border: 2px solid #DDB892 !important;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-decoration: none;
-    border-radius: 0;
+.custom-btn-primary:focus, .custom-btn-primary:hover {
+    color: #DDB892;
+    background-color: #7F5539;
 }
 
 .custom-btn-secondary {
@@ -109,3 +132,25 @@ button {
     border: 2px solid #DDB892;
 }
 
+/* -------- Image Styling */
+
+img {
+    border-radius: 15px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    border-radius: 10px 10px;
+    padding-bottom: 10px;
+}
+
+/* --------- Product Page */
+
+.product-detail, h1 {
+    color: #7F5539;
+}
+
+.product-detail, p {
+    color: #7F5539;
+}

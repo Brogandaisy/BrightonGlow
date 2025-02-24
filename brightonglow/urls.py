@@ -5,17 +5,22 @@ from bag import views as bag_views
 from payments import views as payment_views
 from . import views
 from payments.views import webhook
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('', include('products.urls')),
-    path('products/', include('products.urls')),
-    path('bag/', include('bag.urls')),
-    path('payments/', include('payments.urls')),
-    path('orders/', include('orders.urls')),
-    path('payment-success/', payment_views.payment_success, name='payment_success'),
-    path('payment-cancel/', views.payment_cancel, name='payment_cancel'),
-    path('webhook/', webhook, name='stripe-webhook'),
+    path("", views.home, name="home"),  # Homepage
+    path('admin/', admin.site.urls),  # Django admin
+    path('accounts/', include('accounts.urls')),  # Include URLs 'accounts'
+    path('', include('products.urls')),  # Include URLs 'products'
+    path('bag/', include('bag.urls')),  # Include URLs from the 'bag' app
+    path('payments/', include('payments.urls')),  # Include URLs 'payments'
+    path('orders/', include('orders.urls')),  # Include URLs 'orders' app
+    path('payment-success/', payment_views.payment_success, name='payment_success'),  # Payment success page
+    path('payment-cancel/', views.payment_cancel, name='payment_cancel'),  # Payment cancellation page
+    path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook 
     ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
