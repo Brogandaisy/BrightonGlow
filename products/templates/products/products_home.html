@@ -3,6 +3,7 @@
 {% block title %}Our Products{% endblock %}
 
 {% block content %}
+<header style="padding-top: 60px;">
     <div class="container py-5">
         <h1 class="mb-4 text-center">Our Products</h1>
         <div class="row justify-content-center">
@@ -19,11 +20,11 @@
                         
                         <form method="POST" action="{% url 'add_to_bag' product.id %}">
                             {% csrf_token %}
-                            <button type="button" onclick="decrement('{{ product.id }}')">-</button>
+                            <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
                             <span id="quantity-{{ product.id }}">1</span>
-                            <button type="button" onclick="increment('{{ product.id }}')">+</button>
+                            <button class="custom-btn-primary" type="button" onclick="increment('{{ product.id }}')">+</button>
                             <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
-                            <button type="submit" class="btn custom-btn-primary mt-2">Add to Bag</button>
+                            <button type="submit" class="custom-btn-primary mt-2">Add to Bag</button>
                         </form>
                     </div>
                 </div>
@@ -33,6 +34,7 @@
             {% endfor %}
         </div>
     </div>
+</header>
 
 <script>
     function increment(productId) {

@@ -7,6 +7,7 @@
 {% block content %}
 
 <!-- Top Banner -->
+<header style="padding-top: 80px;">
 <div class="background-light-brown">
   <div class="home-banner container-fluid text-white py-3 text-center">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -28,10 +29,9 @@
       </div>
     </div>
   </div>
-  
   </div>
-  
 </div>
+</header>
 
 <!-- Featured Products -->
 
@@ -52,7 +52,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">{{ product.name }}</h5>
             <p class="card-text">£{{ product.price }}</p>
-            <button href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</button>
+            <a href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</a>
           </div>
         </div>
       </div>
