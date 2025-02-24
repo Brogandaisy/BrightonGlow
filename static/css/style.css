@@ -56,7 +56,7 @@ body {
     background-color: #ddb892;
   }
 
-  .footer, p {
+  .footer {
     color: #DDB892 !important;
   }
   
@@ -70,7 +70,7 @@ body {
     flex: 1;
   }
 
-  .footer-link, a {
+  .footer-link {
     font-family: "Comfortaa", serif;
     color: #DDB892;
 }
@@ -231,3 +231,25 @@ img {
 .product-detail, p {
     color: #7F5539;
 }
+
+/* --------- Shopping Bag */
+
+
+
+.bag-banner {
+    background-color: none;
+    border-bottom: #7F5539 solid;
+}
+
+.bag-total {
+    color: #7F5539;
+}
+  
+img {
+    object-fit: cover;
+}
+  
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+}
+  

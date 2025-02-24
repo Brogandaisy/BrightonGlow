@@ -2,31 +2,55 @@
 {% block title %}Shopping Bag{% endblock %}
 
 {% block content %}
-<h2>Your Shopping Bag</h2>
-
-{% for item in bag %}
-  <div>
-    <h5>{{ item.product.name }}</h5>
-    <p>Price: £{{ item.product.price }}</p>
-
-    <form method="POST" action="{% url 'adjust_bag' item.product.id %}">
-        {% csrf_token %}
-        <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}">-</button>
-        <span>{{ item.quantity }}</span>
-        <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}">+</button>
-    </form>
-
-    <form method="POST" action="{% url 'bag_remove' item.product.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+<header style="padding-top: 60px;">
+<div class="container my-5">
+  <h2 class="text-center mb-4">Your Bag</h2>
+  <div class="bag-banner row py-2 text-uppercase fw-bold">
+    <div class="col-md-4"><p>Product</p></div>
+    <div class="col-md-3 text-center"><p>Quantity</p></div>
+    <div class="col-md-3 text-end"><p>Total</p></div>
   </div>
-{% empty %}
-  <p>Your bag is empty.</p>
-{% endfor %}
 
-<p><strong>Total: £{{ total }}</strong></p>
+  {% for item in bag %}
+  <div class="row py-3 align-items-center border-bottom">
+    <div class="col-md-4 d-flex align-items-center">
+      <img src="{{ item.product.image.url }}" class="img-fluid rounded me-3" style="max-width: 80px; max-height: 80px;" alt="{{ item.product.name }}">
+      <div>
+        <h5 class="mb-1">{{ item.product.name }}</h5>
+        <p class="mb-0">£{{ item.product.price }}</p>
+        <p class="text-muted mb-0">Size: {{ item.product.size }}</p>
+      </div>
+    </div>
+    <div class="col-md-3 text-center">
+      <form method="POST" action="{% url 'adjust_bag' item.product.id %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" name="quantity" value="{{ item.quantity|add:'-1' }}" class="custom-btn-primary">-</button>
+        <span class="mx-2">{{ item.quantity }}</span>
+        <button type="submit" name="quantity" value="{{ item.quantity|add:'1' }}" class="custom-btn-primary">+</button>
+      </form>
+      <form method="POST" action="{% url 'bag_remove' item.product.id %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm ms-2"><i class="fa-solid fa-trash custom-btn-primary"></i></button>
+      </form>
+    </div>
+    <div class="col-md-3 text-end">
+      <p>£{{ item.product.price|floatformat:2 }}</p>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-center py-4">Your bag is empty.</p>
+  {% endfor %}
 
-<a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
-
+  {% if bag %}
+  <div class="bag-total row py-3">
+    <div class="col-md-9 text-end fw-bold"><h4>Estimated total:</h4></div>
+    <div class="col-md-3 text-end"><h5>£{{ total|floatformat:2 }}</h5></div>
+  </div>
+  <div class="text-end">
+    <p class="text-muted">Shipping calculated at checkout</p>
+    <a href="{% url 'checkout' %}" class="custom-btn-primary">Checkout</a>
+  </div>
+  {% endif %}
+</div>
+</header>
 {% endblock %}
