@@ -24,7 +24,7 @@
                 <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
                 <button type="submit" class="custom-btn-primary mt-2">Add to Bag</button>
             </form>
-            
+
         </div>
         {% empty %}
         <p>No products in this category.</p>
@@ -32,4 +32,29 @@
     </div>
 </div>
 </header>
+
+<script>
+    function increment(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        quantity++;
+        quantitySpan.innerText = quantity;
+        quantityInput.value = quantity;
+    }
+
+    function decrement(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.innerText = quantity;
+            quantityInput.value = quantity;
+        }
+    }
+</script>
+
 {% endblock %}
