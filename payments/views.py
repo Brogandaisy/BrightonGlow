@@ -101,10 +101,6 @@ def webhook(request):
                     order.save()
                     print(f"✅ Order {order.id} updated to PAID!")
 
-                    request.session['bag'] = {}
-                    request.session.flush()
-                    request.session.save()
-
                 except Order.DoesNotExist:
                     print('XXX Could not find the order')
 
@@ -125,6 +121,10 @@ def payment_success(request):
     if order_id:
         try:
             order = Order.objects.get(id=order_id)
+            bag = Bag(request)
+            bag.clear()
+            del request.session['order_id']
+            request.session.modified = True
             return render(request, 'payments/success.html', {'order': order})
         except Order.DoesNotExist:
             pass
@@ -132,6 +132,16 @@ def payment_success(request):
     return render(request, 'payments/success.html')
 
 def payment_cancel(request):
+    order_id = request.session.get('order_id')
+    print('✅✅✅HELLO')
+    if order_id:
+        try:
+            order = Order.objects.get(id=order_id)
+            if order.status == 'PENDING':
+                order.status == 'CANCELLED'
+                order.save()
+        except Order.DoesNotExist:
+            pass
     return render(request, 'payments/cancel.html')
 
 def payment_error(request):

@@ -13,7 +13,77 @@
         <p>Manage your information</p>
         <a href="{% url 'update_profile' %}" class="custom-btn-primary">Update Profile</a>
     </div>
-  </div>
+</div>
+{% if orders %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for order in orders %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Order #{{ order.id }}</h5>
+                        <p class="card-text">
+                            <strong>Total Price:</strong> £{{ order.total_price }} <br>
+                            <strong>Status:</strong> 
+                            <span class="badge {% if order.status == 'PAID' %}bg-success{% elif order.status == 'PENDING' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                            <br>
+                            <strong>Date:</strong> {{ order.created_at|date:"d M Y" }}
+                        </p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal{{ order.id }}">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Order Modal -->
+            <div class="modal fade" id="orderModal{{ order.id }}" tabindex="-1" aria-labelledby="orderModalLabel{{ order.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderModalLabel{{ order.id }}">Order #{{ order.id }} Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Order Date:</strong> {{ order.created_at|date:"d M Y, H:i" }}</p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge {% if order.status == 'PAID' %}bg-success{% elif order.status == 'PENDING' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </p>
+                            <p><strong>Shipping Details:</strong></p>
+                            <ul>
+                                <li><strong>Name:</strong> {{ order.shipping_name|default:"N/A" }}</li>
+                                <li><strong>Address:</strong> {{ order.shipping_address|default:"N/A" }}</li>
+                                <li><strong>City:</strong> {{ order.shipping_city|default:"N/A" }}</li>
+                                <li><strong>Postcode:</strong> {{ order.shipping_postcode|default:"N/A" }}</li>
+                                <li><strong>Country:</strong> {{ order.shipping_country|default:"N/A" }}</li>
+                            </ul>
+                            <hr>
+                            <h6>Order Items:</h6>
+                            <ul class="list-group">
+                                {% for item in order.items.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ item.product.name }} (x{{ item.quantity }})
+                                    <span class="badge bg-secondary">£{{ item.price }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Order Modal -->
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            You have no orders yet.
+        </div>
+    {% endif %}
 </div>
 </header>
 {% endblock %}

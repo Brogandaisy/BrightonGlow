@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+<header style="padding-top: 60px;">
 
 {% block content %}
   <h2>Payment Cancelled</h2>
   <p>Your payment was cancelled. You can try again or return to your shopping bag.</p>
   <a href="{% url 'bag_detail' %}" class="btn btn-primary">Return to Shopping Bag</a>
 {% endblock %}
+</header>

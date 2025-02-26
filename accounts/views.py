@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from .models import Customer
 from django.contrib.auth.decorators import login_required
 from .forms import CustomerProfileForm
+from orders.models import Order
 
 
 
@@ -33,9 +34,11 @@ def update_profile(request):
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'accounts/profile.html', {'orders': orders})
 
 @login_required
 def view_orders(request):
     orders = request.user.customer.order_set.all()  # Get the logged-in user's orders
     return render(request, 'accounts/orders.html', {'orders': orders})
+
