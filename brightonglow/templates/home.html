@@ -41,12 +41,12 @@
 
 <!-- Featured Products -->
 
-<div class="container my-5">
+<div class="container my-5 px-3">
 <div class="featured">
   <h2 class="text-center mb-4">Featured Products</h2>
   <div class="row">
     {% for product in featured_products %}
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 mb-4 px-3">
         <div class="card">
           <a href="{% url 'product_detail' product.id %}">
             {% if product.image %}
@@ -68,18 +68,24 @@
 </div>
 </div>
 
-<div class="background-light-brown">
-<div class="container my-5">
-  <div class="row align-items-center">
+<div class="container my-5 background-light-brow homepage-blurb">
+  <div class="row align-items-center px-3">
     <div class="col-md-6">
-      <img src="{% static 'images/placeholder.png' %}" class="img-fluid" alt="Info">
+      <img src="{% static 'images/brightonglowskininfo.png' %}" class="img-fluid" alt="Info">
     </div>
     <div class="col-md-6">
-      <h3>Our Story</h3>
-      <p>Add information about brand.</p>
+      <h2>Glow Every Day with Skincare That Just Works</h2>
+      <br>
+      <p>Say goodbye to complicated routines and hello to effortless radiance.</p>
+      <p>At Brighton Glow, we bring you a range of skincare products designed to fit seamlessly into your life—because great skin should be simple.</p>
+      <blockquote class="blockquote">
+        <p>“My skin has never felt so fresh and dewy! Brighton Glow is a total game-changer.” – Sophie R.</p>
+      </blockquote>
+      <h5>Ready to glow? Shop now & let your skin shine!</h5>
+      <br>
+      <a type="submit" class="btn custom-btn-primary" href="{% url 'products_home' %}">Shop Skincare</a>
     </div>
   </div>
-</div>
 </div>
 
 

@@ -13,6 +13,13 @@ def checkout(request):
 def checkout_view(request):
     return render(request, 'orders/checkout.html')
 
+def about(request):
+    featured_products = Product.objects.order_by('?')[:3]
+    return render(request, 'about.html', {'featured_products': featured_products})
+
+def contact(request):
+    return render(request, 'contact.html')
+
 
 # Payment views in payments app
 def payment_success(request):

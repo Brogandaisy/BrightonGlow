@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<header style="padding-top: 60px;">
+<div class="container my-5 background-light-brown">
+    <div class="row align-items-center">
+        <!-- Image Column -->
+        <div class="col-md-6 mb-4 mb-md-0 img">
+            <img src="{% static 'images/brightonglowskinabout.png' %}" alt="female face cream" class="img-fluid">
+        </div>
+
+        <!-- Details Column -->
+        <div class="col-md-6 about-blurb">
+            <h2>Welcome to Brighton GLOW</h2>
+            <br>
+            <h3>Where skincare meets simplicity, and glowing skin is always in.</h3>
+            <br>
+            <p>Inspired by the fresh, natural energy of Brighton, we believe that great skincare should be effortless, effective, and, most importantly, enjoyable.
+                No complicated 10-step routines, no confusing ingredients—just products that work, fit seamlessly into your lifestyle, and leave you feeling radiant every day.</p>
+            <br>
+            <p>We know that life is busy, and skincare should be something you look forward to, not another task on your to-do list. That’s why we’ve curated a collection of products that make it easy to feel confident in your own skin—because when you glow, you shine.
+                Whether you're after a dewy morning look, a self-care Sunday ritual, or a simple way to refresh your routine, Brighton Glow is here to help.
+                Here’s to glowing skin and effortless beauty—because you deserve it.</p>
+            <p><i><b>Stay glowing, Brighton Glow</i></b></p>
+
+            <h5>Ready to glow? Shop now & let your skin shine!</h5>
+            <br>
+            <a type="submit" class="btn custom-btn-primary" href="{% url 'products_home' %}">Shop Skincare</a>
+
+        </div>
+    </div>
+
+    <!-- Featured Products -->
+
+<div class="container my-5">
+    <div class="featured">
+      <h2 class="text-center mb-4">Featured Products</h2>
+      <div class="row">
+        {% for product in featured_products %}
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <a href="{% url 'product_detail' product.id %}">
+                {% if product.image %}
+                  <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                  <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+              </a>
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">£{{ product.price }}</p>
+                <a href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+</div>
+</header>
+
+<script>
+let quantity = 1;
+function increment() {
+    quantity++;
+    document.getElementById('quantity').innerText = quantity;
+    document.getElementById('quantity-input').value = quantity;
+}
+function decrement() {
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantity').innerText = quantity;
+        document.getElementById('quantity-input').value = quantity;
+    }
+}
+</script>
+{% endblock %}

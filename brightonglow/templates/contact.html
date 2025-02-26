@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<header style="padding-top: 60px;">
+<div class="container my-5 background-light-brown">
+    <div class="row align-items-center">
+        <!-- Image Column -->
+        <div class="col-md-6 mb-4 mb-md-0 img">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid product-image">
+        </div>
+
+        <!-- Details Column -->
+        <div class="col-md-6 product-detail">
+            <h2>Contact Us </h2>
+
+        </div>
+    </div>
+</div>
+</header>
+
+<script>
+let quantity = 1;
+function increment() {
+    quantity++;
+    document.getElementById('quantity').innerText = quantity;
+    document.getElementById('quantity-input').value = quantity;
+}
+function decrement() {
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById('quantity').innerText = quantity;
+        document.getElementById('quantity-input').value = quantity;
+    }
+}
+</script>
+{% endblock %}
