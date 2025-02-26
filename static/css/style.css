@@ -189,6 +189,12 @@ img {
     color: #7F5539;
 }
 
+/* --------- Profile Page */
+
+.profile h4 {
+    color: #7F5539 !important;
+}
+
 /* --------- Shopping Bag */
 
 .bag-banner {
