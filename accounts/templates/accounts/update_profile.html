@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Update Profile</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
-{% endblock %}
+<header style="padding-top: 60px;">
+  <div class="container my-5 background-light-brown">
+      <div class="row align-items-center">
+        <h2>Update Profile</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="custom-btn-primary" type="submit">Save Changes</button>
+        </form>
+      </div>
+  </div>
+  </header>
+  {% endblock %}
+
+
+
 
 

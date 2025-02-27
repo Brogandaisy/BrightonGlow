@@ -13,9 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Shrikhand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
-
-
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-navbar">
@@ -41,13 +40,30 @@
               <a class="nav-link" href="{% url 'contact' %}">Contact</a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a href="{% url 'bag_detail' %}" class="nav-link">
-                    <i class="fa-solid fa-basket-shopping fa-2x" style="color: #7f5539;"></i>
-                </a>
-                <a href="{% url 'login' %}" class="nav-link">
-                    <i class="fa-regular fa-circle-user fa-2x" style="color: #7f5539;"></i>
-                </a>
-            </div>
+              <a href="{% url 'bag_detail' %}" class="nav-link">
+                  <i class="fa-solid fa-basket-shopping fa-2x" style="color: #7f5539;"></i>
+              </a>
+              {% if request.user.is_authenticated %}
+                  <!-- If logged in, show Profile and Logout -->
+                  <a href="{% url 'profile' %}" class="nav-link">
+                      <i class="fa-solid fa-user fa-2x profile" style="color: #7f5539;"></i> Profile
+                  </a>                  
+                  <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link logout-button">
+                        <i class="fa-solid fa-right-from-bracket fa-2x"></i> Logout
+                    </button>
+                </form>                                    
+              {% else %}
+                  <!-- If logged out, show Login and Register -->
+                  <a href="{% url 'login' %}" class="nav-link">
+                      <i class="fa-regular fa-circle-user fa-2x" style="color: #7f5539;"></i> Login
+                  </a>
+                  <a href="{% url 'register' %}" class="nav-link">
+                      <i class="fa-solid fa-user-plus fa-2x" style="color: #7f5539;"></i> Register
+                  </a>
+              {% endif %}
+          </div>          
           </div>
         </div>
       </nav>
@@ -72,8 +88,7 @@
               </div>
               <div class="col-md-5 email-signuptext">
                 <h5>Stay Connected</h5>
-                <p>By submitting your email, you agree to be sent emails about the latest Brighton GLOW News.</p>
-                <p>You can unsubscribe at anytime.</p>
+                <p>By submitting your email, you agree to be sent emails about the latest Brighton GLOW News. You can unsubscribe at anytime.</p>
               </div>
             <div class="col-md-4">
       <div id="mc_embed_signup">

@@ -40,6 +40,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400
 SESSION_SAVE_EVERY_REQUEST = False
 BAG_SESSION_ID = "shopping_bag"
+LOGOUT_REDIRECT_URL = 'home'
 
 load_dotenv()
 

@@ -71,19 +71,6 @@ body {
 
 /* ---------- Buttons */
 
-button {
-    border: 2px solid #DDB892 !important;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-decoration: none;
-    border-radius: 10px;
-    color: #7F5539;
-}
-
 .custom-btn-primary {
     display: inline-block;
     background-color: #fff;
@@ -145,7 +132,7 @@ img {
     color: #7F5539;
 }
 
-/* ---------- Homepage */
+/* ----------------------------------------------------- Homepage */
 
 /* Top Banner */
 
@@ -181,6 +168,16 @@ img {
 
 .homepage-blurb p {
     font-size: large;
+}
+
+/* Homepage Promo */
+
+.promo-banner {
+    background-color: #E6CCB2;
+}
+
+.promo-banner h3 {
+    color: #7F5539;
 }
 
 /* --------- About Page */
@@ -282,4 +279,8 @@ img {
 .footer-nav {
     padding-bottom: 10px;
 }
+
+/* ------------------------------------------- Media */
+
+
   
