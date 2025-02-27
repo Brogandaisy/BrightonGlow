@@ -274,4 +274,12 @@ img {
 .footer-link:focus, .footer-link:hover {
     color: #DDB892;
 }
+
+.email-signuptext p {
+    color: #DDB892;
+}
+
+.footer-nav {
+    padding-bottom: 10px;
+}
   
