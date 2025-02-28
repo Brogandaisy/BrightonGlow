@@ -63,6 +63,7 @@ if not STRIPE_PUBLIC_KEY or not STRIPE_SECRET_KEY:
 # Application definition
 
 INSTALLED_APPS = [
+    'storages'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,7 +75,6 @@ INSTALLED_APPS = [
     'orders',
     'payments',
     'bag',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -159,22 +159,21 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 USE_AWS = os.getenv("USE_AWS", "False") == "True"
 
 if USE_AWS:
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = "brightonglowaws" 
-    AWS_S3_REGION_NAME = "us-east-1" 
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-    AWS_QUERYSTRING_AUTH = False 
+    # AWS Credentials from Environment Variables
+    AWS_STORAGE_BUCKET_NAME = 'brightonglowaws'
+    AWS_S3_REGION_NAME = 'us-east-1' 
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    # AWS Static & Media URLs
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-
+    # Media file storage (product images)
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 else:
-    # Local file storage (for development)
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
