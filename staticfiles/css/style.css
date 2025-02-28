@@ -1,0 +1,341 @@
+/* ---------- Base.html */
+
+p {
+    font-family: "Comfortaa", serif;    
+    font-weight: 200;
+    font-style: normal;
+  }
+
+h1, h2, h3, h4, h5 {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #7F5539;
+}
+
+body {
+    background-color: #DDB892;
+}
+
+.background-brown {
+    background-color: #7F5539;
+}
+
+.background-light-brown {
+    background-color: #DDB892;
+}
+
+.background-white {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+/* ---------- Navigation Bar */
+
+/* Nav Logo */
+
+.sticky-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+  }
+
+.navbar-brand {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-style: normal; 
+    color: #DDB892;
+    font-size: xx-large;
+}
+
+.navbar-brand:focus, .navbar-brand:hover {
+    color: #7F5539;
+}
+
+/* Dropdown Items (Shop) */
+
+.dropdown-item, a {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #DDB892;
+    background-color: #7F5539 !important;
+    outline: none; 
+}
+
+/* Other Nav Bar Links (About/Contact etc) */
+
+.nav-link, a {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #DDB892;
+}
+
+/* ------------------------------------------------------------ Buttons */
+
+.custom-btn-primary {
+    display: inline-block;
+    background-color: #fff;
+    color: #7F5539;
+    padding: 10px 20px;
+    border: 2px solid #DDB892;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-btn-primary:focus, 
+  .custom-btn-primary:hover {
+    color: #DDB892;
+    background-color: #7F5539;
+  }
+
+.custom-btn-secondary {
+    background-color: #7F5539 !important;
+    color: #DDB892 !important;
+    border: 2px solid #7F5539 !important;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.btn-secondary:hover {
+    background-color: #DDB892;
+    color: #7F5539;
+    border: 2px solid #DDB892;
+}
+
+.link-nobutton {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+    text-decoration: none;
+}
+
+/* ------------------------------------------------------------------- Image Styling */
+
+img {
+    border-radius: 15px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+a:hover img {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    border-radius: 10px 10px;
+    padding-bottom: 10px;
+}
+
+/* --------- Product Pages */
+
+.product-detail, h1, h5 {
+    color: #7F5539;
+}
+
+.product-detail, p {
+    color: #7F5539;
+}
+
+/* ----------------------------------------------------- Homepage */
+
+/* Top Banner */
+
+.banner-image {
+    max-height: 700px;
+    object-fit: cover;
+  }
+  
+  .carousel-indicators [data-bs-target] {
+    width: 40px;
+    height: 5px;
+    background-color: #ddd;
+  }
+
+/* Featured Products Box */
+
+.featured h2, 
+.featured h5 {
+    color: #7F5539;
+}
+
+.card {
+    background-color: #DDB892;
+    border-radius: 10px;
+    border: none;
+}
+
+.card-text {
+    background-color: #DDB892;
+    font: #7f5539;
+}
+
+/* Homepage Blurb */
+
+.homepage-blurb p {
+    font-size: large;
+}
+
+/* Homepage Promo */
+
+.promo-banner {
+    background-color: #E6CCB2;
+}
+
+.promo-banner h3 {
+    color: #7F5539;
+}
+
+/* -------------------------------------------------------------- About Page */
+
+.about-blurb h3 {
+    color: #7F5539;
+}
+
+/* --------------------------------------------------------------- Profile Page */
+
+.profile h4 {
+    color: #7F5539 !important;
+}
+
+.badge.bg-primary {
+    background-color: #7F5539 !important; 
+    color: white !important;
+}
+
+.order-list {
+    color: #7F5539;
+}
+
+/* --------- Shopping Bag */
+
+.bag-banner {
+    background-color: none;
+    border-bottom: #7F5539 solid;
+}
+
+.bag-total {
+    color: #7F5539;
+}
+  
+img {
+    object-fit: cover;
+}
+  
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+}
+
+/* ------------------------------------------------ Cancelled Order Page */
+
+.cancel-text {
+    padding-top: 100px;
+}
+
+/* ------------------------------------------------ Error Order Page */
+
+.error-text {
+    padding-top: 100px;
+}
+
+/* ------------------------------------------------ Order Confirmation Page */
+
+.order-details, h3 li {
+    color: #7F5539;
+}
+
+.order-details li {
+    color: #7F5539;
+    font-family: "Comfortaa", serif;    
+    font-weight: 200;
+    font-style: normal;
+}
+
+
+
+/* --------- Footer */
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #7F5539;
+    color: #fff;
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: #ddd;
+  }
+
+  .footer h5 {
+    color:#DDB892;
+  }
+  
+  .footer a:hover {
+    color: #fff;
+  }
+  
+  .footer input[type="email"] {
+    border-radius: 4px;
+  }
+  
+  .footer button {
+    background-color: #7f5539;
+    border: none;
+  }
+  
+  .footer button:hover {
+    background-color: #ddb892;
+  }
+
+  .footer {
+    color: #DDB892 !important;
+  }
+  
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  main {
+    flex: 1;
+  }
+
+  .footer-link {
+    font-family: "Comfortaa", serif;
+    color: #DDB892;
+}
+
+.footer-link:focus, .footer-link:hover {
+    color: #DDB892;
+}
+
+.email-signuptext p {
+    color: #DDB892;
+}
+
+.footer-nav {
+    padding-bottom: 10px;
+}
+
+/* ------------------------------------------- Media */
+
+
+  
