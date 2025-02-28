@@ -11,8 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import dj_database_url
+import pymysql
 from pathlib import Path
 from dotenv import load_dotenv
+
+load_dotenv()
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'brightonglow-a60ca67bc04b.herokuapp.com' # Heroku application
     '26f6-2a00-23c7-60f8-7d01-69a8-9981-bebe-c2ea.ngrok-free.app',
 ]
 
@@ -42,7 +48,6 @@ SESSION_SAVE_EVERY_REQUEST = False
 BAG_SESSION_ID = "shopping_bag"
 LOGOUT_REDIRECT_URL = 'home'
 
-load_dotenv()
 
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
 
@@ -100,15 +105,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'brightonglow.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', #MySQL backend
-        'NAME': 'brightonglow_db', #Database name
-        'USER': 'brightonglow_user', #MySQL username
-        'PASSWORD': 'brightonglow1', #MySQL password
-        'HOST': 'localhost', 
-        'PORT': '',
-    }
+    'default': dj_database_url.config(default=os.getenv('JAWSDB_URL'))
 }
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
