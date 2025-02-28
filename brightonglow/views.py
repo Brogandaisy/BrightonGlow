@@ -20,8 +20,9 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
 
-# Payment views in payments app
 def payment_success(request):
     return render(request, 'payments/payment_success.html')
 

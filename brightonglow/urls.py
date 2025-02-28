@@ -7,6 +7,7 @@ from . import views
 from payments.views import webhook
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import custom_404_view
 
 urlpatterns = [
     path("", views.home, name="home"),  # Homepage
@@ -21,9 +22,9 @@ urlpatterns = [
     path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),
-
 ]
 
+handler404 = custom_404_view
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

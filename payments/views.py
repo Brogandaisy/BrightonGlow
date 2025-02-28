@@ -20,7 +20,8 @@ def checkout(request):
     try:
         bag = Bag(request)
         user = request.user if request.user.is_authenticated else None
-        order = Order.objects.create(user=user, total_price=total, status='PENDING')
+        email = request.user.email if request.user.is_authenticated else None
+        order = Order.objects.create(user=user, email=email, total_price=total, status='PENDING')
         request.session['order_id'] = order.id
 
         line_items = []
@@ -50,6 +51,7 @@ def checkout(request):
             currency="gbp",
             line_items=line_items,  
             metadata={'order_id': order.id},
+            customer_email=email if email else None,
             shipping_address_collection={"allowed_countries": ["GB"]},
             shipping_options=[
                 {
@@ -89,11 +91,17 @@ def webhook(request):
         if event["type"] == "checkout.session.completed":
             session = event["data"]["object"]
             order_id = session.get('metadata', {}).get('order_id')
-
+            customer_details = session.get("customer_details", {})
+            customer_email = customer_details.get("email")
+            
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id)
                     order.status = "PAID"
+
+                    if customer_email:
+                        order.email = customer_email
+                        order.save()
 
                     if "shipping_details" in session:
                         order.shipping_name = session["shipping_details"]["name"]
@@ -103,7 +111,7 @@ def webhook(request):
                         order.shipping_country = session["shipping_details"]["address"]["country"]
 
                     order.save()
-                    print(f"✅ Order {order.id} updated to PAID!")
+                    print(f"✅ Order {order.id} updated to PAID")
 
                 except Order.DoesNotExist:
                     print('XXX Could not find the order')

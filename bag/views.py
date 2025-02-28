@@ -1,13 +1,10 @@
 # bag/views.py (Add Logging to Find Decimal Issue)
 import json
-import logging
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from .bag import Bag
 from decimal import Decimal
-
-logger = logging.getLogger(__name__)
 
 def bag_add(request, product_id):
     bag = Bag(request)
