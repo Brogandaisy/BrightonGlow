@@ -1,8 +1,18 @@
-{% block content %}
-  <h2>Payment Error</h2>
+{% extends 'base.html' %}
+{% load static %}
 
-  <div class="error-box">
-    <p style="color: red; font-weight: bold;">{{ message }}</p>
-  </div>
+{% block title %}Checkout Error | Brighton GLOW Skincare{% endblock %}
+
+<header style="padding-top: 60px;">
+</header>
+{% block content %}
+<div class="container error-text my-5">
+  <h2>Checkout Error</h2>
+  <p>Oops! An error has occured going to checkout. Head back to your shopping bag to try again.
+    If the issue keeps happening, please get in touch.
+  </p>
+  <a href="{% url 'bag_detail' %}" class=" btn custom-btn-primary">Return to Shopping Bag</a>
+</div>
 
 {% endblock %}
+

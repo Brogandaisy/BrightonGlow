@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
-<header style="padding-top: 60px;">
+{% load static %}
 
-{% block content %}
-  <h2>Payment Cancelled</h2>
-  <p>Your payment was cancelled. You can try again or return to your shopping bag.</p>
-  <a href="{% url 'bag_detail' %}" class="btn btn-primary">Return to Shopping Bag</a>
-{% endblock %}
+{% block title %}Cancelled Order | Brighton GLOW Skincare{% endblock %}
+
+<header style="padding-top: 60px;">
 </header>
+{% block content %}
+<div class="container cancel-text my-5">
+  <h2>Payment Cancelled</h2>
+  <p>Your payment was cancelled. You can try again by returning to your shopping bag.</p>
+  <a href="{% url 'bag_detail' %}" class=" btn custom-btn-primary">Return to Shopping Bag</a>
+</div>
+
+{% endblock %}
+

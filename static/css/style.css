@@ -211,6 +211,18 @@ img {
     border-bottom: 1px solid #ddd;
 }
 
+/* ------------------------------------------------ Cancelled Order Page */
+
+.cancel-text {
+    padding-top: 100px;
+}
+
+/* ------------------------------------------------ Error Order Page */
+
+.error-text {
+    padding-top: 100px;
+}
+
 
 
 /* --------- Footer */

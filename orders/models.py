@@ -8,8 +8,8 @@ class Order(models.Model):
         ('PAID', 'Paid'),
         ('CANCELLED', 'Cancelled'),
     ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     stripe_payment_intent = models.CharField(max_length=255, blank=True, null=True)

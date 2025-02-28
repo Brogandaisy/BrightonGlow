@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order, OrderItem
 from bag.bag import Bag
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request):
@@ -18,8 +19,8 @@ def checkout(request):
 
     try:
         bag = Bag(request)
-
-        order = Order.objects.create(user=request.user, total_price=total, status='PENDING')
+        user = request.user if request.user.is_authenticated else None
+        order = Order.objects.create(user=user, total_price=total, status='PENDING')
         request.session['order_id'] = order.id
 
         for item in bag:
@@ -71,6 +72,7 @@ def checkout(request):
         return redirect(session.url, code=303)
 
     except Exception as e:
+        print(f"Checkout Error: {str(e)}")
         return redirect('payment_error')
 
 @csrf_exempt
