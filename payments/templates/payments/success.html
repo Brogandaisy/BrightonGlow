@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<header style="padding-top: 60px;">
-  <h2>Thank You for Your Order!</h2>
-  <p><strong>Order Number:</strong> {{ order.id }}</p>
-
-  <h3>Order Details:</h3>
+<header style="padding-top: 100px;">
+  <div class="container my-5 order-details">
+    <h2 class="text-center mb-4">Your Order</h2>
+    <h3>Order Details:</h3>
   {% if order.items.all %}
-    <ul>
+    <ul class="order-details">
       {% for item in order.items.all %}
         <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - £{{ item.quantity|floatformat:2 }} x £{{ item.price|floatformat:2 }}</li>
       {% endfor %}
     </ul>
-    <p>Total: {{ order.total_price }}</p>
+    <p>Total: £{{ order.total_price }}</p>
     <p>Your order status is: <strong>{{ order.status }}</strong></p>
   {% else %}
     <p>No items found for this order.</p>
   {% endif %}
+</div>
 {% endblock %}
 </header>
+
+  

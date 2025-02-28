@@ -223,6 +223,19 @@ img {
     padding-top: 100px;
 }
 
+/* ------------------------------------------------ Order Confirmation Page */
+
+.order-details, h3 li {
+    color: #7F5539;
+}
+
+.order-details li {
+    color: #7F5539;
+    font-family: "Comfortaa", serif;    
+    font-weight: 200;
+    font-style: normal;
+}
+
 
 
 /* --------- Footer */
