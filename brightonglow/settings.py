@@ -144,19 +144,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Static files (CSS, JS, images)
+
+# --- STATIC FILES (CSS, JS, STATIC IMAGES) ---
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# Static files (CSS, JS, static images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# AWS for media files (uploaded product images)
-USE_AWS = os.getenv("USE_AWS", "False") == "True"
 
+# --- AWS S3 FOR MEDIA FILES (UPLOADED PRODUCT IMAGES) ---
 USE_AWS = os.getenv("USE_AWS", "False") == "True"
 
 if USE_AWS:
@@ -168,12 +167,12 @@ if USE_AWS:
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
