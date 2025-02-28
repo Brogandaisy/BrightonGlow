@@ -2,8 +2,9 @@
 
 {% block content %}
 <header style="padding-top: 100px;">
-  <div class="container my-5 order-details">
+  <div class="container my-5 order-details background-white">
     <h2 class="text-center mb-4">Your Order</h2>
+    <h4>Order Number: #{{ order.id }}</h4>
     <h3>Order Details:</h3>
   {% if order.items.all %}
     <ul class="order-details">
@@ -16,6 +17,10 @@
   {% else %}
     <p>No items found for this order.</p>
   {% endif %}
+
+  <a href="{% url 'profile' %}" class="custom-btn-primary">View Your Account</a>
+  <a href="{% url 'products_home' %}" class="custom-btn-primary">Shop Skincare</a>
+
 </div>
 {% endblock %}
 </header>

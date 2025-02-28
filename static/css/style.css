@@ -168,7 +168,8 @@ a:hover img {
 
 /* Featured Products Box */
 
-.featured, h2 {
+.featured h2, 
+.featured h5 {
     color: #7F5539;
 }
 
@@ -199,16 +200,25 @@ a:hover img {
     color: #7F5539;
 }
 
-/* --------- About Page */
+/* -------------------------------------------------------------- About Page */
 
 .about-blurb h3 {
     color: #7F5539;
 }
 
-/* --------- Profile Page */
+/* --------------------------------------------------------------- Profile Page */
 
 .profile h4 {
     color: #7F5539 !important;
+}
+
+.badge.bg-primary {
+    background-color: #7F5539 !important; 
+    color: white !important;
+}
+
+.order-list {
+    color: #7F5539;
 }
 
 /* --------- Shopping Bag */
