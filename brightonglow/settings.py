@@ -25,8 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+je*!m(7l%1eoag)ogeq1w&l^hvc(9-cw+#mm8vu5l(_4m_b&p'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,12 +33,12 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'brightonglow-a60ca67bc04b.herokuapp.com' # Heroku application
-    '26f6-2a00-23c7-60f8-7d01-69a8-9981-bebe-c2ea.ngrok-free.app',
+    'brightonglow-a60ca67bc04b.herokuapp.com'
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://26f6-2a00-23c7-60f8-7d01-69a8-9981-bebe-c2ea.ngrok-free.app', 
+    'https://brightonglow-a60ca67bc04b.herokuapp.com', 
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
