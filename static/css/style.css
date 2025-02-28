@@ -109,6 +109,12 @@ body {
     border: 2px solid #DDB892;
 }
 
+.link-nobutton {
+    font-family: "Comfortaa", serif;
+    color: #7F5539;
+    text-decoration: none;
+}
+
 /* -------- Image Styling */
 
 img {
