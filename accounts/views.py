@@ -34,7 +34,7 @@ def update_profile(request):
 
 @login_required
 def profile(request):
-    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    orders = Order.objects.filter(user=request.user).exclude(status="PENDING").order_by('-created_at')
     return render(request, 'accounts/profile.html', {'orders': orders})
 
 @login_required
