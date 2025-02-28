@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}About Us | Brighton GLOW Skincare{% endblock %}
+
+{% block meta_description %}
+Learn more about Brighton GLOW—where skincare meets simplicity.
+Our mission is to bring effortless, effective, and radiant skincare to everyone. Discover our story and philosophy
+{% endblock %}
+
+{% block meta_keywords %} {{ block.super }}
+about Brighton glow, natural skincare brand, effortless beauty, brighton skincare story,
+{% endblock %}
 
 {% block content %}
 <header style="padding-top: 60px;">

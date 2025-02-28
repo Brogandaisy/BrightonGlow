@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}Contact Us | Brighton GLOW Skincare{% endblock %}
+
+{% block meta_description %}
+Contact Brighton GLOW or sign up to our newsletter to unlock the latest in effortless skincare.
+{% endblock %}
+
+{% block meta_keywords %} {{ block.super }}
+contact skincare, skincare help, Brighton skincare support, customer service, Brighton GLOW contact
+{% endblock %}
 
 {% block content %}
 <header style="padding-top: 60px;">
-<div class="container my-5 background-light-brown">
+    <div class="container my-5 background-light-brown">
     <div class="row align-items-center">
         <!-- Image Column -->
         <div class="col-md-6 mb-4 mb-md-0 img">

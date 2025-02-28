@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}{{ product.name }} | Brighton GLOW Skincare {% endblock %}
+
+{% block meta_description %}
+Hydrate and nourish your skin with Brighton GLOW’s {{ product.name }}. 
+Infused with natural ingredients for deep hydration, lasting glow, and effortless beauty.
+{% endblock %}
+
+{% block meta_keywords %} {{ block.super }}
+{{ product.name }}, skincare benefits, hydrating moisturiser, natural ingredients, glowing skin, simple skincare{% endblock %}
 
 {% block content %}
 <header style="padding-top: 60px;">

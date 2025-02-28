@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}{{ category.name }}{% endblock %}
 
+{% block title %}{{ category.name }} | Brighton GLOW Skincare{% endblock %}
+
+{% block meta_description %}
+Explore Brighton GLOW’s collection of cleansers, moisturisers, serums, masks, and gift sets. Skincare made simple, 
+effective, and luxurious—because your glow starts here.
+{% endblock %}
+
+{% block meta_keywords %} {{ block.super }}
+cleansers, moisturisers, serums, face masks, skincare gift sets, natural skincare, simple skincare routine, glowing skin
+{% endblock %}
 {% block content %}
+
 <header style="padding-top: 60px;">
 <div class="container my-5">
     <h2>{{ category.name }}</h2>
