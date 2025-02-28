@@ -23,6 +23,8 @@ def checkout(request):
         order = Order.objects.create(user=user, total_price=total, status='PENDING')
         request.session['order_id'] = order.id
 
+        line_items = []
+
         for item in bag:
             OrderItem.objects.create(
                 order=order,
@@ -30,30 +32,29 @@ def checkout(request):
                 quantity=item['quantity'],
                 price=item['price']
             )
-        
+
+            line_items.append({
+                "price_data": {
+                    "currency": "gbp",
+                    "unit_amount": int(100 * item['price']),
+                    "product_data": {
+                        "name": item["product"].name,  
+                    },
+                },
+                "quantity": item["quantity"],
+            })
+
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             mode='payment',
             currency="gbp",
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "gbp",
-                        "unit_amount": int(100 * total),
-                        "product_data": {
-                            "name": "Your Order",
-                            "description": "Physical product requiring shipping"
-                        },
-                    },
-                    "quantity": 1,
-                }
-            ],
+            line_items=line_items,  
             metadata={'order_id': order.id},
             shipping_address_collection={"allowed_countries": ["GB"]},
             shipping_options=[
                 {
                     "shipping_rate_data": {
-                        "display_name": "Standard Shipping",
+                        "display_name": "Standard Shipping, 2-3 Working Days",
                         "type": "fixed_amount",
                         "fixed_amount": {
                             "amount": 300,
@@ -64,7 +65,7 @@ def checkout(request):
             ],
             success_url=request.build_absolute_uri(reverse('payment_success')),
             cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
-)
+        )
 
         order.stripe_payment_intent = session.id
         order.save()
@@ -74,6 +75,7 @@ def checkout(request):
     except Exception as e:
         print(f"Checkout Error: {str(e)}")
         return redirect('payment_error')
+
 
 @csrf_exempt
 def webhook(request):
