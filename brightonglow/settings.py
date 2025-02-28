@@ -31,9 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 
 ALLOWED_HOSTS = [
+    'brightonglow-a60ca67bc04b.herokuapp.com',
     'localhost',
     '127.0.0.1',
-    'brightonglow-a60ca67bc04b.herokuapp.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -63,13 +63,13 @@ if not STRIPE_PUBLIC_KEY or not STRIPE_SECRET_KEY:
 # Application definition
 
 INSTALLED_APPS = [
-    'storages'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'accounts',
     'products',
     'orders',
@@ -145,35 +145,39 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # Static files (CSS, JS, images)
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static')
+#]
 
+# Static files (CSS, JS, static images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Use Whitenoise for static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# AWS 
-
+# AWS for media files (uploaded product images)
 USE_AWS = os.getenv("USE_AWS", "False") == "True"
 
 if USE_AWS:
-    # AWS Credentials from Environment Variables
-    AWS_STORAGE_BUCKET_NAME = 'brightonglowaws'
-    AWS_S3_REGION_NAME = 'us-east-1' 
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    INSTALLED_APPS.append('storages') 
 
-    # AWS Static & Media URLs
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME", "brightonglowaws")
+    AWS_S3_REGION_NAME = os.getenv("AWS_REGION", "us-east-1")
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-    # Media file storage (product images)
+    # Use S3 for media files (uploaded product images)
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
 else:
+    # Local development (use local /media/ folder)
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
