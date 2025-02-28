@@ -30,7 +30,7 @@ register skincare account, create Brighton GLOW account, sign up skincare, skinc
               <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Sign Up</button>
+                <button type="submit" class="custom-btn-primary">Sign Up</button>
               </form>
               <br>
               <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>

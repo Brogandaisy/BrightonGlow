@@ -24,6 +24,12 @@ body {
     background-color: #DDB892;
 }
 
+.background-white {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
 /* ---------- Navigation Bar */
 
 /* Nav Logo */
@@ -56,6 +62,8 @@ body {
 
 .dropdown-item:focus, .dropdown-item:hover {
     color: #DDB892;
+    background-color: #7F5539 !important;
+    outline: none; 
 }
 
 /* Other Nav Bar Links (About/Contact etc) */
@@ -69,7 +77,7 @@ body {
     color: #DDB892;
 }
 
-/* ---------- Buttons */
+/* ------------------------------------------------------------ Buttons */
 
 .custom-btn-primary {
     display: inline-block;
@@ -115,12 +123,17 @@ body {
     text-decoration: none;
 }
 
-/* -------- Image Styling */
+/* ------------------------------------------------------------------- Image Styling */
 
 img {
     border-radius: 15px;
     padding-bottom: 10px;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+a:hover img {
+    transform: scale(1.05);
 }
 
 .card-img-top {

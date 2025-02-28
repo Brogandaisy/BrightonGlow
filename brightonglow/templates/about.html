@@ -14,7 +14,7 @@ about Brighton glow, natural skincare brand, effortless beauty, brighton skincar
 
 {% block content %}
 <header style="padding-top: 60px;">
-<div class="container my-5 background-light-brown">
+<div class="container my-5 background-white">
     <div class="row align-items-center">
         <!-- Image Column -->
         <div class="col-md-6 mb-4 mb-md-0 img">
@@ -41,35 +41,35 @@ about Brighton glow, natural skincare brand, effortless beauty, brighton skincar
 
         </div>
     </div>
+</div>
 
     <!-- Featured Products -->
 
-<div class="container my-5">
-    <div class="featured">
-      <h2 class="text-center mb-4">Featured Products</h2>
-      <div class="row">
-        {% for product in featured_products %}
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <a href="{% url 'product_detail' product.id %}">
-                {% if product.image %}
-                  <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                {% else %}
-                  <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
-                {% endif %}
-              </a>
-              <div class="card-body text-center">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">£{{ product.price }}</p>
-                <a href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</a>
+    <div class="container my-5 background-light-brown">
+      <div class="featured">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+          {% for product in featured_products %}
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <a href="{% url 'product_detail' product.id %}">
+                  {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                  {% else %}
+                    <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
+                  {% endif %}
+                </a>
+                <div class="card-body text-center">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text">£{{ product.price }}</p>
+                  <a href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</a>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
-    </div>
-    </div>
-</div>
+      </div>
 
 <div class="container-fluid text-center py-5 promo-banner">
   <h3>Ready to glow? Shop now & let your skin shine!</h3>
