@@ -161,7 +161,7 @@ USE_AWS = os.getenv("USE_AWS", "False") == "True"
 if USE_AWS:
     AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = "brightonglow-aws" 
+    AWS_STORAGE_BUCKET_NAME = "brightonglowaws" 
     AWS_S3_REGION_NAME = "us-east-1" 
     AWS_S3_FILE_OVERWRITE = False
     AWS_DEFAULT_ACL = None
