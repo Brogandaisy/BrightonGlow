@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomerProfileForm
 from orders.models import Order
 from django.core.mail import send_mail
+from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -23,12 +24,14 @@ def register(request):
                     [form.cleaned_data.get('email')],
                     fail_silently=False,
                 )
-                
-                return redirect('home')  
-            
-        else:
-            form = CustomUserCreationForm()
-        return render(request, 'accounts/register.html', {'form': form})
+            except Exception as e:
+                messages.error(request, "Registration successful, but email failed to send.")
+                print(f"EMAIL ERROR: {e}")
+
+            return redirect('home')
+
+    form = CustomUserCreationForm()
+    return render(request, 'accounts/register.html', {'form': form})
 
 @login_required
 def update_profile(request):
