@@ -93,7 +93,7 @@ def webhook(request):
             order_id = session.get('metadata', {}).get('order_id')
             customer_details = session.get("customer_details", {})
             customer_email = customer_details.get("email")
-            
+
             if order_id:
                 try:
                     order = Order.objects.get(id=order_id)
@@ -111,7 +111,28 @@ def webhook(request):
                         order.shipping_country = session["shipping_details"]["address"]["country"]
 
                     order.save()
-                    print(f"✅ Order {order.id} updated to PAID")
+
+                    order_items = OrderItem.objects.filter(order=order)
+                    item_list = "\n".join([
+                        f"{item.product.name} (x{item.quantity}) - £{item.price:.2f}"
+                        for item in order_items
+                    ])
+
+                    send_mail(
+                        'Your Order Confirmation - Brighton GLOW',
+                        f"Hello,\n\nThank you for your order!\n\n"
+                        f"Here are the details of your purchase:\n\n"
+                        f"Order ID: {order.id}\n"
+                        f"{item_list}\n\n"
+                        f"Total: £{order.total_price:.2f}\n\n"
+                        f"Your order is now being processed.\n"
+                        f"Thank you for shopping with us at Brighton GLOW! ✨",
+                        'brightonglowskincare@gmail.com',
+                        [customer_email],
+                        fail_silently=False,
+                    )
+
+                    print(f"✅ Order {order.id} updated to PAID, confirmation email sent.")
 
                 except Order.DoesNotExist:
                     print('XXX Could not find the order')
@@ -124,6 +145,7 @@ def webhook(request):
         return JsonResponse({"error": "Invalid signature"}, status=400)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
 
 
 

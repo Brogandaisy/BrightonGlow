@@ -20,6 +20,7 @@ def register(request):
                 send_mail(
                     'Welcome to BrightonGlow!',
                     'Thank you for registering!',
+                    'Visit our website to explore our full range of skincare!'
                     'brightonglowskincare@gmail.com',
                     [form.cleaned_data.get('email')],
                     fail_silently=False,
