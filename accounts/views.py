@@ -6,28 +6,32 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomerProfileForm
 from orders.models import Order
 from django.core.mail import send_mail
+from django.contrib import messages
+
 
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)  
         if form.is_valid():
             user = form.save()
-            email = form.cleaned_data.get('email')
-            Customer.objects.create(user=user, email=email)
-
+            Customer.objects.create(user=user, email=form.cleaned_data.get('email'))
             login(request, user)
 
-            subject = "Welcome to BrightonGlow!"
-            message = f"Hi {user.username},\n\nThank you for registering at BrightonGlow. We are excited to have you!"
-            sender = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [email]
-
-            send_mail(subject, message, sender, recipient_list, fail_silently=False)
+            try:
+                send_mail(
+                    'Welcome to BrightonGlow!',
+                    'Thank you for registering!',
+                    'brightonglowskincare@gmail.com',
+                    [form.cleaned_data.get('email')],
+                    fail_silently=False,
+                )
+            except Exception as e:
+                messages.error(request, f"Email error: {e}")
 
             return redirect('home')
+
     else:
         form = CustomUserCreationForm()
-    
     return render(request, 'accounts/register.html', {'form': form})
 
 @login_required
