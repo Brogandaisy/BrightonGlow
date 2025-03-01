@@ -7,7 +7,6 @@ from .forms import CustomerProfileForm
 from orders.models import Order
 from django.core.mail import send_mail
 
-
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)  
@@ -18,8 +17,8 @@ def register(request):
 
             login(request, user)
 
-            subject = "Welcome to Brighton GLOW!"
-            message = f"Hi {user.username},\n\nThank you for registering at Brighton GLOW. We are excited to have you!"
+            subject = "Welcome to BrightonGlow!"
+            message = f"Hi {user.username},\n\nThank you for registering at BrightonGlow. We are excited to have you!"
             sender = settings.DEFAULT_FROM_EMAIL
             recipient_list = [email]
 
@@ -30,6 +29,18 @@ def register(request):
         form = CustomUserCreationForm()
     
     return render(request, 'accounts/register.html', {'form': form})
+
+@login_required
+def update_profile(request):
+    customer = request.user.customer  
+    if request.method == 'POST':
+        form = CustomerProfileForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  
+    else:
+        form = CustomerProfileForm(instance=customer) 
+    return render(request, 'accounts/update_profile.html', {'form': form})
 
 @login_required
 def profile(request):
