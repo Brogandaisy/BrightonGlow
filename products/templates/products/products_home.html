@@ -16,8 +16,10 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
     <div class="container py-5">
         <div class="text-center">
             <h1 class="mb-4">Our Products</h1>
+            <p>Our products can be filtered by skin type, choose your skin type for to filter your best suited products.</p>
             <form method="get" action="" class="d-inline-block">
                 <select name="skin_type" class="custom-select-dropdown" style="display: inline-block; width: auto;" onchange="this.form.submit()">
+                    <option value="" disabled selected>Select Your Skin Type</option>
                     <option value="">All Skin Types</option>
                     {% for skin in skin_types %}
                         <option value="{{ skin.id }}" {% if request.GET.skin_type|default_if_none:'' == skin.id|stringformat:"s" %}selected{% endif %}>
@@ -32,7 +34,7 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
         
         <div class="row justify-content-center">
             {% for product in products %}
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 py-3">
                 <div class="card h-100">
                     <a href="{% url 'product_detail' product.id %}">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
