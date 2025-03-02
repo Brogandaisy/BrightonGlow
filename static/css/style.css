@@ -371,5 +371,12 @@ img {
 
 /* ------------------------------------------- Media */
 
+@media (min-width: 992px) { 
+    .product-grid-container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+}
+
 
   
