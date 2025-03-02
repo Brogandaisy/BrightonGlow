@@ -15,6 +15,28 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
 <header style="padding-top: 60px;">
     <div class="container py-5">
         <h1 class="mb-4 text-center">Our Products</h1>
+        <!-- SkinType Filter -->
+         <form method="get" action="">
+            <select name="skin_type" onchange="this.form.submit()">
+                <option value="">All Skin Types</option>
+                {% for skin in skin_types %}
+                    <option value="{{ skin.id }}" {% if request.GET.skin_type == skin.id|stringformat:"s" %}selected{% endif %}>
+                        {{ skin.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        
+        <ul>
+            {% for product in products %}
+                <li>
+                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - £{{ product.price }}
+                    <br>Skin Type: {{ product.skin_type.name }}
+                </li>
+            {% empty %}
+                <p>No products found.</p>
+            {% endfor %}
+        </ul>
         <div class="row justify-content-center">
             {% for product in products %}
             <div class="col-md-4 mb-4">
@@ -24,6 +46,7 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                     </a>
                     <div class="product-detail card-body text-center">
                         <h5 class="card-title">{{ product.name }}</h5>
+                        <p>Skin Type: {{ product.skin_type.name }}</p>
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text"><strong>£{{ product.price }}</strong></p>
                         

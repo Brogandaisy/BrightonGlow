@@ -2,14 +2,18 @@ from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
 from .models import Product, Category
 
-
 def products_home(request):
+    skin_type_id = request.GET.get('skin_type')
     products = Product.objects.all()
-    return render(request, 'products/products_home.html', {'products': products})
+    skin_types = SkinType.objects.all()
 
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'products/product_list.html', {'products': products})
+    if skin_type_id:
+        products = products.filter(skin_type_id=skin_type_id)
+
+    return render(request, "products/products_home.html", {
+        "products": products,
+        "skin_types": skin_types,
+    })
 
 def add_to_bag(request, product_id):
     bag = Bag(request)

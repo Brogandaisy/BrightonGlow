@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order, OrderItem
 from bag.bag import Bag
+from django.core.mail import send_mail
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
