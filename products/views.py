@@ -4,11 +4,13 @@ from .models import SkinType, Product, Category
 
 def products_home(request):
     skin_type_id = request.GET.get('skin_type')
-    products = Product.objects.all()
-    skin_types = SkinType.objects.all()
 
     if skin_type_id:
-        products = products.filter(skin_type_id=skin_type_id)
+        products = Product.objects.filter(skin_types__id=skin_type_id)
+    else:
+        products = Product.objects.all()
+    
+    skin_types = SkinType.objects.all()
 
     return render(request, "products/products_home.html", {
         "products": products,

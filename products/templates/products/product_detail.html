@@ -23,7 +23,11 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
         <!-- Details Column -->
         <div class="col-md-6 product-detail">
             <h1>{{ product.name }}</h1>
-            <p>Skin Type: {{ product.skin_type.name }}</p>
+            <p>Skin Types: 
+                {% for skin in product.skin_types.all %}
+                    {{ skin.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
 
