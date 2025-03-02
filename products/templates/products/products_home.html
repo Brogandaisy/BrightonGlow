@@ -32,7 +32,7 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
     </div>
 </header>
         
-<div class="container-fluid px-5">
+<div class="container-fluid px-8 background-white">
         <div class="row justify-content-center">
             {% for product in products %}
             <div class="col-md-4 mb-4">
@@ -42,7 +42,6 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                     </a>
                     <div class="product-detail card-body text-center">
                         <h5 class="card-title">{{ product.name }}</h5>
-                        <p>Skin Type: {{ product.skin_type.name }}</p>
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text"><strong>£{{ product.price }}</strong></p>
                         
