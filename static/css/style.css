@@ -31,7 +31,7 @@ body {
     border-radius: 15px;
 }
 
-/* ---------- Navigation Bar */
+/* ---------------------------------------------- Navigation Bar */
 
 /* Nav Logo */
 
@@ -152,7 +152,41 @@ a:hover img {
     color: #7F5539;
 }
 
-/* ----------------------------------------------------- Homepage */
+/* --------------------------------------------------------------- Products Home Page */
+
+/* ---- Drop Down Filter */
+
+.custom-select-dropdown {
+    display: inline-block;
+    background-color: #fff;
+    color: #7F5539;
+    padding: 10px 20px;
+    border: 2px solid #DDB892;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    outline: none;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.custom-select-dropdown:hover, 
+.custom-select-dropdown:focus {
+    background-color: #f5e6da;
+    border-color: #B08968;
+}
+
+.custom-select-dropdown option {
+    background-color: #fff;
+    color: #7F5539;
+}
+
+
+/* --------------------------------------------------------------- Homepage */
 
 /* Top Banner */
 

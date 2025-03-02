@@ -14,29 +14,22 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
 {% block content %}
 <header style="padding-top: 60px;">
     <div class="container py-5">
-        <h1 class="mb-4 text-center">Our Products</h1>
-        <!-- SkinType Filter -->
-         <form method="get" action="">
-            <select name="skin_type" onchange="this.form.submit()">
-                <option value="">All Skin Types</option>
-                {% for skin in skin_types %}
-                    <option value="{{ skin.id }}" {% if request.GET.skin_type == skin.id|stringformat:"s" %}selected{% endif %}>
-                        {{ skin.name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
+        <div class="text-center">
+            <h1 class="mb-4">Our Products</h1>
+            <form method="get" action="" class="d-inline-block">
+                <select name="skin_type" class="custom-select-dropdown" style="display: inline-block; width: auto;" onchange="this.form.submit()">
+                    <option value="">All Skin Types</option>
+                    {% for skin in skin_types %}
+                        <option value="{{ skin.id }}" {% if request.GET.skin_type|default_if_none:'' == skin.id|stringformat:"s" %}selected{% endif %}>
+                            {{ skin.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+</header>
         
-        <ul>
-            {% for product in products %}
-                <li>
-                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - £{{ product.price }}
-                    <br>Skin Type: {{ product.skin_type.name }}
-                </li>
-            {% empty %}
-                <p>No products found.</p>
-            {% endfor %}
-        </ul>
         <div class="row justify-content-center">
             {% for product in products %}
             <div class="col-md-4 mb-4">
@@ -66,7 +59,6 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
             {% endfor %}
         </div>
     </div>
-</header>
 
 <script>
     function increment(productId) {
