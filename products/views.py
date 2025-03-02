@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
-from .models import Product, Category
+from .models import SkinType, Product, Category
 
 def products_home(request):
     skin_type_id = request.GET.get('skin_type')
