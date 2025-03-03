@@ -17,16 +17,16 @@ def register(request):
             Customer.objects.create(user=user, email=form.cleaned_data.get('email'))
             login(request, user)  
 
-            try:
-                send_mail(
-                    'Welcome to BrightonGlow!',
-                    'Thank you for registering! Visit our website to explore our full range of skincare!',
-                    'brightonglowskincare@gmail.com',
-                    [form.cleaned_data.get('email')],
-                    fail_silently=False,
-                )
-            except Exception:
-                messages.error(request, "Registration successful, but email failed to send.")
+            #try:
+            #    send_mail(
+            #        'Welcome to BrightonGlow!',
+            #        'Thank you for registering! Visit our website to explore our full range of skincare!',
+            #        'brightonglowskincare@gmail.com',
+            #        [form.cleaned_data.get('email')],
+            #        fail_silently=False,
+            #    )
+            #except Exception:
+            #    messages.error(request, "Registration successful, but email failed to send.")
 
             return redirect('home')  
 
