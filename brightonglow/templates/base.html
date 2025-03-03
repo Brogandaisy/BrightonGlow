@@ -130,5 +130,67 @@
       
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Toast Notification Container (Top-Right Corner) -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+  <div id="toastContainer"></div>
+</div>
+
+<!-- Bootstrap Toast Template -->
+<div class="toast align-items-center text-white bg-success border-0" id="itemToast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+      <div class="toast-body" id="toastMessage">
+          Item added to bag!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // Attach event listener to all Add to Bag buttons
+      document.querySelectorAll(".add-to-bag-btn").forEach(button => {
+          button.addEventListener("click", function () {
+              let productId = this.getAttribute("data-product-id");
+              let quantityInput = document.getElementById("quantity-input-" + productId);
+              let quantity = parseInt(quantityInput.value);
+              let csrfToken = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+  
+              fetch(`/bag/add/${productId}/`, {
+                  method: "POST",
+                  headers: {
+                      "X-CSRFToken": csrfToken,
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ quantity: quantity })
+              })
+              .then(response => response.json())
+              .then(data => {
+                  showToast(data.message); // Show toast notification
+              })
+              .catch(error => console.error("Error:", error));
+          });
+      });
+  });
+  
+  // Function to show toast notifications
+  function showToast(message) {
+      let toastContainer = document.getElementById("toastContainer");
+      let toastMessage = document.getElementById("toastMessage");
+  
+      // Update toast message with the actual item added
+      toastMessage.innerText = message;
+  
+      // Clone the toast element to allow multiple toasts
+      let newToast = document.getElementById("itemToast").cloneNode(true);
+      toastContainer.appendChild(newToast);
+  
+      // Initialize Bootstrap toast
+      let toast = new bootstrap.Toast(newToast);
+      toast.show();
+  
+      // Remove toast after display
+      setTimeout(() => newToast.remove(), 4000);
+  }
+  </script>
+  
 </body>
 </html>

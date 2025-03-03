@@ -1,29 +1,46 @@
 # bag/views.py
 
-import json
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from .bag import Bag
 
+from django.http import JsonResponse
+import json
+
 def bag_add(request, product_id):
-    """Adds a product to the shopping bag and updates the session data."""
+    """Adds a product to the shopping bag, updates session, and returns JSON response."""
     
-    bag = Bag(request)
-    product = get_object_or_404(Product, id=product_id)
-    bag.add(product=product)
+    if request.method == "POST":
+        bag = Bag(request)
+        product = get_object_or_404(Product, id=product_id)
 
-    # Convert bag items to a format suitable for session storage
-    session_bag = {
-        str(k): {'quantity': v['quantity'], 'price': float(v['price'])}
-        for k, v in bag.bag.items()
-    }
+        # Get quantity from AJAX request
+        try:
+            data = json.loads(request.body)
+            quantity = int(data.get("quantity", 1))  # Default to 1 if missing
+        except (json.JSONDecodeError, ValueError):
+            quantity = 1  # Fallback to 1 if there's an error
+        
+        bag.add(product=product, quantity=quantity)
 
-    request.session['bag'] = session_bag
-    request.session['total'] = float(bag.get_total_price())
-    request.session.modified = True  # Ensure session updates are saved
+        # Convert bag items to a format suitable for session storage
+        session_bag = {
+            str(k): {'quantity': v['quantity'], 'price': float(v['price'])}
+            for k, v in bag.bag.items()
+        }
 
-    return redirect('bag_detail')
+        request.session['bag'] = session_bag
+        request.session['total'] = float(bag.get_total_price())
+        request.session.modified = True  # Ensure session updates are saved
+
+        return JsonResponse({
+            'message': f"{product.name} (x{quantity}) added to bag!",
+            'total': request.session['total']
+        })
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 @require_POST
 def bag_remove(request, product_id):
