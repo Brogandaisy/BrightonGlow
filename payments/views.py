@@ -9,10 +9,12 @@ from orders.models import Order, OrderItem
 from bag.bag import Bag
 from django.core.mail import send_mail
 
-
+# Set Stripe API key
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request):
+    """Handles the checkout process and creates a Stripe session."""
+    
     total = float(request.session.get('total', 0))
 
     if not isinstance(total, (int, float)) or total <= 0:
@@ -22,50 +24,41 @@ def checkout(request):
         bag = Bag(request)
         user = request.user if request.user.is_authenticated else None
         email = request.user.email if request.user.is_authenticated else None
+
+        # Create an order in the database
         order = Order.objects.create(user=user, email=email, total_price=total, status='PENDING')
         request.session['order_id'] = order.id
 
+        # Prepare line items for Stripe
         line_items = []
-
         for item in bag:
-            OrderItem.objects.create(
-                order=order,
-                product=item['product'],
-                quantity=item['quantity'],
-                price=item['price']
-            )
+            OrderItem.objects.create(order=order, product=item['product'], quantity=item['quantity'], price=item['price'])
 
             line_items.append({
                 "price_data": {
                     "currency": "gbp",
                     "unit_amount": int(100 * item['price']),
-                    "product_data": {
-                        "name": item["product"].name,  
-                    },
+                    "product_data": {"name": item["product"].name},
                 },
                 "quantity": item["quantity"],
             })
 
+        # Create Stripe checkout session
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             mode='payment',
             currency="gbp",
-            line_items=line_items,  
+            line_items=line_items,
             metadata={'order_id': order.id},
             customer_email=email if email else None,
             shipping_address_collection={"allowed_countries": ["GB"]},
-            shipping_options=[
-                {
-                    "shipping_rate_data": {
-                        "display_name": "Standard Shipping, 2-3 Working Days",
-                        "type": "fixed_amount",
-                        "fixed_amount": {
-                            "amount": 300,
-                            "currency": "gbp"
-                        }
-                    }
+            shipping_options=[{
+                "shipping_rate_data": {
+                    "display_name": "Standard Shipping, 2-3 Working Days",
+                    "type": "fixed_amount",
+                    "fixed_amount": {"amount": 300, "currency": "gbp"}
                 }
-            ],
+            }],
             success_url=request.build_absolute_uri(reverse('payment_success')),
             cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
         )
@@ -82,6 +75,8 @@ def checkout(request):
 
 @csrf_exempt
 def webhook(request):
+    """Handles Stripe webhook events for payment confirmation."""
+    
     payload = request.body
     sig_header = request.headers.get("Stripe-Signature")
     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
@@ -92,8 +87,7 @@ def webhook(request):
         if event["type"] == "checkout.session.completed":
             session = event["data"]["object"]
             order_id = session.get('metadata', {}).get('order_id')
-            customer_details = session.get("customer_details", {})
-            customer_email = customer_details.get("email")
+            customer_email = session.get("customer_details", {}).get("email")
 
             if order_id:
                 try:
@@ -102,7 +96,6 @@ def webhook(request):
 
                     if customer_email:
                         order.email = customer_email
-                        order.save()
 
                     if "shipping_details" in session:
                         order.shipping_name = session["shipping_details"]["name"]
@@ -113,18 +106,16 @@ def webhook(request):
 
                     order.save()
 
+                    # Send confirmation email
                     order_items = OrderItem.objects.filter(order=order)
                     item_list = "\n".join([
-                        f"{item.product.name} (x{item.quantity}) - £{item.price:.2f}"
-                        for item in order_items
+                        f"{item.product.name} (x{item.quantity}) - £{item.price:.2f}" for item in order_items
                     ])
 
                     send_mail(
                         'Your Order Confirmation - Brighton GLOW',
                         f"Hello,\n\nThank you for your order!\n\n"
-                        f"Here are the details of your purchase:\n\n"
-                        f"Order ID: {order.id}\n"
-                        f"{item_list}\n\n"
+                        f"Order ID: {order.id}\n{item_list}\n\n"
                         f"Total: £{order.total_price:.2f}\n\n"
                         f"Your order is now being processed.\n"
                         f"Thank you for shopping with us at Brighton GLOW! ✨",
@@ -148,9 +139,9 @@ def webhook(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
-
-
 def payment_success(request):
+    """Handles successful payments and clears the shopping bag."""
+    
     order_id = request.session.get('order_id')
 
     if order_id:
@@ -166,18 +157,24 @@ def payment_success(request):
 
     return render(request, 'payments/success.html')
 
+
 def payment_cancel(request):
+    """Handles cancelled payments and updates order status."""
+    
     order_id = request.session.get('order_id')
-    print('✅✅✅HELLO')
+
     if order_id:
         try:
             order = Order.objects.get(id=order_id)
             if order.status == 'PENDING':
-                order.status == 'CANCELLED'
+                order.status = 'CANCELLED'  # Fixed assignment (was '==' instead of '=')
                 order.save()
         except Order.DoesNotExist:
             pass
+
     return render(request, 'payments/cancel.html')
 
+
 def payment_error(request):
+    """Displays an error page if checkout fails."""
     return render(request, 'payments/error.html', {'message': 'An error occurred during checkout.'})
