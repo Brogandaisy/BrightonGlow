@@ -25,8 +25,8 @@ def bag_add(request, product_id):
     request.session['total'] = float(bag.get_total_price())
     request.session.modified = True  # Ensure session updates are saved
 
-    # ✅ Add Django message for Bootstrap toast
-    messages.success(request, f' {product.name} added to your bag!')
+    # ✅ Add a Django success message for Bootstrap toast
+    messages.success(request, f'{product.name} added to your bag!')
 
     # ✅ Redirect back to the **previous page (product page, category page, etc.)**
     # If no referer is found, default to the product page.
