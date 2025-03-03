@@ -33,3 +33,8 @@ def payment_success(request):
 def payment_cancel(request):
     """Displays the payment cancel page."""
     return render(request, 'payments/payment_cancel.html')
+
+def privacy_policy(request):
+    """Render the Privacy Policy page."""
+    return render(request, "privacy_policy.html")
+

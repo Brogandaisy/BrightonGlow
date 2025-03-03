@@ -22,6 +22,7 @@ urlpatterns = [
     path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),
+    path('privacy-policy/', views.privacy_policy, name="privacy_policy"),
 ]
 
 handler404 = custom_404_view
