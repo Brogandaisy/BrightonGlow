@@ -55,10 +55,15 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
                         </div>
                         <div class="modal-body">
                             <p><strong>Order Date:</strong> {{ order.created_at|date:"d M Y, H:i" }}</p>
-                            <p><strong>Status:</strong> 
-                                <span class="badge {% if order.status == 'PAID' %}bg-success{% elif order.status == 'PENDING' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
-                                    {{ order.get_status_display }}
-                                </span>
+                            <strong>Status:</strong> 
+                            <span class="badge 
+                                {% if order.status == 'PAID' %}bg-success
+                                {% elif order.status == 'PROCESSING' %}bg-primary
+                                {% elif order.status == 'SHIPPED' %}bg-info
+                                {% elif order.status == 'DELIVERED' %}bg-success
+                                {% else %}bg-danger{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
                             </p>
                             <div class="order-list">
                             <p><strong>Shipping Details:</strong></p>

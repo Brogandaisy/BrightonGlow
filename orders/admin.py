@@ -11,7 +11,9 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'email', 'status', 'total_price', 'created_at')
     list_filter = ('status', 'created_at')
     search_fields = ('user__username', 'status')
-    inlines = [OrderItemInline]  
+    inlines = [OrderItemInline]
+
+    list_editable = ('status',) 
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
