@@ -2,17 +2,38 @@ from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
 from .models import SkinType, Product, Category
 
+from django.db.models import Q
+
 def products_home(request):
-    """Displays all products or filters by skin type."""
+    """Enhanced search: Matches products by name, description, and handles multiple words."""
     
     skin_type_id = request.GET.get('skin_type')
-    products = Product.objects.filter(skin_types__id=skin_type_id) if skin_type_id else Product.objects.all()
+    search_query = request.GET.get('search', '').strip()
+
+    products = Product.objects.all()
+
+    if skin_type_id:
+        products = products.filter(skin_types__id=skin_type_id)
+
+    if search_query:
+        # Split search terms into multiple words
+        search_terms = search_query.split()
+
+        # Build a flexible query to match any word in name OR description
+        search_filters = Q()
+        for term in search_terms:
+            search_filters |= Q(name__icontains=term) | Q(description__icontains=term)
+
+        products = products.filter(search_filters)
+
     skin_types = SkinType.objects.all()
 
     return render(request, "products/products_home.html", {
         "products": products,
         "skin_types": skin_types,
+        "search_query": search_query
     })
+
 
 def add_to_bag(request, product_id):
     """Adds a product to the shopping bag and updates total price."""
