@@ -31,6 +31,10 @@ body {
     border-radius: 15px;
 }
 
+.custom-toast {
+    background-color: #7F5539;
+    color: #ddb892;
+}
 /* ---------------------------------------------- Navigation Bar */
 
 /* Nav Logo */

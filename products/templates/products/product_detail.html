@@ -30,7 +30,6 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
-
             <!-- Add to Bag form -->
             <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                 {% csrf_token %}
@@ -43,13 +42,11 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
                     Add to Bag
                 </button>
             </form>
-
             <br>
             <button onclick="history.back()" class="btn custom-btn-primary">Go Back</button>
         </div>
     </div>
 </div>
-
 <div class="container-fluid text-center py-5 promo-banner">
     <h3>Ready to glow? Shop now & let your skin shine!</h3>
     <br>
@@ -59,18 +56,26 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
 </header>
 
 <script>
-let quantity = 1;
-function increment() {
-    quantity++;
-    document.getElementById('quantity').innerText = quantity;
-    document.getElementById('quantity-input').value = quantity;
-}
-function decrement() {
-    if (quantity > 1) {
-        quantity--;
-        document.getElementById('quantity').innerText = quantity;
-        document.getElementById('quantity-input').value = quantity;
+    function increment(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        quantity++;
+        quantitySpan.innerText = quantity;
+        quantityInput.value = quantity;
     }
-}
+
+    function decrement(productId) {
+        let quantitySpan = document.getElementById('quantity-' + productId);
+        let quantityInput = document.getElementById('quantity-input-' + productId);
+        
+        let quantity = parseInt(quantitySpan.innerText);
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.innerText = quantity;
+            quantityInput.value = quantity;
+        }
+    }
 </script>
 {% endblock %}

@@ -48,7 +48,6 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text"><strong>£{{ product.price }}</strong></p>
-                        
                         <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                             {% csrf_token %}
                             <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
