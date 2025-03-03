@@ -1,37 +1,43 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.contrib import messages
+from django.core.mail import send_mail
 
-from .forms import CustomUserCreationForm, CustomerProfileForm
+from .forms import CustomUserCreationForm
 from .models import Customer
-from orders.models import Order
 
 def register(request):
     """Handles user registration and sends a welcome email."""
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)  
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data.get('email')
+            # Check if a Customer with this email already exists.
+            if Customer.objects.filter(email=email).exists():
+                messages.error(request, "A user with that email already exists. Please use a different email.")
+                return render(request, 'register.html', {'form': form})
+            
+            # If the email is unique, proceed with user creation.
             user = form.save()
-            Customer.objects.create(user=user, email=form.cleaned_data.get('email'))
-            login(request, user)  
+            Customer.objects.create(user=user, email=email)
+            login(request, user)
 
             try:
                 send_mail(
                     'Welcome to BrightonGlow!',
                     'Thank you for registering! Visit our website to explore our full range of skincare!',
                     'brightonglowskincare@gmail.com',
-                    [form.cleaned_data.get('email')],
+                    [email],
                     fail_silently=False,
                 )
             except Exception:
                 messages.error(request, "Registration successful, but email failed to send.")
 
-            return redirect('home')  
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
 
-    form = CustomUserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 @login_required
 def update_profile(request):
