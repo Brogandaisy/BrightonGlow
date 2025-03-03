@@ -20,7 +20,6 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
             <form method="get" action="" class="d-inline-block">
                 <select name="skin_type" class="custom-select-dropdown" style="display: inline-block; width: auto;" onchange="this.form.submit()">
                     <option value="" disabled selected>Select Your Skin Type</option>
-                    <option value="">All Skin Types</option>
                     {% for skin in skin_types %}
                         <option value="{{ skin.id }}" {% if request.GET.skin_type|default_if_none:'' == skin.id|stringformat:"s" %}selected{% endif %}>
                             {{ skin.name }}
