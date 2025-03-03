@@ -414,3 +414,35 @@ To avoid static file errors during deployment, I temporarily disabled collectsta
 If any issues occurred, I used Heroku logs to debug errors and ensure my app was running smoothly:
 
 - heroku logs --tail to monitor real-time logs
+
+# Marketing and SEO
+
+For SEO and metadata implementation, I integrated dynamic meta tags within my Django templates to enhance search engine visibility and improve user engagement. In base.html, I set up core keywords and a meta description that apply to every page. Additionally, I used block super in specific templates to extend and customise metadata for each product while keeping essential branding terms consistent. This ensures search engines recognise unique, relevant keywords for each page while maintaining a strong brand identity.
+
+To determine the best SEO keywords, I conducted market research on competing skincare brands, analysing their product descriptions and common search terms. I then curated a list of high-ranking, relevant keywords that align with Brighton GLOW’s products and target audience, ensuring better discoverability on search engines.
+
+### SEO Implementation in Code:
+Using Django template blocks, I dynamically generate SEO-friendly titles and metadata:
+
+            {% block title %}{{ product.name }} | Brighton GLOW Skincare{% endblock %}
+            
+            {% block meta_description %}
+            Hydrate and nourish your skin with Brighton GLOW’s {{ product.name }}. 
+            Infused with natural ingredients for deep hydration, lasting glow, and effortless beauty.
+            {% endblock %}
+            
+            {% block meta_keywords %} {{ block.super }}
+            {{ product.name }}, skincare benefits, hydrating moisturiser, natural ingredients, glowing skin, simple skincare
+            {% endblock %}
+            
+### Custom Page Titles: Dynamically updates the <title> tag for each product, boosting SEO rankings.
+Meta Descriptions: Provides a brief, engaging summary of each product to improve click-through rates from search results.
+Keyword Optimisation: Maintains core keywords while expanding product-specific terms to reach a broader audience.
+Newsletter Email Sign-Up (Mailchimp)
+To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
+
+### Privacy Policy for GDPR Compliance
+To comply with GDPR regulations, I created a Privacy Policy, which is accessible as a downloadable PDF from the website footer. This document outlines how user data is collected, stored, and used, ensuring transparency and building trust with customers.
+
+### Robots.txt & Sitemap
+I have set up a robots.txt file to manage how search engines crawl my website. This file helps prevent irrelevant or sensitive pages from being indexed. Additionally, I have created a sitemap to ensure all important pages are easily discoverable by search engines, improving site ranking.
