@@ -5,7 +5,6 @@ from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from .bag import Bag
-from django.contrib import messages
 
 def bag_add(request, product_id):
     """Adds a product to the shopping bag and updates the session data."""
@@ -20,14 +19,11 @@ def bag_add(request, product_id):
         for k, v in bag.bag.items()
     }
 
-    messages.success(request, f'Added {product.name} to your bag')
-
     request.session['bag'] = session_bag
     request.session['total'] = float(bag.get_total_price())
     request.session.modified = True  # Ensure session updates are saved
 
-    redirect_url = request.POST.get('redirect_url', request.META.get('HTTP_REFERER', 'products_home'))
-    return redirect(redirect_url)
+    return redirect('bag_detail')
 
 @require_POST
 def bag_remove(request, product_id):
