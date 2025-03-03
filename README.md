@@ -64,7 +64,7 @@ Colour pallette used for Brighton GLOW, created by Coolers.co website
 # Features
 
 ## E-Commerce Functionalities
-- Browse Products by Category: Users can explore skincare products categorised into serums, masks, gift sets, and more.
+#### - Browse Products by Category: Users can explore skincare products categorised into serums, masks, gift sets, and more.
 
 This function retrieves all products within a specific category, which have been uploaded with a category and managed through Django Admin, and displays them on the category detail page.
 
@@ -79,9 +79,9 @@ This function retrieves all products within a specific category, which have been
               'products': products
           })
   
-- Filter Products by Skin Type: Users can refine their search by selecting products suited for oily, dry, combination, or sensitive skin.
+#### - Filter Products by Skin Type: Users can refine their search by selecting products suited for oily, dry, combination, or sensitive skin.
 
-- Shopping Bag & Checkout: Users can add multiple items to their shopping bag, modify quantities, and proceed to a secure checkout using Stripe.
+#### - Shopping Bag & Checkout: Users can add multiple items to their shopping bag, modify quantities, and proceed to a secure checkout using Stripe.
 
 This function adds a product to the shopping bag, updates the total price, and saves the data in the session. It retrieves the product by its ID, gets the selected quantity (defaulting to 1 if not specified), and then updates the bag before redirecting to the shopping bag detail page.
 
@@ -116,7 +116,7 @@ This JavaScript element enables users to increase or decrease the product quanti
         </script>
 
 
-- Order History: Registered users can log in to view their order history.
+#### - Order History: Registered users can log in to view their order history.
 
 The Profile view function retrieves and displays the user's profile and order history, ensuring only logged-in users can access it by using the @login_required decorator; it filters the Order model to fetch only the logged-in user's orders, excludes those with a "PENDING" status, sorts them by most recent first, and passes the data to the profile.html template for rendering.
 
@@ -127,7 +127,7 @@ The Profile view function retrieves and displays the user's profile and order hi
           return render(request, 'accounts/profile.html', {'orders': orders})
 
 ## Authentication & User Accounts
-- User Registration & Welcome Email: New users can create a free user account and they will receive an automatic email upon signing up, welcoming them to BrightonGLOW.
+#### - User Registration & Welcome Email: New users can create a free user account and they will receive an automatic email upon signing up, welcoming them to BrightonGLOW.
 
 I set up Django’s built-in email service using Gmail’s SMTP server by configuring the necessary settings in settings.py, allowing the system to automatically send a welcome email to new users upon registration, ensuring they receive a confirmation message from brightonglowskincare@gmail.com as soon as their account is created.
 
@@ -158,14 +158,14 @@ I set up Django’s built-in email service using Gmail’s SMTP server by config
                             fail_silently=False,
                         )
 
-- Login & Logout: Users can log in to access their profile, order history, and profile information.
+#### - Login & Logout: Users can log in to access their profile, order history, and profile information.
 
-- Role-Based Access: There are two user types: Customers (regular users) and Admin/Staff/Superusers (who can manage products and orders).
+#### - Role-Based Access: There are two user types: Customers (regular users) and Admin/Staff/Superusers (who can manage products and orders).
 
-- Conditional Navbar: The navbar dynamically updates depending on whether the user is logged in or out.
+#### - Conditional Navbar: The navbar dynamically updates depending on whether the user is logged in or out.
 
 ## Payments & Checkout
-- Stripe Integration: Customers can securely pay for their orders using Stripe Payments.
+#### - Stripe Integration: Customers can securely pay for their orders using Stripe Payments.
 
 This function creates a Stripe checkout session, specifying payment details, shipping options, and metadata, including the order ID, before redirecting the user to Stripe for secure payment processing.
 
@@ -192,11 +192,11 @@ This function creates a Stripe checkout session, specifying payment details, shi
         order.stripe_payment_intent = session.id
         order.save()
 
-- Webhook Handling: Stripe webhooks are used to validate payments and update order status in real-time.
+#### - Webhook Handling: Stripe webhooks are used to validate payments and update order status in real-time.
 
-- Order Confirmation: Users receive an order confirmation email after a successful purchase.
+#### - Order Confirmation: Users receive an order confirmation email after a successful purchase.
 
-- Guests can checkout and pay with stripe as a guest, or a logged in user. The email address box is pre-filled when the user is logged in and is required to input when the customer is checking out as a guest.
+#### - Guests can checkout and pay with stripe as a guest, or a logged in user. The email address box is pre-filled when the user is logged in and is required to input when the customer is checking out as a guest.
 
 This part of the checkout function checks if the user is logged in and includes their email if available; if not, it allows them to check out as a guest without an account.
 
@@ -240,3 +240,101 @@ I used Bootstrap throughout the project to create a responsive, structured, and 
 #### Example: Bootstrap Modal for Order Details
 
 ![BrightonGLOW Logged in User Order Details](/static/images/readme/bgordermodal.png)
+
+# Agile Framework and Planning
+
+To manage my project efficiently, I implemented an Agile development process using GitHub Projects and Issues.
+
+- User Stories & Acceptance Criteria: Each functionality was broken down into User Stories, ensuring clear objectives and usability.
+
+- Prioritisation: Stories were assigned labels such as "Must Have", "Should Have", and "Nice to Have" to focus on the most crucial features first.
+
+- Kanban Workflow: I created a 3-stage board:
+To Do – Newly created tasks.
+In Progress – Actively being developed.
+Done – Completed and tested tasks.
+
+- Automated Tracking: When a new issue was linked to the Brighton Glow Project, it automatically moved into the To Do section. As work progressed, I manually updated its status.
+
+### Examples of User Stories:
+
+##### Front-End: Checkout (Must Have)
+As a user, I want to pay for my selected items so that I can complete my purchase.
+
+Acceptance Criteria:
+
+A checkout page displays a summary of the shopping bag and a form for entering payment and shipping details.
+Payments are processed securely using Stripe, and the user is shown a confirmation message upon success.
+
+##### Front-End: User Authentication (Must Have)
+User Authentication
+As a user, I want to create an account and log in.
+
+Acceptance Criteria:
+
+Registration and login pages are functional and validate user input.
+Logged-in users see a logout button in the navigation bar.
+
+![BrightonGLOW Agile Planning Examples](/static/images/readme/bgagileplanning.png)
+
+## Wireframes 
+
+# Payments & Stripe Integration
+
+I intregated Stripe into the website, which ensures customers can seamlessly checkout using card payments while maintaining security through webhooks and API keys.
+
+### 1. Setting Up Stripe API Keys
+
+Environment Variables (.env) store sensitive Stripe credentials:
+STRIPE_SECRET_KEY=your_secret_key
+STRIPE_PUBLIC_KEY=your_public_key
+STRIPE_WEBHOOK_SECRET=your_webhook_secret
+
+These keys are loaded in settings.py:
+
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+
+### 2. Checkout Process
+
+When a user proceeds to checkout:
+
+- A total order price is retrieved from the session.
+- A new order is created in the database (Order model).
+- The shopping bag items are converted into Stripe line items.
+- A Stripe Checkout Session is created:
+
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                mode='payment',
+                currency="gbp",
+                line_items=line_items,
+                metadata={'order_id': order.id},
+                customer_email=email if email else None,
+                success_url=request.build_absolute_uri(reverse('payment_success')),
+                cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
+            )
+The user is then redirected to Stripe’s payment page.
+
+### 3. Webhook for Payment Confirmation
+
+- Stripe sends a webhook event when payment is successful.
+
+The webhook view:
+- Validates the event using the Stripe Webhook Secret.
+- Extracts the order ID and updates its status to "PAID".
+- Sends an email confirmation to the customer.
+
+            if event["type"] == "checkout.session.completed":
+                session = event["data"]["object"]
+                order_id = session.get('metadata', {}).get('order_id')
+                order = Order.objects.get(id=order_id)
+                order.status = "PAID"
+                order.save()
+
+### 4. Handling Order Completion & Errors
+- Success Page: Clears the shopping bag after a successful payment.
+- Cancel Page: Marks the order as "CANCELLED" if the user leaves checkout.
+- Error Handling: If checkout fails, the user is redirected to an error page.
+
