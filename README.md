@@ -5,7 +5,7 @@
 1. [About the Project](#about-the-project)
 2. [Features](#features)
 3. [Agile Framework and Planning](#Agile-Framework-and-Planning)
-4. [Payments & Stripe Integration](#payments-&-stripe-integration)
+4. [Payments and Stripe Integration](#payments-and-stripe-integration)
 5. [Authentication & User Management](#Authentication-&-User-Management)
 6. [Database & Data Management](#Database-&-Data-Management)
 7. [Deployment](#Deployment)
@@ -279,7 +279,7 @@ Logged-in users see a logout button in the navigation bar.
 
 ## Wireframes 
 
-# Payments & Stripe Integration
+# Payments and Stripe Integration
 
 I intregated Stripe into the website, which ensures customers can seamlessly checkout using card payments while maintaining security through webhooks and API keys.
 
@@ -337,4 +337,27 @@ The webhook view:
 - Success Page: Clears the shopping bag after a successful payment.
 - Cancel Page: Marks the order as "CANCELLED" if the user leaves checkout.
 - Error Handling: If checkout fails, the user is redirected to an error page.
+
+# Authentication and User Management
+BrightonGlow uses Django’s built-in authentication with a custom Customer model for storing user details like phone, address, and email.
+
+## User Registration & Profiles
+- CustomUserCreationForm ensures email is required during signup.
+
+The register view:
+- Prevents duplicate email registrations.
+- Logs in users automatically after signup.
+- Sends a welcome email upon successful registration.
+- Users can update their profile details (phone, address) via CustomerProfileForm.
+- The update_profile view ensures only logged-in users can update their profiles (@login_required).
+- Customer Model is linked to the User model via a OneToOneField, allowing each user to have a detailed profile.
+- Users can update their phone number, address, and email using CustomerProfileForm
+
+## Order History & Access Control
+- The profile view displays completed orders, ensuring only logged-in users can access their data.
+
+Role-based access:
+- Customers manage their profile & orders.
+- Admin/Staff manage products & customer orders.
+- Dynamic Navbar updates based on login status.
 
