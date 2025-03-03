@@ -6,8 +6,8 @@
 2. [Features](#features)
 3. [Agile Framework and Planning](#Agile-Framework-and-Planning)
 4. [Payments and Stripe Integration](#payments-and-stripe-integration)
-5. [Authentication & User Management](#Authentication-&-User-Management)
-6. [Database & Data Management](#Database-&-Data-Management)
+5. [Authentication and User Management](#Authentication-and-User-Management)
+6. [Database and Data Management](#Database-and-Data-Management)
 7. [Deployment](#Deployment)
 8. [Testing](#Testing)
 9. [Bugs & Debugging Process](#Bugs-&-Debugging-Process)
@@ -361,3 +361,56 @@ Role-based access:
 - Admin/Staff manage products & customer orders.
 - Dynamic Navbar updates based on login status.
 
+# Database and Data Management
+
+BrightonGlow uses MySQL as its primary database to store and manage essential project data, including users, products, orders, and customer details. 
+
+During development, MySQL was configured locally, and Django was connected to it through the DATABASES settings in settings.py. Migrations were used (makemigrations and migrate) to define and structure the database tables properly. This ensured that user authentication, product storage, and order management functioned well.
+
+For deployment on Heroku, I needed to use JAWSDB MySQL, a cloud-based database add-on that allows MySQL to be hosted within Heroku. The settings.py file was updated to retrieve the database URL dynamically from Heroku’s environment variables, ensuring a good connection between the app and the database in production. Before switching databases, I backed up my product data to prevent any data loss.
+
+## AWS Image Storage
+
+To store and manage images efficiently, I used AWS S3 for the product images, ensuring they remained accessible after deployment. Following the Code Institute PDF guides, I set up the AWS S3 bucket, applied the correct policies, and configured permissions for secure image storage. For general static files like CSS and JavaScript, I used Whitenoise, which helps serve them within the Django app.
+
+- AWS S3 stores product images separately from the application to prevent data loss on deployment.
+- Static files (CSS, JS) are handled using Whitenoise to improve site performance.
+- Django settings were updated to configure MEDIA_URL for product images and STATIC_URL for site assets.
+
+# Deployment
+
+### Set Up My Project Locally:
+- I made sure my Django app was fully functional and working locally.
+- Installed necessary libraries like gunicorn, dj-database-url, and whitenoise and added them to requirements.txt.
+- Created a Procfile to specify how Heroku should run my app, e.g., web: gunicorn <my_project_name>.wsgi.
+
+### Prepare My App for Heroku:
+- Ensured heroku was installed on gitpod, using the command 'Install heroic brew tap heroku/brew && brew install heroku'
+- Configured STATIC_ROOT and integrated Whitenoise to manage static files in settings.py.
+- Updated DATABASES to use dj_database_url to parse Heroku’s DATABASE_URL.
+- Checked that ALLOWED_HOSTS included Heroku’s domain.
+
+### Deploying to Heroku
+Once my app was prepared, I deployed it to Heroku by creating an app and linking it to my GitHub repository. I ensured that my Heroku app was set to the EU region for better performance.
+
+To store my database on Heroku, I added the JAWSDB MySQL add-on, which allowed my MySQL database to work with Heroku’s environment. I then updated my DATABASES settings in settings.py to use the JAWSDB_URL from my Config Vars.
+
+I also set up environment variables on Heroku to store sensitive information securely. This included:
+
+- SECRET_KEY (for Django security)
+- STRIPE API KEYS (for payments)
+- STRIPE WEBHOOK SECRET (to validate Stripe responses)
+- EMAIL HOST CREDENTIALS (for sending confirmation emails)
+
+### Pushing to Heroku & Running Migrations
+After configuring everything, I pushed my code to Heroku using:
+
+- git push heroku main to deploy the latest version
+- heroku run python manage.py migrate to apply database migrations
+
+To avoid static file errors during deployment, I temporarily disabled collectstatic using DISABLE_COLLECTSTATIC=1 in Heroku’s Config Vars until I properly handled static files.
+
+### Checking for Errors & Logs
+If any issues occurred, I used Heroku logs to debug errors and ensure my app was running smoothly:
+
+- heroku logs --tail to monitor real-time logs
