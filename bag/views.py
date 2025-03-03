@@ -5,6 +5,7 @@ from decimal import Decimal
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
+from django.contrib import messages
 from .bag import Bag
 
 def bag_add(request, product_id):
@@ -24,8 +25,17 @@ def bag_add(request, product_id):
     request.session['total'] = float(bag.get_total_price())
     request.session.modified = True  # Ensure session updates are saved
 
-    return redirect('bag_detail')
+    # ✅ Add Django message for Bootstrap toast
+    messages.success(request, f' {product.name} added to your bag!')
 
+    # ✅ Redirect back to the **previous page (product page, category page, etc.)**
+    # If no referer is found, default to the product page.
+    referer = request.META.get('HTTP_REFERER')
+    if referer:
+        return redirect(referer)
+    else:
+        return redirect('product_detail', product_id=product.id)
+    
 @require_POST
 def bag_remove(request, product_id):
     """Removes a product from the shopping bag and updates the session total."""
