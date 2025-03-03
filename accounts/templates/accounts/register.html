@@ -27,6 +27,12 @@ register skincare account, create Brighton GLOW account, sign up skincare, skinc
             <br>
             <div class="register">
               <h2>Register</h2>
+              <!-- Alert Messages -->
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-danger">{{ message }}</div>
+              {% endfor %}
+              {% endif %}
               <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

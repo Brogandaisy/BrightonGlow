@@ -13,14 +13,16 @@ def register(request):
     """Handles user registration and sends a welcome email."""
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
+
         if form.is_valid():
             email = form.cleaned_data.get('email')
-            # Check if a Customer with this email already exists.
+
+            # Check for duplicate email
             if Customer.objects.filter(email=email).exists():
                 messages.error(request, "A user with that email already exists. Please use a different email.")
-                return render(request, 'register.html', {'form': form})
-            
-            # If the email is unique, proceed with user creation.
+                return render(request, 'accounts/register.html', {'form': form})
+
+            # Create user
             user = form.save()
             Customer.objects.create(user=user, email=email)
             login(request, user)
@@ -37,10 +39,23 @@ def register(request):
                 messages.error(request, "Registration successful, but email failed to send.")
 
             return redirect('home')
+
+        else:
+            # Handle form errors properly
+            messages.error(request, "There were errors in your form. Please correct them.")
+
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
+
+            # Render the page again with errors instead of causing a 500 error
+            return render(request, 'accounts/register.html', {'form': form})
+
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
+
 
 @login_required
 def update_profile(request):
