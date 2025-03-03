@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.contrib import messages
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomerProfileForm
 from .models import Customer
+from orders.models import Order
+
 
 def register(request):
     """Handles user registration and sends a welcome email."""
