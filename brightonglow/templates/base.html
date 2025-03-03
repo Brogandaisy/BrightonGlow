@@ -22,20 +22,6 @@
 </head>
 
 <body>
-  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050">
-    {% for message in messages %}
-    <div class="toast custom-toast border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header" style="background-color: white; border-bottom: none;">
-            <strong class="me-auto" style="color: #7F5539;">Item Added to Your Bag!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" style="color: #7F5539;">
-            {{ message }}
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-navbar">
         <div class="container-fluid">
@@ -141,16 +127,23 @@
           </div>
         </div>
       </footer>
+    
+      <div class="message-container">
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          var toastElements = document.querySelectorAll(".toast");
-          toastElements.forEach(function (toastEl) {
-              var toast = new bootstrap.Toast(toastEl, { autohide: true, delay: 3000 }); 
-              toast.show();
-          });
-      });
-  </script>
+        {% for message in messages %}
+         {% include 'includes/toasts/toast_success.html' %}
+        {% endfor %}
+    
+      </div>
+
+      {% block postloadjs %}
+
+      <script type="text/javascript">
+        $('.toast').toast('show');
+      </script>
+    
+      {% endblock %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
