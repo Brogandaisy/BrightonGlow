@@ -33,7 +33,7 @@ Footer, displaying on all pages. Includes navigation to view pages from the nav 
 ![BrightonGLOW Footer ](/static/images/readme/bgfooter.png)
 NavBar with dropdown menu for shop categories and shop all products. NavBar links to contact and about pages. Plus shopping bag icons, login and register icons. Changes to Profile and Logout if user is authenticated.
 ![BrightonGLOW Navbar Features](/static/images/readme/bgnav.png)
-All products page displaying all products in the shop.
+All products page displaying all products in the shop, filter by skin type or search for a product name or type.
 ![BrightonGLOW All Products](/static/images/readme/bgallproducts.png)
 On the All Products page, there is a filter for Skin Types where you can filter products best for your skin type.
 ![BrightonGLOW SkinType Filter](/static/images/readme/bgfilter.png)
@@ -81,6 +81,8 @@ This function retrieves all products within a specific category, which have been
   
 #### - Filter Products by Skin Type: Users can refine their search by selecting products suited for oily, dry, combination, or sensitive skin.
 
+#### - Search for products by name or product type. Using MySql database to enhance search functionality to include the product description.
+
 #### - Shopping Bag & Checkout: Users can add multiple items to their shopping bag, modify quantities, and proceed to a secure checkout using Stripe.
 
 This function adds a product to the shopping bag, updates the total price, and saves the data in the session. It retrieves the product by its ID, gets the selected quantity (defaulting to 1 if not specified), and then updates the bag before redirecting to the shopping bag detail page.
@@ -116,7 +118,7 @@ This JavaScript element enables users to increase or decrease the product quanti
         </script>
 
 
-#### - Order History: Registered users can log in to view their order history.
+#### - Order History: Registered users can log in to view their order history. They can track the status of their order, including options such as, processing, shipped and delivered.
 
 The Profile view function retrieves and displays the user's profile and order history, ensuring only logged-in users can access it by using the @login_required decorator; it filters the Order model to fetch only the logged-in user's orders, excludes those with a "PENDING" status, sorts them by most recent first, and passes the data to the profile.html template for rendering.
 
@@ -193,6 +195,8 @@ This function creates a Stripe checkout session, specifying payment details, shi
         order.save()
 
 #### - Webhook Handling: Stripe webhooks are used to validate payments and update order status in real-time.
+
+#### - Bootstrap Toast Message appears on the top of the screen when a user adds an item to their shopping bag. 
 
 #### - Order Confirmation: Users receive an order confirmation email after a successful purchase.
 
