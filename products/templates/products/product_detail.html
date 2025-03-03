@@ -30,8 +30,6 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
-
-            <!-- Add to Bag form -->
             <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                 {% csrf_token %}
                 <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
@@ -42,8 +40,7 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
                 <button type="button" class="custom-btn-primary add-to-bag-btn" data-product-id="{{ product.id }}">
                     Add to Bag
                 </button>
-            </form>
-
+            </form>            
             <br>
             <button onclick="history.back()" class="btn custom-btn-primary">Go Back</button>
         </div>
