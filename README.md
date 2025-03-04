@@ -162,21 +162,42 @@ This function retrieves all products within a specific category, which have been
 
 #### - Search for products by name or product type. Using MySql database to enhance search functionality to include the product description.
 
-#### - Shopping Bag & Checkout: Users can add multiple items to their shopping bag, modify quantities, and proceed to a secure checkout using Stripe.
+#### - Shopping Bag & Checkout: Users can add multiple items to their shopping bag, modify quantities, and proceed to a secure checkout using Stripe. An alert message (toast) will appear displaying what item has been added to the shopping bag.
 
 This function adds a product to the shopping bag, updates the total price, and saves the data in the session. It retrieves the product by its ID, gets the selected quantity (defaulting to 1 if not specified), and then updates the bag before redirecting to the shopping bag detail page.
 
-      def add_to_bag(request, product_id):
-          """Adds a product to the shopping bag and updates total price."""
-          
-          bag = Bag(request)
-          product = get_object_or_404(Product, id=product_id)
-          quantity = int(request.POST.get('quantity', 1))  
-      
-          bag.add(product=product, quantity=quantity)
-          request.session['total'] = bag.get_total_price()
-      
-          return redirect('bag_detail')
+            def bag_add(request, product_id):
+                """Adds a product to the shopping bag, updates session, and returns JSON response."""
+                
+                if request.method == "POST":
+                    bag = Bag(request)
+                    product = get_object_or_404(Product, id=product_id)
+            
+                    # Get quantity from AJAX request
+                    try:
+                        data = json.loads(request.body)
+                        quantity = int(data.get("quantity", 1))  # Default to 1 if missing
+                    except (json.JSONDecodeError, ValueError):
+                        quantity = 1  # Fallback to 1 if there's an error
+                    
+                    bag.add(product=product, quantity=quantity)
+            
+                    # Convert bag items to a format suitable for session storage
+                    session_bag = {
+                        str(k): {'quantity': v['quantity'], 'price': float(v['price'])}
+                        for k, v in bag.bag.items()
+                    }
+            
+                    request.session['bag'] = session_bag
+                    request.session['total'] = float(bag.get_total_price())
+                    request.session.modified = True  # Ensure session updates are saved
+            
+                    return JsonResponse({
+                        'message': f"{product.name} (x{quantity}) added to bag!",
+                        'total': request.session['total']
+                    })
+            
+                return JsonResponse({'error': 'Invalid request'}, status=400)
 
 This JavaScript element enables users to increase or decrease the product quantity before adding it to their shopping bag. 
 
@@ -317,7 +338,7 @@ I used Bootstrap throughout the project to create a responsive, structured, and 
 - Navbar: A sticky, responsive navigation bar that collapses on smaller screens and dynamically updates based on user authentication.
 - Grid Layout: The Bootstrap grid system (col-md-*) ensures product listings and layouts adjust for different screen sizes.
 - Modals: Used for viewing order details without leaving the page.
-- Alerts & Messages: Bootstrap alert components provide feedback for actions like user registration and form validation.
+- Alerts, Messages & Toasts: Bootstrap alert components provide feedback for actions like user registration and form validation, plus Toast messages for shopping bag use.
 - Buttons & Forms: Styled with Bootstrap’s btn and form-control classes to maintain consistency.
 
 #### Example: Bootstrap Modal for Order Details
