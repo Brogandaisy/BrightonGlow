@@ -462,9 +462,11 @@ If any issues occurred, I used Heroku logs to debug errors and ensure my app was
 
 # Marketing and SEO
 
-To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
+I created a Facebook page for Brighton GLOW to enhance brand visibility and engage with potential customers. This allows me to share updates, promotions, and skincare tips while directing traffic to the website, ultimately improving customer engagement and brand trust. 
 
-![BrightonGLOW Agile Planning Examples](/static/images/readme/bgmarketing.png)
+[View Facebook Page](https://www.facebook.com/brightonglowskincare/)
+
+To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
 
 For SEO and metadata implementation, I integrated dynamic meta tags within my Django templates to enhance search engine visibility and improve user engagement. In base.html, I set up core keywords and a meta description that apply to every page. Additionally, I used block super in specific templates to extend and customise metadata for each product while keeping essential branding terms consistent. This ensures search engines recognise unique, relevant keywords for each page while maintaining a strong brand identity.
 
@@ -489,6 +491,8 @@ Meta Descriptions: Provides a brief, engaging summary of each product to improve
 Keyword Optimisation: Maintains core keywords while expanding product-specific terms to reach a broader audience.
 Newsletter Email Sign-Up (Mailchimp)
 To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
+
+![BrightonGLOW Agile Planning Examples](/static/images/readme/bgmarketing.png)
 
 ### Privacy Policy for GDPR Compliance
 To comply with GDPR regulations, I created a Privacy Policy, which is accessible as a page on the website from the website footer or downloadable as a PDF. This document outlines how user data is collected, stored, and used, ensuring transparency and building trust with customers.
