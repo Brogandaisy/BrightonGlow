@@ -14,4 +14,4 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['phone', 'email', 'address_line1', 'address_county', 'address_country', 'address_postcode']
+        fields = ['full_name', 'phone', 'email', 'address_line1', 'address_county', 'address_country', 'address_postcode']

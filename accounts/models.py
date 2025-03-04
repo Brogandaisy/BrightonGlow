@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    full_name = models.CharField(max_length=100, blank=True, null=True)
     phone = models.CharField(
         max_length=15,
         blank=True,
@@ -18,4 +19,4 @@ class Customer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.full_name} ({self.user.username})" if self.full_name else self.user.username

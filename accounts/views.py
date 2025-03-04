@@ -38,7 +38,7 @@ def register(request):
             except Exception:
                 messages.error(request, "Registration successful, but email failed to send.")
 
-            return redirect('home')
+            return redirect('profile')
 
         else:
             # Handle form errors properly
