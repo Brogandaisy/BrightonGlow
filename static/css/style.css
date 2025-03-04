@@ -176,8 +176,9 @@ a:hover img {
 /* -------------------------------- Featured Products Box */
 
 .featured h2, 
-.featured h5 {
-    color: #7F5539;
+.featured h5,
+.featured p {
+    color: white;
 }
 
 .card {
@@ -186,8 +187,8 @@ a:hover img {
     border: none;
 }
 
-.card-text {
-    background-color: white;
+.card p,
+.card h5 {
     color: white;
 }
 

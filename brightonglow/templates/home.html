@@ -63,9 +63,9 @@ skincare products, effortless skincare, easy skincare, simple skincare
                 <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
               {% endif %}
             </a>
-            <div class="card-body text-white text-center">
+            <div class="card-body text-center">
               <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">£{{ product.price }}</p>
+              <p class="text-white">£{{ product.price }}</p>
               <a href="{% url 'product_detail' product.id %}" class="custom-btn-primary">View</a>
             </div>
           </div>
