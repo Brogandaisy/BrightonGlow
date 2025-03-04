@@ -11,7 +11,7 @@
 7. [Database and Data Management](#Database-and-Data-Management)
 8. [Deployment](#Deployment)
 9. [Testing](#Testing)
-10. [Bugs & Debugging Process](#Bugs-&-Debugging-Process)
+10. [Bugs and Debugging Process](#Bugs-and-Debugging-Process)
 11. [Marketing & SEO](#Marketing-&-SEO)
 12. [Future Features](#Future-Features)
 13. [References & Credits](#References-&-Credits)
@@ -480,6 +480,142 @@ To avoid static file errors during deployment, I temporarily disabled collectsta
 If any issues occurred, I used Heroku logs to debug errors and ensure my app was running smoothly:
 
 - heroku logs --tail to monitor real-time logs
+
+# Testing
+
+To ensure my project functions correctly and provides a seamless user experience, I conducted thorough testing across various aspects of the application. This includes HTML and CSS validation, accessibility checks, deployment testing, manual user testing, responsive design checks across different screen sizes, performance evaluations using Lighthouse, and Python code linting with Flake8.
+
+### HTML & CSS Validation
+I used W3C Validator to check for errors in my HTML and CSS files, ensuring the code adheres to web standards and best practices.
+
+HTML Validation: Checked my core templates, including home.html, products.html, bag.html, contact.html and about.html.
+CSS Validation: Ensured my styles were correctly applied and followed best practices.
+
+#### Results
+- Initially, some errors were detected in duplicate class displays, and errors for nesting rules.
+- After resolving all issues, the final validation passed with no errors.
+- CSS validation showed errors and warnings for Font Awesome and Bootstrap for elements not relating to my project. (I used a CDN link for FA instead of downloading).
+
+![BrightonGLOW HTML Tests](/static/images/readme/bghtmltests.png) 
+
+### Accessibility Testing
+To ensure Brighton GLOW meets accessibility standards, I ran my pages through WAVE Web Accessibility Evaluation Tool and Lighthouse’s accessibility testing.
+
+- Ensured all form fields included aria-labels and semantic HTML elements to improve screen reader accessibility.
+- Contrast levels were showing low for the product cards, I improved many areas to get this score higher. 
+- Footer font colours were improved to be better viewed.
+- Images include alt text.
+
+### Manual User Testing
+I performed real-world testing by interacting with the app as a user to ensure smooth functionality across key features:
+
+#### Test Scenarios:
+- User Registration: Tested form validation, error handling for duplicate emails, and successful sign-ups.
+- Logging In & Out: Ensured session management worked correctly.
+
+- Shopping Bag Functionality:
+Added and removed products.
+Adjusted quantities.
+Ensured total price updated dynamically.
+
+- Checkout & Payments (Stripe):
+Completed test purchases using Stripe’s test card numbers.
+Ensured order status updated from PENDING to PAID.
+Verified order confirmation emails were sent successfully.
+
+- Order History & Profile:
+Checked that orders appeared correctly in the profile page.
+Ensured users could view their past orders and track statuses.
+
+- Admin & Order Management:
+Tested admin access to manage products and update order statuses.
+
+### Testing Across Different Devices
+I tested the responsiveness of the website across different screen sizes to ensure proper layout and usability.
+
+#### Devices & Browsers Used:
+- iPhone 15 Pro (Safari & Chrome)
+- Samsung Galaxy S23 Ultra (Chrome & Firefox)
+- Windows 11 (Edge & Chrome)
+- MacBook Pro (Safari & Chrome)
+- iPad 11 Pro (Safari & Chrome)
+
+#### Findings & Fixes
+- Fixed minor layout shifts on mobile checkout pages.
+
+### Lighthouse Performance Testing
+I ran Lighthouse tests to analyse Performance, SEO, Accessibility, and Best Practices.
+
+#### Initial Lighthouse Results:
+- Performance: Low due to large image files.
+- Best Practices: Some unused CSS was flagged.
+
+#### Optimisations Made:
+Implemented lazy loading for images to improve page speed.
+Removed unused CSS to optimise load time.
+
+### Flake8 Python Code Linting
+To maintain clean and error-free Python code, I used Flake8 to check for:
+
+- Syntax errors
+- Unused imports
+- Line length violations
+
+#### Results & Fixes
+- Removed unused imports in views.py.
+- Fixed indentation issues flagged in models.py.
+- Ensured all files followed PEP8 styling guidelines.
+
+### Deployment Testing, Local Testing & Debugging
+Throughout deployment, I actively monitored Heroku logs and python logs to debug issues.
+
+- Checked logs using heroku logs --tail for error tracking.
+- Checked python terminals using logging for error tracking with local dev.
+- Fixed database migrations issues after deploying MySQL with JawsDB.
+- Updated environment variables to ensure Stripe and Mailchimp API keys were correctly set.
+
+# Bugs and Debugging Process
+
+Throughout the development of Brighton GLOW, I encountered various bugs that required careful troubleshooting and debugging. Below are some of the key issues and how they were resolved:
+
+### Syntax & Logical Errors
+Minor mistakes such as capitalisation errors, incorrect indentation, and misplaced commas caused Django to throw errors.
+- Resolution: Debugging these by carefully reviewing the Django error logs and using Python’s traceback messages helped pinpoint where corrections were needed.
+
+### User Authentication Issues
+Initially, authentication did not work correctly with MySQL, preventing users from logging in.
+- Resolution: This was resolved by configuring MySQL correctly and ensuring that Django’s built-in authentication system integrated properly with the database.
+
+### Email & Duplicate User Errors
+The registration form failed to catch duplicate emails, leading to a server error instead of an alert message.
+- Resolution: I added a validation step in the registration view to check if an email already existed in the database and display an appropriate error message.
+
+### CSS & Styling Issues
+Bootstrap classes were sometimes overridden due to conflicting custom CSS.
+- Resolution: I reviewed and removed unnecessary CSS rules that were interfering with Bootstrap defaults.
+
+### Stripe Payment Issues
+The Stripe webhook was not correctly verifying payment intent IDs, causing orders to remain in "PENDING" status even after successful payments.
+- Resolution: This was fixed by correctly extracting and validating metadata from Stripe’s webhook events.
+
+### Deployment Issues
+When deploying to Heroku, I encountered missing database errors.
+- Resolution: I added JAWSDB MySQL as a Heroku add-on and correctly linked the database URL in settings.py.
+
+### Robots.txt & Sitemap Issues
+The robots.txt file was not correctly formatted, and search engines weren’t indexing the sitemap.
+- Resolution: I refined the robots.txt file and linked it to Google Search Console to improve SEO performance.
+
+### Shopping Bag Errors
+Users who navigated back from Stripe Checkout were not seeing cancelled orders reflected in their profile.
+- Resolution: The order status logic was updated to mark incomplete payments as “CANCELLED”, ensuring users had clear visibility.
+
+### Debugging Methods Used
+- Python’s Debugging Tools: Used print statements and Django’s error messages to track issues.
+- Flake8 for Code Linting: Ensured no syntax issues or unused imports.
+- Heroku Logs: Used heroku logs --tail to check errors in deployment.
+- Browser Developer Tools: Used Chrome DevTools for CSS & console debugging.
+- Manual Testing: Registered test users, added products to the bag, and simulated checkout flows.
 
 # Marketing and SEO
 
