@@ -4,4 +4,7 @@ Disallow: /bag/
 Disallow: /checkout/
 Disallow: /profile/
 
+User-agent: Googlebot
+Allow: /
+
 Sitemap: https://brightonglow-a60ca67bc04b.herokuapp.com/sitemap.xml
