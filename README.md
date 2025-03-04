@@ -5,7 +5,7 @@
 1. [About the Project](#about-the-project)
 2. [Agile Framework and Planning](#Agile-Framework-and-Planning)
 3. [Features](#features)
-4. [User Journey] (#user-journey)
+4. [User Journey](#user-journey)
 5. [Payments and Stripe Integration](#payments-and-stripe-integration)
 6. [Authentication and User Management](#Authentication-and-User-Management)
 7. [Database and Data Management](#Database-and-Data-Management)
@@ -99,6 +99,13 @@ Logged-in users see a logout button in the navigation bar.
 ![BrightonGLOW Agile Planning Examples](/static/images/readme/bgagileplanning.png)
 
 ## Wireframes
+Homepage
+![BrightonGLOW Wireframes](/static/images/readme/bgwireframehome.png)
+All products Page
+![BrightonGLOW Wireframes](/static/images/readme/bgwireframeallproducts.png)
+Individual Product Page
+![BrightonGLOW Wireframes](/static/images/readme/bgwireframeproduct.png)
+
 
 # User Journey
 
@@ -535,13 +542,18 @@ I tested the responsiveness of the website across different screen sizes to ensu
 
 #### Devices & Browsers Used:
 - iPhone 15 Pro (Safari & Chrome)
-- Samsung Galaxy S23 Ultra (Chrome & Firefox)
-- Windows 11 (Edge & Chrome)
-- MacBook Pro (Safari & Chrome)
-- iPad 11 Pro (Safari & Chrome)
+- Samsung Galaxy S23 Ultra (Chrome)
+- Windows 11 (Edge)
+- MacBook Pro (Safari)
+- iPad 11 Pro (Safari)
+
+Desktop Tests 
+![BrightonGLOW Device Tests](/static/images/readme/bgdesktopdevices.png)
+Mobile Tests 
+![BrightonGLOW Device Tests](/static/images/readme/bgdesktopdevices(1).png)
 
 #### Findings & Fixes
-- Fixed minor layout shifts on mobile checkout pages.
+- Fixed minor layout shifts on mobile pages.
 
 ### Lighthouse Performance Testing
 I ran Lighthouse tests to analyse Performance, SEO, Accessibility, and Best Practices.
@@ -549,7 +561,9 @@ I ran Lighthouse tests to analyse Performance, SEO, Accessibility, and Best Prac
 - Areas for improvement, compress images to reduce their size and convert them to new gen formats, webp.
 - Bit improvements made for lighthouse scores and WAVE accessability, is the product card background colours and the fonts. The darker brown with white creates a greater contrast.
 
+Desktop Tests | Before and after accessability changes
 ![BrightonGLOW Lighthouse Tests](/static/images/readme/bglighthousetest.png)
+Mobile Tests | Before and after accessability changes 
 ![BrightonGLOW Lighthouse Tests](/static/images/readme/bglighthousetestmobile.png)
 
 #### Initial Lighthouse Results:
