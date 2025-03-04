@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Privacy Policy | Brighton GLOW Skincare
@@ -11,10 +12,10 @@
         <p class="text-center">
             <strong>Last updated: March 03, 2025</strong>
         </p>
-
-        <a href="url privacy_policy_brighton_glow.pdf" 
-           class="custom-btn-primary" download>
-            Download the Full Policy
+        
+        <a href="{% static 'privacy_policy_brighton_glow.pdf' %}" 
+        class="custom-btn-primary" download>
+         Download the Full Policy
         </a>
 
         <br>
