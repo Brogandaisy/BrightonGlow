@@ -546,6 +546,12 @@ I tested the responsiveness of the website across different screen sizes to ensu
 ### Lighthouse Performance Testing
 I ran Lighthouse tests to analyse Performance, SEO, Accessibility, and Best Practices.
 
+- Areas for improvement, compress images to reduce their size and convert them to new gen formats, webp.
+- Bit improvements made for lighthouse scores and WAVE accessability, is the product card background colours and the fonts. The darker brown with white creates a greater contrast.
+
+![BrightonGLOW Lighthouse Tests](/static/images/readme/bglighthousetest.png)
+![BrightonGLOW Lighthouse Tests](/static/images/readme/bglighthousetestmobile.png)
+
 #### Initial Lighthouse Results:
 - Performance: Low due to large image files.
 - Best Practices: Some unused CSS was flagged.
