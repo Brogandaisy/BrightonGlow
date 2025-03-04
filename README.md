@@ -14,7 +14,7 @@
 10. [Bugs and Debugging Process](#Bugs-and-Debugging-Process)
 11. [Marketing & SEO](#Marketing-&-SEO)
 12. [Future Features](#Future-Features)
-13. [References & Credits](#References-&-Credits)
+13. [References and Credits](#References-and-Credits)
 
 ## About Brighton Glow
 Brighton Glow is an online skincare website offering a curated selection of skincare products, inspired by the fresh and natural vibe of Brighton. Their goal is to make it easy for people to find skincare products that help them feel confident and look their best. They believe in keeping things simple and accessible, offering products that fit into your everyday routine and leave your skin glowing.
@@ -728,6 +728,17 @@ In the future it would be great to add the following features:
 
 These features will help build customer relationships, improve retention, and enhance the overall shopping experience.
 
+# References and Credits
+
+I used the following resources to complete this project:
+
+- W3Schools / styling and html/css support / testing
+- Bootstrap / styling / grid layout / forms
+- Code Institute's "Boutique Ado" Walkthrough project
+- Django 5 by Example Book - Big help with building the project django code, especially with e-commerce and user authentication.
+- Squoosh - compress images to webp
+- Images sourced royalty free from Canva.com
+- Name of the app is made up, by gaining inspiration from other websites including Fenty Skin, Summer Fridays, and SohoSkin.
 
 
 
