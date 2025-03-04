@@ -34,7 +34,13 @@ body {
 .custom-toast {
     background-color: #7F5539;
     color: #ddb892;
-    padding-top: 20px;
+}
+
+.custom-toast a {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:#DDB892;
 }
 
 
