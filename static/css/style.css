@@ -331,6 +331,10 @@ img {
     background-color: #7F5539;
     color: #fff;
   }
+
+  .footer h5 {
+    color: #ddd !important;
+  }
   
   .footer a {
     text-decoration: none;
