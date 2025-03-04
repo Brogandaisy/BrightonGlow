@@ -5,13 +5,13 @@ from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from .bag import Bag
-
-from django.http import JsonResponse
 import json
 
+
 def bag_add(request, product_id):
-    """Adds a product to the shopping bag, updates session, and returns JSON response."""
-    
+    """Adds a product to the shopping bag,
+    updates session, and returns JSON response."""
+
     if request.method == "POST":
         bag = Bag(request)
         product = get_object_or_404(Product, id=product_id)
@@ -22,7 +22,7 @@ def bag_add(request, product_id):
             quantity = int(data.get("quantity", 1))  # Default to 1 if missing
         except (json.JSONDecodeError, ValueError):
             quantity = 1  # Fallback to 1 if there's an error
-        
+
         bag.add(product=product, quantity=quantity)
 
         # Convert bag items to a format suitable for session storage
@@ -42,10 +42,12 @@ def bag_add(request, product_id):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+
 @require_POST
 def bag_remove(request, product_id):
-    """Removes a product from the shopping bag and updates the session total."""
-    
+    """Removes a product from the
+    shopping bag and updates the session total."""
+
     bag = Bag(request)
     product = get_object_or_404(Product, id=product_id)
     bag.remove(product)
@@ -55,9 +57,10 @@ def bag_remove(request, product_id):
 
     return redirect('bag_detail')
 
+
 def bag_detail(request):
     """Displays the shopping bag contents along with the total price."""
-    
+
     bag = Bag(request)
     total = float(bag.get_total_price())
     request.session['total'] = total
@@ -71,10 +74,11 @@ def bag_detail(request):
 
     return render(request, 'bag/bag_detail.html', {'bag': bag, 'total': total})
 
+
 @require_POST
 def adjust_bag(request, product_id):
     """Adjusts the quantity of a product in the shopping bag."""
-    
+
     bag = Bag(request)
     product = get_object_or_404(Product, id=product_id)
     quantity = int(request.POST.get('quantity'))

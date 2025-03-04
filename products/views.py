@@ -4,9 +4,11 @@ from .models import SkinType, Product, Category
 
 from django.db.models import Q
 
+
 def products_home(request):
-    """Enhanced search: Matches products by name, description, and handles multiple words."""
-    
+    """Enhanced search: Matches products by name,
+    description, and handles multiple words."""
+
     skin_type_id = request.GET.get('skin_type')
     search_query = request.GET.get('search', '').strip()
 
@@ -19,10 +21,13 @@ def products_home(request):
         # Split search terms into multiple words
         search_terms = search_query.split()
 
-        # Build a flexible query to match any word in name OR description
-        search_filters = Q()
-        for term in search_terms:
-            search_filters |= Q(name__icontains=term) | Q(description__icontains=term)
+    # Build a flexible query to match any word in name OR description
+    search_filters = Q()
+    for term in search_terms:
+        search_filters |= (
+            Q(name__icontains=term) |
+            Q(description__icontains=term)
+        )
 
         products = products.filter(search_filters)
 
@@ -37,34 +42,39 @@ def products_home(request):
 
 def add_to_bag(request, product_id):
     """Adds a product to the shopping bag and updates total price."""
-    
+
     bag = Bag(request)
     product = get_object_or_404(Product, id=product_id)
-    quantity = int(request.POST.get('quantity', 1))  
+    quantity = int(request.POST.get('quantity', 1))
 
     bag.add(product=product, quantity=quantity)
     request.session['total'] = bag.get_total_price()
 
     return redirect('bag_detail')
 
+
 def bag_detail(request):
     """Displays the shopping bag and total price."""
-    
+
     bag = Bag(request)
     total = bag.get_total_price()
     request.session['total'] = total
 
     return render(request, 'bag/bag_detail.html', {'bag': bag, 'total': total})
 
+
 def product_detail(request, product_id):
     """Displays details of a single product."""
-    
+
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'products/product_detail.html', {'product': product})
+    return render(
+        request, 'products/product_detail.html', {'product': product}
+        )
+
 
 def category_detail(request, category_name):
     """Displays products belonging to a specific category."""
-    
+
     category = get_object_or_404(Category, name=category_name)
     products = Product.objects.filter(category=category)
 

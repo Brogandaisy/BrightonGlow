@@ -1,5 +1,4 @@
 import stripe
-import json
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -12,9 +11,10 @@ from django.core.mail import send_mail
 # Set Stripe API key
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 def checkout(request):
     """Handles the checkout process and creates a Stripe session."""
-    
+
     total = float(request.session.get('total', 0))
 
     if not isinstance(total, (int, float)) or total <= 0:
@@ -26,13 +26,20 @@ def checkout(request):
         email = request.user.email if request.user.is_authenticated else None
 
         # Create an order in the database
-        order = Order.objects.create(user=user, email=email, total_price=total, status='PENDING')
+        order = Order.objects.create(
+            user=user, email=email, total_price=total, status='PENDING'
+            )
         request.session['order_id'] = order.id
 
         # Prepare line items for Stripe
         line_items = []
         for item in bag:
-            OrderItem.objects.create(order=order, product=item['product'], quantity=item['quantity'], price=item['price'])
+            OrderItem.objects.create(
+                order=order,
+                product=item["product"],
+                quantity=item["quantity"],
+                price=item["price"],
+            )
 
             line_items.append({
                 "price_data": {
@@ -76,13 +83,15 @@ def checkout(request):
 @csrf_exempt
 def webhook(request):
     """Handles Stripe webhook events for payment confirmation."""
-    
+
     payload = request.body
     sig_header = request.headers.get("Stripe-Signature")
     endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
 
     try:
-        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+            )
 
         if event["type"] == "checkout.session.completed":
             session = event["data"]["object"]
@@ -98,18 +107,22 @@ def webhook(request):
                         order.email = customer_email
 
                     if "shipping_details" in session:
-                        order.shipping_name = session["shipping_details"]["name"]
-                        order.shipping_address = session["shipping_details"]["address"]["line1"]
-                        order.shipping_city = session["shipping_details"]["address"]["city"]
-                        order.shipping_postcode = session["shipping_details"]["address"]["postal_code"]
-                        order.shipping_country = session["shipping_details"]["address"]["country"]
+                        shipping = session["shipping_details"]["address"]
+                        shipping_details = session["shipping_details"]
+                        order.shipping_name = shipping_details["name"]
+                        order.shipping_address = shipping["line1"]
+                        order.shipping_city = shipping["city"]
+                        order.shipping_postcode = shipping["postal_code"]
+                        order.shipping_country = shipping["country"]
 
                     order.save()
 
                     # Send confirmation email
                     order_items = OrderItem.objects.filter(order=order)
                     item_list = "\n".join([
-                        f"{item.product.name} (x{item.quantity}) - £{item.price:.2f}" for item in order_items
+                        f"{item.product.name} (x{item.quantity}) - "
+                        f"£{item.price:.2f}"
+                        for item in order_items
                     ])
 
                     send_mail(
@@ -124,7 +137,7 @@ def webhook(request):
                         fail_silently=False,
                     )
 
-                    print(f"✅ Order {order.id} updated to PAID, confirmation email sent.")
+                    print(f"✅ Order {order.id} updated to PAID.")
 
                 except Order.DoesNotExist:
                     print('XXX Could not find the order')
@@ -141,7 +154,7 @@ def webhook(request):
 
 def payment_success(request):
     """Handles successful payments and clears the shopping bag."""
-    
+
     order_id = request.session.get('order_id')
 
     if order_id:
@@ -160,14 +173,14 @@ def payment_success(request):
 
 def payment_cancel(request):
     """Handles cancelled payments and updates order status."""
-    
+
     order_id = request.session.get('order_id')
 
     if order_id:
         try:
             order = Order.objects.get(id=order_id)
             if order.status == 'PENDING':
-                order.status = 'CANCELLED'  # Fixed assignment (was '==' instead of '=')
+                order.status = 'CANCELLED'
                 order.save()
         except Order.DoesNotExist:
             pass
@@ -177,4 +190,8 @@ def payment_cancel(request):
 
 def payment_error(request):
     """Displays an error page if checkout fails."""
-    return render(request, 'payments/error.html', {'message': 'An error occurred during checkout.'})
+    return render(
+        request,
+        "payments/error.html",
+        {"message": "An error occurred during checkout."},
+    )

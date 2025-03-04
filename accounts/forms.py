@@ -11,7 +11,10 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['full_name', 'phone', 'email', 'address_line1', 'address_county', 'address_country', 'address_postcode']
+        fields = ['full_name', 'phone', 'email', 'address_line1',
+                  'address_county', 'address_country', 'address_postcode'
+                  ]
