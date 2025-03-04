@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /bag/
+Disallow: /checkout/
+Disallow: /profile/
+
+Sitemap: https://brightonglow-a60ca67bc04b.herokuapp.com/sitemap.xml

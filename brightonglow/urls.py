@@ -1,13 +1,13 @@
 from django.contrib import admin
-from django.urls import path, include
-from orders import views as order_views
-from bag import views as bag_views
+from django.urls import path, include, re_path
 from payments import views as payment_views
+from django.views.static import serve
 from . import views
 from payments.views import webhook
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import custom_404_view
+
 
 urlpatterns = [
     path("", views.home, name="home"),  # Homepage
@@ -23,6 +23,11 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),
     path('privacy-policy/', views.privacy_policy, name="privacy_policy"),
+
+    re_path(r'^sitemap\.xml$', serve, {'document_root': settings.BASE_DIR, 'path': 'sitemap.xml'}),
+    re_path(r'^robots\.txt$', serve, {'document_root': settings.BASE_DIR, 'path': 'robots.txt'}),
+
+
 ]
 
 handler404 = custom_404_view
