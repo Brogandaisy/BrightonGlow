@@ -107,6 +107,21 @@ body {
     background-color: #7F5539;
   }
 
+.toast-button {
+    display: inline-block;
+    background-color: #7F5539;
+    color: #ddb892;
+    padding: 10px 20px;
+    border: 2px solid #DDB892;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
 .link-nobutton {
     font-family: "Comfortaa", serif;
     color: #7F5539;
