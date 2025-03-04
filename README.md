@@ -744,6 +744,7 @@ I used the following resources to complete this project:
 - Squoosh - compress images to webp
 - Images sourced royalty free from Canva.com
 - Name of the app is made up, by gaining inspiration from other websites including Fenty Skin, Summer Fridays, and SohoSkin.
+- Tempmail.com for temporary emails to test stripe.
 
 
 
