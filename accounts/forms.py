@@ -1,5 +1,5 @@
 from django import forms
-from .models import Customer
+from .models import Customer, Product
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -27,8 +27,18 @@ class CustomerProfileForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'}),
     )
 
+    wishlist = forms.ModelMultipleChoiceField(
+        queryset=Product.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={'class': 'form-check-input'}
+            )
+    )
+
     class Meta:
         model = Customer
-        fields = ['full_name', 'phone', 'email', 'address_line1',
-                  'address_county', 'address_country', 'address_postcode',
-                  'skin_type']
+        fields = [
+            'full_name', 'phone', 'email', 'address_line1',
+            'address_county', 'address_country', 'address_postcode',
+            'skin_type', 'wishlist'
+        ]
