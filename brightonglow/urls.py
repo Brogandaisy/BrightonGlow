@@ -6,8 +6,7 @@ from . import views
 from payments.views import webhook
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import custom_404_view
-
+from .views import custom_404_view, custom_500_view
 
 urlpatterns = [
     path("", views.home, name="home"),  # Homepage
@@ -27,10 +26,10 @@ urlpatterns = [
     re_path(r'^sitemap\.xml$', serve, {'document_root': settings.BASE_DIR, 'path': 'sitemap.xml'}),
     re_path(r'^robots\.txt$', serve, {'document_root': settings.BASE_DIR, 'path': 'robots.txt'}),
 
-
 ]
 
 handler404 = custom_404_view
+handler500 = custom_500_view
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -26,6 +26,9 @@ def custom_404_view(request, exception):
     """Handles 404 errors with a custom page."""
     return render(request, '404.html', status=404)
 
+def custom_500_view(request):
+    return render(request, '500.html', status=500)
+
 def payment_success(request):
     """Displays the payment success page."""
     return render(request, 'payments/payment_success.html')
