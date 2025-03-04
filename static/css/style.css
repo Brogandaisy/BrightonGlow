@@ -222,7 +222,7 @@ a:hover img {
 
 .card-text {
     background-color: #DDB892;
-    font: #7f5539;
+    color: #7f5539;
 }
 
 /* Homepage Blurb */
@@ -265,7 +265,6 @@ a:hover img {
 /* --------- Shopping Bag */
 
 .bag-banner {
-    background-color: none;
     border-bottom: #7F5539 solid;
 }
 
