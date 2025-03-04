@@ -18,6 +18,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),  # Include URLs 'orders' app
     path('payment-success/', payment_views.payment_success, name='payment_success'),  # Payment success page
     path('payment-cancel/', payment_views.payment_cancel, name='payment_cancel'),  # Payment cancellation page
+    path('payment-error/', payment_views.payment_error, name='payment_error'), # Payment error page
     path('webhook/', webhook, name='stripe-webhook'),  # Stripe webhook
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name="contact"),
