@@ -3,15 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 
-class Product(models.Model):  # Product model for wishlist feature
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/', blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, blank=True, null=True)
@@ -39,8 +30,6 @@ class Customer(models.Model):
     skin_type = models.CharField(
         max_length=20, choices=SKIN_TYPES, blank=True, null=True
     )
-
-    wishlist = models.ManyToManyField(Product, blank=True)  # Wishlist field
 
     def __str__(self):
         return (

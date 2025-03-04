@@ -23,26 +23,7 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
         <a href="{% url 'update_profile' %}" class="custom-btn-primary">Update Profile</a>
     </div>
   </div>
-
-  <!-- Wishlist Section -->
-  <div class="wishlist-section my-4">
-      <h4>Your Wishlist</h4>
-      {% if wishlist_items %}
-          <ul class="list-group">
-              {% for product in wishlist_items %}
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ product.name }}
-                  <span class="badge bg-primary">£{{ product.price }}</span>
-              </li>
-              {% endfor %}
-          </ul>
-      {% else %}
-          <p>You have no items in your wishlist.</p>
-      {% endif %}
-      <a href="{% url 'update_profile' %}" class="custom-btn-primary mt-2">Edit Wishlist</a>
-  </div>
-
-  {% if orders %}
+    {% if orders %}
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           {% for order in orders %}
           <div class="col">

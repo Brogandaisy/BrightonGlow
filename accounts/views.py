@@ -23,9 +23,8 @@ def register(request):
                     request,
                     "A user with that email already exists. Please try again."
                 )
-                return render(
-                    request, 'accounts/register.html', {'form': form}
-                    )
+                return render
+            (request, 'accounts/register.html', {'form': form})
 
             # Create user
             user = form.save()
@@ -36,25 +35,27 @@ def register(request):
                 send_mail(
                     'Welcome to BrightonGlow!',
                     'Thank you for registering!',
+                    'Visit our website to explore our full range of skincare!',
                     'brightonglowskincare@gmail.com',
                     [email],
                     fail_silently=False,
                 )
             except Exception:
-                messages.error(
-                    request, "Successful, but email failed to send."
-                    )
+                messages.error
+                (request, "Registration successful, but email failed to send.")
 
             return redirect('profile')
 
         else:
-            messages.error(
-                request, "There were errors in your form. Please correct them."
-                )
+            # Handle form errors properly
+            messages.error
+            (request, "There were errors in your form. Please correct them.")
+
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field.capitalize()}: {error}")
 
+            # Render the page again with errors instead of causing a 500 error
             return render(request, 'accounts/register.html', {'form': form})
 
     else:
@@ -65,40 +66,26 @@ def register(request):
 
 @login_required
 def update_profile(request):
-    """Allows users to update their profile information including wishlist."""
+    """Allows users to update their profile information."""
     customer = request.user.customer
+    form = CustomerProfileForm(request.POST or None, instance=customer)
 
-    if request.method == 'POST':
-        form = CustomerProfileForm(request.POST, instance=customer)
-        if form.is_valid():
-            wishlist_products = form.cleaned_data.get('wishlist')
-            customer.wishlist.set(wishlist_products)
-            form.save()
-            messages.success(
-                request, "Your profile has been updated successfully!"
-                )
-            return redirect('profile')
-    else:
-        form = CustomerProfileForm(instance=customer)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('profile')
 
     return render(request, 'accounts/update_profile.html', {'form': form})
 
 
 @login_required
 def profile(request):
-    """Displays the user's profile, order history, and wishlist."""
-    customer = request.user.customer
+    """Displays the user's profile and order history."""
     orders = (
         Order.objects.filter(user=request.user)
         .exclude(status="PENDING")
         .order_by('-created_at')
     )
-    wishlist_items = customer.wishlist.all()
-
-    return render(request, 'accounts/profile.html', {
-        'orders': orders,
-        'wishlist_items': wishlist_items
-    })
+    return render(request, 'accounts/profile.html', {'orders': orders})
 
 
 @login_required

@@ -36,13 +36,13 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
                 <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
                 <span id="quantity-{{ product.id }}">1</span>
                 <button class="custom-btn-primary" type="button" onclick="increment('{{ product.id }}')">+</button>
-            
+
                 <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
                 <button type="button" class="custom-btn-primary add-to-bag-btn" data-product-id="{{ product.id }}">
                     Add to Bag
                 </button>
             </form>
-            <br>
+            
             <button onclick="history.back()" class="btn custom-btn-primary">Go Back</button>
         </div>
     </div>
