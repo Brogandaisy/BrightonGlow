@@ -27,7 +27,7 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                     {% endfor %}
                 </select>
             </form>
-            <form method="GET" action="" class="text-center mt-3">
+            <form method="GET" action="" class="text-center mt-3" aria-label="search bar for products">
                 <input type="text" name="search" class="form-control w-50 mx-auto" 
                        placeholder="Search for products..." value="{{ request.GET.search }}">
                 <button type="submit" class="custom-btn-primary mt-2">Search</button>

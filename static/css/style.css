@@ -357,10 +357,6 @@ img {
   .footer button:hover {
     background-color: #ddb892;
   }
-
-  .footer {
-    color: #DDB892 !important;
-  }
   
   body {
     display: flex;
