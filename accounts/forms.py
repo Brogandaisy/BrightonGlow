@@ -13,8 +13,22 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomerProfileForm(forms.ModelForm):
+    SKIN_TYPES = [
+        ('Oily', 'Oily'),
+        ('Dry', 'Dry'),
+        ('Combination', 'Combination'),
+        ('Sensitive', 'Sensitive'),
+        ('Normal', 'Normal'),
+    ]
+
+    skin_type = forms.ChoiceField(
+        choices=SKIN_TYPES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
+
     class Meta:
         model = Customer
         fields = ['full_name', 'phone', 'email', 'address_line1',
-                  'address_county', 'address_country', 'address_postcode'
-                  ]
+                  'address_county', 'address_country', 'address_postcode',
+                  'skin_type']

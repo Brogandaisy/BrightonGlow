@@ -13,7 +13,6 @@ class Customer(models.Model):
         validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                    message="Enter a valid phone number.")]
     )
-
     email = models.EmailField(unique=True, blank=True, null=True)
     address_line1 = models.CharField(max_length=255, blank=True, null=True)
     address_county = models.CharField(max_length=255, blank=True, null=True)
@@ -21,10 +20,20 @@ class Customer(models.Model):
     address_postcode = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    SKIN_TYPES = [
+        ('Oily', 'Oily'),
+        ('Dry', 'Dry'),
+        ('Combination', 'Combination'),
+        ('Sensitive', 'Sensitive'),
+        ('Normal', 'Normal'),
+    ]
+    skin_type = models.CharField(
+        max_length=20, choices=SKIN_TYPES, blank=True, null=True
+        )
 
-def __str__(self):
-    return (
-        f"{self.full_name} ({self.user.username})"
-        if self.full_name
-        else self.user.username
-    )
+    def __str__(self):
+        return (
+            f"{self.full_name} ({self.user.username})"
+            if self.full_name
+            else self.user.username
+        )
