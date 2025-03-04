@@ -43,9 +43,11 @@
                       <li><a class="dropdown-item" href="{% url 'products_home' %}">All Products</a></li>
                     </ul>
                 </li>
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-              </ul>
+                </ul>
+                <div class="navbar-nav">
+                <a class="nav-link" href="/about/">About</a>
+                <a class="nav-link" href="/contact/">Contact</a>
+              </div>
             <div class="navbar-nav ms-auto">
               <a href="{% url 'bag_detail' %}" class="nav-link" aria-label="Shopping bag icon">
                   <i class="fa-solid fa-basket-shopping fa-2x" style="color: #7f5539;"></i>
@@ -85,15 +87,15 @@
             <div class="col-md-3 footer-nav">
               <h5>Help</h5>
               <ul class="list-unstyled">
-                <li><a class="footer-link" href="{% url 'contact' %}" class="text-white">Contact Us</a></li>
-                <li><a class="footer-link" href="{% url 'about' %}" class="text-white">About Us</a></li>
+                <li><a class="footer-link" href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a class="footer-link" href="{% url 'about' %}">About Us</a></li>
               </ul>
               <h5>Follow Us</h5>
-                <a href="https://www.facebook.com/brightonglowskincare" class="text-white me-2" aria-label="facebook icon" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.facebook.com/brightonglowskincare" aria-label="facebook icon" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
               <h5>Policies</h5>
-              <a class="footer-link" href="{% url 'privacy_policy' %}" class="text-white">Privacy Policy</a>
+              <a class="footer-link" href="{% url 'privacy_policy' %}">Privacy Policy</a>
               </div>
-              <div class="col-md-5 email-signuptext text-white">
+              <div class="col-md-5 email-signuptext">
                 <h5>Stay Connected</h5>
                 <p>By submitting your email, you agree to be sent emails about the latest Brighton GLOW News. You can unsubscribe at anytime.</p>
               </div>
@@ -126,7 +128,7 @@
           <div class="text-center mt-3">
             <p>&copy; 2025 Brighton Glow. All rights reserved.</p>
           </div>
-          
+
       </footer>
       
     <!-- Toast Notification Container (Top-Right Corner) -->
