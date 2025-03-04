@@ -3,17 +3,18 @@
 [View Live Project](https://brightonglow-a60ca67bc04b.herokuapp.com/)
 
 1. [About the Project](#about-the-project)
-2. [Features](#features)
-3. [Agile Framework and Planning](#Agile-Framework-and-Planning)
-4. [Payments and Stripe Integration](#payments-and-stripe-integration)
-5. [Authentication and User Management](#Authentication-and-User-Management)
-6. [Database and Data Management](#Database-and-Data-Management)
-7. [Deployment](#Deployment)
-8. [Testing](#Testing)
-9. [Bugs & Debugging Process](#Bugs-&-Debugging-Process)
-10. [Marketing & SEO](#Marketing-&-SEO)
-11. [Future Features](#Future-Features)
-12. [References & Credits](#References-&-Credits)
+2. [Agile Framework and Planning](#Agile-Framework-and-Planning)
+3. [Features](#features)
+4. [User Journey] (#user-journey)
+5. [Payments and Stripe Integration](#payments-and-stripe-integration)
+6. [Authentication and User Management](#Authentication-and-User-Management)
+7. [Database and Data Management](#Database-and-Data-Management)
+8. [Deployment](#Deployment)
+9. [Testing](#Testing)
+10. [Bugs & Debugging Process](#Bugs-&-Debugging-Process)
+11. [Marketing & SEO](#Marketing-&-SEO)
+12. [Future Features](#Future-Features)
+13. [References & Credits](#References-&-Credits)
 
 ## About Brighton Glow
 Brighton Glow is an online skincare website offering a curated selection of skincare products, inspired by the fresh and natural vibe of Brighton. Their goal is to make it easy for people to find skincare products that help them feel confident and look their best. They believe in keeping things simple and accessible, offering products that fit into your everyday routine and leave your skin glowing.
@@ -60,6 +61,84 @@ The overall design is intentional and refined, combining subtle details with a c
 #### Colour Pallette
 Colour pallette used for Brighton GLOW, created by Coolers.co website
 ![BrightonGLOW Colour Pallette](/static/images/readme/bgcolours.png)
+
+# Agile Framework and Planning
+
+To manage my project efficiently, I implemented an Agile development process using GitHub Projects and Issues.
+
+- User Stories & Acceptance Criteria: Each functionality was broken down into User Stories, ensuring clear objectives and usability.
+
+- Prioritisation: Stories were assigned labels such as "Must Have", "Should Have", and "Nice to Have" to focus on the most crucial features first.
+
+- Kanban Workflow: I created a 3-stage board:
+To Do – Newly created tasks.
+In Progress – Actively being developed.
+Done – Completed and tested tasks.
+
+- Automated Tracking: When a new issue was linked to the Brighton Glow Project, it automatically moved into the To Do section. As work progressed, I manually updated its status.
+
+### Examples of User Stories:
+
+##### Front-End: Checkout (Must Have)
+As a user, I want to pay for my selected items so that I can complete my purchase.
+
+Acceptance Criteria:
+
+A checkout page displays a summary of the shopping bag and a form for entering payment and shipping details.
+Payments are processed securely using Stripe, and the user is shown a confirmation message upon success.
+
+##### Front-End: User Authentication (Must Have)
+User Authentication
+As a user, I want to create an account and log in.
+
+Acceptance Criteria:
+
+Registration and login pages are functional and validate user input.
+Logged-in users see a logout button in the navigation bar.
+
+![BrightonGLOW Agile Planning Examples](/static/images/readme/bgagileplanning.png)
+
+## Wireframes
+
+# User Journey
+
+## User Registration & Profile Setup
+- Users register for an account by providing a username, email, and password.
+- Helpful alerts guide users through password requirements and notify them of any errors, such as duplicate email addresses.
+- Upon successful registration, users are redirected to their profile page, where they can update personal details, including their full name, email, and address.
+
+![BrightonGLOW User Journey](/static/images/readme/bguserjourney.png)
+
+## Browsing & Shopping Experience
+- Users can browse the store through various filters: categories, search bar, or skin type selection.
+- Products can be added to the shopping bag, with the option to increase or decrease quantities, remove items, or continue shopping.
+- Pop up alerts will show when an item is added to the shopping bag, showing the item detail and a link to view the bag.
+
+## Checkout & Payment
+- When the user proceeds to checkout, the user is directed to a secure stripe payment display.
+- The email address auto-fills for logged-in users.
+- The order summary displays selected products, total price, and shipping fees.
+- Users enter their shipping details and card information and processes through secure payment.
+
+![BrightonGLOW User Journey](/static/images/readme/bguserjourney1.png)
+
+## Order Confirmation & Management
+- After payment is approved, users receive are directed to display an order confirmation listing their order ID, item details, and a success message.
+- Users will also recieve an email with their order details included.
+- The shopping bag automatically clears, and users can choose to return to their profile to view their orders or go back to the homepage.
+
+## Order Tracking & Admin Updates
+- Users can track their order history and order status within their profile.
+- Admins, staff, or superusers can update the order status on the backend admin panel, which is reflected in the user’s profile (e.g., Processing, Shipped, Delivered).
+
+![BrightonGLOW User Journey](/static/images/readme/bguserjourney3.png)
+
+## Order Cancellations & Guest Checkout
+- If a user starts checkout but presses back after entering card details or exits Stripe, the order is automatically marked as cancelled.
+- However, if the user simply deletes items from their shopping bag, no order is recorded.
+- Cancelled orders remain visible in the profile to confirm no payment was processed.
+- Users can continue making purchases, with each new order appearing in their profile.
+- Guest checkout is available, but orders will not be saved to an account.
 
 # Features
 
@@ -243,45 +322,7 @@ I used Bootstrap throughout the project to create a responsive, structured, and 
 
 #### Example: Bootstrap Modal for Order Details
 
-![BrightonGLOW Logged in User Order Details](/static/images/readme/bgordermodal.png)
-
-# Agile Framework and Planning
-
-To manage my project efficiently, I implemented an Agile development process using GitHub Projects and Issues.
-
-- User Stories & Acceptance Criteria: Each functionality was broken down into User Stories, ensuring clear objectives and usability.
-
-- Prioritisation: Stories were assigned labels such as "Must Have", "Should Have", and "Nice to Have" to focus on the most crucial features first.
-
-- Kanban Workflow: I created a 3-stage board:
-To Do – Newly created tasks.
-In Progress – Actively being developed.
-Done – Completed and tested tasks.
-
-- Automated Tracking: When a new issue was linked to the Brighton Glow Project, it automatically moved into the To Do section. As work progressed, I manually updated its status.
-
-### Examples of User Stories:
-
-##### Front-End: Checkout (Must Have)
-As a user, I want to pay for my selected items so that I can complete my purchase.
-
-Acceptance Criteria:
-
-A checkout page displays a summary of the shopping bag and a form for entering payment and shipping details.
-Payments are processed securely using Stripe, and the user is shown a confirmation message upon success.
-
-##### Front-End: User Authentication (Must Have)
-User Authentication
-As a user, I want to create an account and log in.
-
-Acceptance Criteria:
-
-Registration and login pages are functional and validate user input.
-Logged-in users see a logout button in the navigation bar.
-
-![BrightonGLOW Agile Planning Examples](/static/images/readme/bgagileplanning.png)
-
-## Wireframes 
+![BrightonGLOW Logged in User Order Details](/static/images/readme/bgordermodal.png) 
 
 # Payments and Stripe Integration
 
@@ -421,6 +462,10 @@ If any issues occurred, I used Heroku logs to debug errors and ensure my app was
 
 # Marketing and SEO
 
+To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
+
+![BrightonGLOW Agile Planning Examples](/static/images/readme/bgmarketing.png)
+
 For SEO and metadata implementation, I integrated dynamic meta tags within my Django templates to enhance search engine visibility and improve user engagement. In base.html, I set up core keywords and a meta description that apply to every page. Additionally, I used block super in specific templates to extend and customise metadata for each product while keeping essential branding terms consistent. This ensures search engines recognise unique, relevant keywords for each page while maintaining a strong brand identity.
 
 To determine the best SEO keywords, I conducted market research on competing skincare brands, analysing their product descriptions and common search terms. I then curated a list of high-ranking, relevant keywords that align with Brighton GLOW’s products and target audience, ensuring better discoverability on search engines.
@@ -446,7 +491,69 @@ Newsletter Email Sign-Up (Mailchimp)
 To maximise email sign-ups, I integrated Mailchimp by creating a subscription form directly on Mailchimp and embedding the provided code into the footer of my website. This ensures users can sign up from any page, increasing engagement. Mailchimp automatically stores and manages subscriber data while ensuring compliance with GDPR and email marketing regulations.
 
 ### Privacy Policy for GDPR Compliance
-To comply with GDPR regulations, I created a Privacy Policy, which is accessible as a downloadable PDF from the website footer. This document outlines how user data is collected, stored, and used, ensuring transparency and building trust with customers.
+To comply with GDPR regulations, I created a Privacy Policy, which is accessible as a page on the website from the website footer or downloadable as a PDF. This document outlines how user data is collected, stored, and used, ensuring transparency and building trust with customers.
 
 ### Robots.txt & Sitemap
-I have set up a robots.txt file to manage how search engines crawl my website. This file helps prevent irrelevant or sensitive pages from being indexed. Additionally, I have created a sitemap to ensure all important pages are easily discoverable by search engines, improving site ranking.
+I have successfully set up a robots.txt file to control how search engines crawl my website. This helps prevent irrelevant or sensitive pages, such as the admin panel, user profiles, and checkout pages, from being indexed while ensuring that essential content remains accessible to search engines.
+
+Additionally, I have created and linked a sitemap to Google Search Console, ensuring that all important pages are easily discoverable and indexed. By submitting the sitemap, I have improved the site's SEO visibility and made it easier for Google to crawl and understand the structure of my website.
+
+## Marketing Strategy 
+
+Brighton Glow is a modern, accessible, and premium skincare brand inspired by Brighton’s fresh, natural vibe. It focuses on effortless skincare solutions for those who want a simple yet effective routine.
+
+### Target Audience
+Skincare enthusiasts seeking high-quality yet simple products, individuals looking for inclusive, accessible skincare. Online shoppers who appreciate minimalist aesthetics & curated selections and gift buyers looking for thoughtful, premium skincare sets. Age ranges between 20 - 60, female led.
+
+### Marketing Channels
+
+#### Social Media (Facebook, Instagram, TikTok, Pinterest)
+- Aesthetic content: Minimalist product shots, skin glow transformations, and "before & after" comparisons
+- Educational posts: Skincare tips, ingredient spotlights, and routine guides
+- UGC & Influencer Partnerships: Work with micro-influencers & skincare lovers to showcase real results
+- Seasonal & Trend-Based Content: Leverage skincare trends (e.g., "glass skin," "skin cycling")
+
+### Email Marketing and Retargeting
+
+- Welcome series for new customers with special promotions & skincare routine suggestions
+- Abandoned checkout or shopping bag emails with a soft nudge (e.g., "Your bag is waiting for you") This can be used with Klavyio or a similar programme. 
+- Exclusive VIP offers for registered users & repeat customers
+- Seasonal promotions (summer glow sets, winter hydration kits)
+
+### SEO Improvements
+
+- Blog posts & guides (e.g., "The Best Moisturiser for Your Skin Type") to improve organic search visibility
+
+### Community and Brand Loyalty
+
+- Create a "Glow Club" for exclusive perks, discounts, and early access
+- Encourage customer reviews & testimonials on the website and social media
+- Run monthly giveaways & challenges to boost engagement
+
+### Collabs and Partnerships
+
+- Local Brighton-based influencers & creators for brand credibility
+- Partner with eco-conscious & self-care brands for bundle offers
+- Feature guest skincare experts for Q&A sessions
+
+# Future Features
+
+In the future it would be great to add the following features: 
+
+- Templated emails for a better user experience, to include branding, CTA promotions and latest products. (For registered users and order confirmations)
+- Blog Section: A dedicated skincare blog featuring expert advice, product recommendations, and skincare routines to increase engagement, boost SEO, and drive organic traffic.
+- Customer Reviews: A review system allowing customers to leave feedback and ratings on products, improving credibility, trust, and conversions.
+- Subscription Service: A personalised subscription model offering customers monthly skincare boxes or repeat delivery options, ensuring convenience and brand loyalty.
+- Marketing Retargeting: Implementing abandoned shopping bag emails and alerts to remind users about incomplete purchases, increasing sales conversions.
+
+These features will help build customer relationships, improve retention, and enhance the overall shopping experience.
+
+
+
+
+
+
+
+
+
+
