@@ -122,10 +122,22 @@ body {
     margin-top: 10px;
 }
 
+.custom-toast:focus, 
+.custom-toast:hover {
+  color: #7F5539;
+  background-color: #DDB892;
+}
+
 .link-nobutton {
     font-family: "Comfortaa", serif;
     color: #7F5539;
     text-decoration: none;
+}
+
+.toast-body {
+    font-family: "Comfortaa", serif;    
+    font-weight: 200;
+    font-style: normal;
 }
 
 /* ------------------------------------------------------------------- Image Styling */
