@@ -509,7 +509,7 @@ CSS Validation: Ensured my styles were correctly applied and followed best pract
 To ensure Brighton GLOW meets accessibility standards, I ran my pages through WAVE Web Accessibility Evaluation Tool and Lighthouse’s accessibility testing.
 
 - Ensured all form fields included aria-labels and semantic HTML elements to improve screen reader accessibility.
-- Contrast levels were showing low for the product cards, I improved many areas to get this score higher. 
+- Contrast levels were showing low for the product cards, I improved many areas to get this score higher, for example changing the product card background to dark brown and font to white.
 - Footer font colours were improved to be better viewed.
 - Images include alt text.
 
@@ -550,16 +550,13 @@ I tested the responsiveness of the website across different screen sizes to ensu
 Desktop Tests 
 ![BrightonGLOW Device Tests](/static/images/readme/bgdesktopdevices.png)
 Mobile Tests 
-![BrightonGLOW Device Tests](/static/images/readme/bgdesktopdevices(1).png)
+![BrightonGLOW Device Tests](/static/images/readme/bgmobiledevices.png)
 
 #### Findings & Fixes
 - Fixed minor layout shifts on mobile pages.
 
 ### Lighthouse Performance Testing
 I ran Lighthouse tests to analyse Performance, SEO, Accessibility, and Best Practices.
-
-- Areas for improvement, compress images to reduce their size and convert them to new gen formats, webp.
-- Bit improvements made for lighthouse scores and WAVE accessability, is the product card background colours and the fonts. The darker brown with white creates a greater contrast.
 
 Desktop Tests | Before and after accessability changes
 ![BrightonGLOW Lighthouse Tests](/static/images/readme/bglighthousetest.png)
@@ -571,8 +568,10 @@ Mobile Tests | Before and after accessability changes
 - Best Practices: Some unused CSS was flagged.
 
 #### Optimisations Made:
-Implemented lazy loading for images to improve page speed.
+Uploaded new compressed images.
+Product card background and font changed to improve accessability, for both lighthouse and wave.
 Removed unused CSS to optimise load time.
+Mobile improvements on new image uploads, for example 'about.html' original score (displayed above) is now 70+ due to a compressed image.
 
 ### Flake8 Python Code Linting
 To maintain clean and error-free Python code, I used Flake8 to check for:
