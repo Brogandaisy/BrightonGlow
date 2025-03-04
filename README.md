@@ -137,6 +137,7 @@ Individual Product Page
 ## Order Tracking & Admin Updates
 - Users can track their order history and order status within their profile.
 - Admins, staff, or superusers can update the order status on the backend admin panel, which is reflected in the user’s profile (e.g., Processing, Shipped, Delivered).
+- Users can update their profile information, as well as update their skin type for personalised promotions in the future.
 
 ![BrightonGLOW User Journey](/static/images/readme/bguserjourney3.png)
 
@@ -269,6 +270,10 @@ I set up Django’s built-in email service using Gmail’s SMTP server by config
 
 #### - Login & Logout: Users can log in to access their profile, order history, and profile information.
 
+#### - Users can update their personal information, including full name, email, address and even their skin type preference. Allowing for customised offers from the shop.
+
+![BrightonGLOW Skin Type Update](/static/images/readme/bgskintype.png)
+
 #### - Role-Based Access: There are two user types: Customers (regular users) and Admin/Staff/Superusers (who can manage products and orders).
 
 #### - Conditional Navbar: The navbar dynamically updates depending on whether the user is logged in or out.
@@ -334,7 +339,7 @@ Logged-in users have full CRUD (Create, Read, Update, Delete) functionality for 
 
 #### Update: Users can edit their account details, adjust product quantities in their shopping bag, and update their shipping information before checkout.
 
-#### Delete: Users can remove items from their shopping bag or request order cancellations (if applicable).
+#### Delete: Users can remove items from their shopping bag.
 
 Only admin users have enhanced privileges, such as adding, editing, or deleting products, managing orders, and accessing the Django admin panel to oversee customer transactions.
 
