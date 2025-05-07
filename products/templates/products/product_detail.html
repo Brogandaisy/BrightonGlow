@@ -46,6 +46,35 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             <button onclick="history.back()" class="btn custom-btn-primary">Go Back</button>
         </div>
     </div>
+    <hr>
+<div class="mt-5">
+  <h3>Leave a Review</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="custom-btn-primary" type="submit">Submit Review</button>
+    </form>
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to leave a review.</p>
+  {% endif %}
+</div>
+
+<hr>
+<div class="mt-5">
+  <h4>Product Reviews</h4>
+  {% for review in reviews %}
+    <div class="mb-3 border rounded p-3">
+      <strong>{{ review.user.username }}</strong> - 
+      <span>⭐ {{ review.rating }}</span>
+      <p>{{ review.comment }}</p>
+      {% if user == review.user %}
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No reviews yet.</p>
+  {% endfor %}
+</div>
 </div>
 <div class="container-fluid text-center py-5 promo-banner">
     <h3>Ready to glow? Shop now & let your skin shine!</h3>

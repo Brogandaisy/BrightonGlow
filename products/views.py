@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
 from .models import SkinType, Product, Category
+from .models import Review
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
 
@@ -17,12 +20,11 @@ def products_home(request):
     if skin_type_id:
         products = products.filter(skin_types__id=skin_type_id)
 
-    # Initialize search_terms before using it
+    # Initialise search_terms before using it
     search_terms = []
     if search_query:
         search_terms = search_query.split()
 
-    # Build a flexible query to match any word in name OR description
     if search_terms:
         search_filters = Q()
         for term in search_terms:
@@ -31,7 +33,7 @@ def products_home(request):
                 Q(description__icontains=term)
             )
 
-        products = products.filter(search_filters)  # Moved outside the loop
+        products = products.filter(search_filters)
 
     skin_types = SkinType.objects.all()
 
@@ -67,11 +69,28 @@ def bag_detail(request):
 
 def product_detail(request, product_id):
     """Displays details of a single product."""
-
     product = get_object_or_404(Product, id=product_id)
-    return render(
-        request, 'products/product_detail.html', {'product': product}
-        )
+    reviews = product.reviews.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
+        """Product review form."""
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+            return redirect('product_detail', product_id=product.id)
+    else:
+        form = ReviewForm()
+
+    return render(request, 'products/product_detail.html', {
+        'product': product,
+        'form': form,
+        'reviews': reviews,
+    })
 
 
 def category_detail(request, category_name):
