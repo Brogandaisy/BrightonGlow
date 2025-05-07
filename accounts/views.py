@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -97,9 +97,12 @@ def view_orders(request):
 
 @login_required
 def delete_account(request):
-    """Allows a logged-in user to delete their account."""
+    """Allows a logged-in user to delete their account and logs them out."""
     if request.method == 'POST':
-        request.user.delete()
+        user = request.user
+        logout(request)  # log the user out before deleting the account
+        user.delete()
         messages.success(request, "Your account has been deleted.")
         return redirect('home')
     return render(request, 'accounts/delete_account.html')
+

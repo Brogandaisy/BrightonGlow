@@ -11,6 +11,7 @@ if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "brightonglow.settings")
     execute_from_command_line(sys.argv)
 
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'brightonglow.settings')
