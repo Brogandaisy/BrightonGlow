@@ -3,15 +3,17 @@
 
 {% block content %}
 <header style="padding-top: 60px;">
-    <div class="container my-5 background-white">
-      <h2 class="text-center mb-4">Delete Your Account</h2>
-      <p class="text-center">Are you sure? This will permanently remove your account and all associated data.</p>
-  
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="custom-btn-primary">Yes, Delete My Account</button>
-    <a href="{% url 'profile' %}" class="custom-btn-primary">Cancel</a>
-  </form>
-</div>
+  <div class="container my-5 background-white">
+    <h2 class="text-center mb-4">Delete Your Account</h2>
+    <p class="text-center">Are you sure? This will permanently remove your account and all associated data.</p>
+
+    <div class="col-md-6 mx-auto text-center mb-4 profile">
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="custom-btn-primary">Yes, Delete My Account</button>
+        <a href="{% url 'profile' %}" class="custom-btn-primary">Cancel</a>
+      </form>
+    </div>
+  </div>
 </header>
 {% endblock %}
