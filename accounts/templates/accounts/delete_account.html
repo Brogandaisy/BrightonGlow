@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Delete My Account{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+  <h2>Delete Your Account</h2>
+  <p class="text-danger">Are you sure? This will permanently remove your account and all associated data.</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

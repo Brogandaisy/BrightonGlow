@@ -93,3 +93,13 @@ def view_orders(request):
     """Shows all orders made by the logged-in user."""
     orders = request.user.customer.order_set.all()
     return render(request, 'accounts/orders.html', {'orders': orders})
+
+
+@login_required
+def delete_account(request):
+    """Allows a logged-in user to delete their account."""
+    if request.method == 'POST':
+        request.user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect('home')
+    return render(request, 'accounts/delete_account.html')
