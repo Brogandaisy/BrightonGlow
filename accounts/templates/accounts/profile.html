@@ -21,7 +21,6 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
         <h4>Your Info</h4>
         <p>Manage your information</p>
         <a href="{% url 'update_profile' %}" class="custom-btn-primary">Update Profile</a>
-        <a href="{% url 'delete_account' %}" class="custom-btn-primary">Delete My Account</a>
     </div>
   </div>
     {% if orders %}
@@ -102,8 +101,8 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
       </div>
   {% endif %}
 </div>
-<div>
-    <a href="{% url 'delete_account' %}" class="btn btn-outline-danger mt-3">Delete My Account</a>
+<div class="col-md-6 mx-auto text-center mb-4 profile">
+    <a href="{% url 'delete_account' %}" class="custom-btn-primary">Delete My Account</a>
 </div>
 </header>
 {% endblock %}

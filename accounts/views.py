@@ -105,4 +105,3 @@ def delete_account(request):
         messages.success(request, "Your account has been deleted.")
         return redirect('home')
     return render(request, 'accounts/delete_account.html')
-
