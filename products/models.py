@@ -25,13 +25,14 @@ class Product(models.Model):
     stock = models.IntegerField(default=0)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=True, blank=True
-        )
+    )
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def average_rating(self):
-        avg = self.reviews.aggregate(avg_rating=Avg('rating'))['avg_rating']
-        return round(avg, 1) if avg else 0
+        result = self.reviews.aggregate(avg=Avg('rating'))['avg']
+        return round(
+            result, 1) if result else None  # return None if no reviews
 
     def __str__(self):
         return self.name
@@ -40,13 +41,11 @@ class Product(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='reviews'
-        )
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField(
-        choices=[(i, i) for i in range(1, 6)]
-        )  # 1 to 5 stars
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username}'s review on {self.product.name}"
+        return f"{self.user.username}'s review of {self.product.name}"

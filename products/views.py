@@ -68,21 +68,23 @@ def bag_detail(request):
 
 
 def product_detail(request, product_id):
-    """Displays all the details for a single product"""
-    product = get_object_or_404(Product, id=product_id)
-    reviews = product.reviews.select_related('user').all()
-    form = ReviewForm(request.POST or None)
+    product = get_object_or_404(Product, pk=product_id)
+    reviews = Review.objects.filter(product=product)
 
-    if request.method == 'POST' and form.is_valid():
-        review = form.save(commit=False)
-        review.product = product
-        review.user = request.user
-        review.save()
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            review.save()
+    else:
+        form = ReviewForm()
 
     return render(request, 'products/product_detail.html', {
         'product': product,
         'reviews': reviews,
-        'form': form,
+        'form': form
     })
 
 
