@@ -23,7 +23,7 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
         <!-- Details Column -->
         <div class="col-md-6 product-detail">
             <h1>{{ product.name }}</h1>
-            {% with avg=product.average_rating %}
+            {% with avg=product.average_rating() %}
             {% if avg %}
             <p>⭐ {{ avg }} out of 5</p>
             {% else %}
