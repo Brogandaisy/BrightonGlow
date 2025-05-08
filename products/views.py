@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from bag.bag import Bag
-from .models import SkinType, Product, Category
-from .models import Review
+from .models import SkinType, Product, Category, Review
 from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -69,28 +68,21 @@ def bag_detail(request):
 
 
 def product_detail(request, product_id):
-    """Displays details of a single product."""
+    """Displays all the details for a single product"""
     product = get_object_or_404(Product, id=product_id)
-    reviews = product.reviews.all().order_by('-created_at')
+    reviews = product.reviews.select_related('user').all()
+    form = ReviewForm(request.POST or None)
 
-    if request.method == 'POST':
-        if not request.user.is_authenticated:
-            return redirect('login')
-        """Product review form."""
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.product = product
-            review.user = request.user
-            review.save()
-            return redirect('product_detail', product_id=product.id)
-    else:
-        form = ReviewForm()
+    if request.method == 'POST' and form.is_valid():
+        review = form.save(commit=False)
+        review.product = product
+        review.user = request.user
+        review.save()
 
     return render(request, 'products/product_detail.html', {
         'product': product,
-        'form': form,
         'reviews': reviews,
+        'form': form,
     })
 
 
