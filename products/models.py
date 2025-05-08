@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 
 
@@ -27,6 +28,10 @@ class Product(models.Model):
         )
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def average_rating(self):
+        avg = self.reviews.aggregate(Avg('rating'))['rating_avg']
+        return round(avg, 1) if avg else 0
 
     def __str__(self):
         return self.name
