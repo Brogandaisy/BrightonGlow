@@ -27,6 +27,7 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             {% with avg=product.average_rating %}
                 {% if avg %}
                     <p>⭐ {{ avg }} out of 5</p>
+                    <p><a href="#reviews">Read all reviews</a></p>
                 {% else %}
                     <p>No ratings yet.</p>
                 {% endif %}
@@ -57,7 +58,7 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
         </div>
     </div>
 
-<div class="mt-5">
+<div class="mt-5" id="reviews">
   <h4>Product Reviews</h4>
   {% for review in reviews %}
     <div class="mb-3 border rounded p-3">
