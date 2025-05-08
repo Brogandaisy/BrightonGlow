@@ -50,10 +50,10 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                         {% with avg=product.average_rating %}
                             {% if avg %}
                                 <p>⭐ {{ avg }} out of 5</p>
-                                <p><a href="{% url 'product_detail' product.id %}#reviews">Read all reviews</a></p>
+                                <p><a href="{% url 'product_detail' product.id %}#reviews" class="review-p">Read all reviews</a></p>
                             {% else %}
                                 <p>No ratings yet.</p>
-                                <p><a href="{% url 'product_detail' product.id %}#reviews">Leave a review</a></p>
+                                <p><a href="{% url 'product_detail' product.id %}#reviews" class="review-p">Leave a review</a></p>
                             {% endif %}
                         {% endwith %}
                         
