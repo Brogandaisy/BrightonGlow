@@ -54,13 +54,18 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
       <strong>{{ review.user.username }}</strong> - 
       <span>⭐ {{ review.rating }}</span>
       <p>{{ review.comment }}</p>
+
       {% if user == review.user %}
+        <a href="{% url 'edit_review' review.id %}" class="btn-sm custom-btn-primary">Edit</a>
+        <a href="{% url 'delete_review' review.id %}" class="btn-sm custom-btn-primary">Delete</a>
       {% endif %}
+
     </div>
   {% empty %}
     <p>No reviews yet.</p>
   {% endfor %}
 </div>
+
 <div class="mt-5">
     <h3>Leave a Review</h3>
     {% if user.is_authenticated %}
