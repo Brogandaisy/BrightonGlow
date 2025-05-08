@@ -3,6 +3,7 @@ from bag.bag import Bag
 from .models import SkinType, Product, Category
 from .models import Review
 from .forms import ReviewForm
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
@@ -103,3 +104,39 @@ def category_detail(request, category_name):
         'category': category,
         'products': products
     })
+
+
+@login_required
+def edit_review(request, product_id, review_id):
+    review = get_object_or_404(Review, id=review_id, product_id=product_id)
+
+    if request.user != review.user:
+        messages.error(request, "You can only edit your own reviews.")
+        return redirect('product_detail', product_id=product_id)
+
+    form = ReviewForm(request.POST or None, instance=review)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, "Review updated successfully.")
+        return redirect('product_detail', product_id=product_id)
+
+    return render(
+        request, 'products/edit_review.html',
+        {'form': form, 'product': review.product})
+
+
+@login_required
+def delete_review(request, product_id, review_id):
+    review = get_object_or_404(Review, id=review_id, product_id=product_id)
+
+    if request.user != review.user:
+        messages.error(request, "You can only delete your own reviews.")
+        return redirect('product_detail', product_id=product_id)
+
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, "Review deleted successfully.")
+        return redirect('product_detail', product_id=product_id)
+
+    return render(
+        request, 'products/delete_review.html', {'review': review})

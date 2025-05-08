@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Delete Review{% endblock %}
+{% block content %}
+<div class="container my-5 background-white text-center">
+  <h3>Are you sure you want to delete your review?</h3>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="custom-btn-primary">Yes, delete</button>
+    <a href="{% url 'product_detail' review.product.id %}" class="custom-btn-primary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
