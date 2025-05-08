@@ -45,9 +45,21 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
                     </a>
                     <div class="product-detail card-body text-center">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text"><strong>£{{ product.price }}</strong></p>
+                    <h5 class="card-title">{{ product.name }}</h5>
+
+                        {% with avg=product.average_rating %}
+                            {% if avg %}
+                                <p>⭐ {{ avg }} out of 5</p>
+                                <p><a href="{% url 'product_detail' product.id %}#reviews">Read all reviews</a></p>
+                            {% else %}
+                                <p>No ratings yet.</p>
+                                <p><a href="{% url 'product_detail' product.id %}#reviews">Leave a review</a></p>
+                            {% endif %}
+                        {% endwith %}
+                        
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>£{{ product.price }}</strong></p>
+                         
                         <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                             {% csrf_token %}
                             <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
