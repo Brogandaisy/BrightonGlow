@@ -13,6 +13,12 @@ h1, h2, h3, h4, h5 {
     color: #7F5539;
 }
 
+li {
+    font-family: "Comfortaa", serif;
+    font-weight: 200;
+    color: #7F5539;
+}
+
 body {
     background-color: #DDB892;
 }

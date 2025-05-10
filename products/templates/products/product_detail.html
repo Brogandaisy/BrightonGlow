@@ -42,7 +42,8 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
-            <p>Earn {{ product.loyalty_points }} GLOW points with this product.</p>
+            <br>
+            <p><strong>Earn {{ product.loyalty_points }} GLOW points with this product.</strong></p>
             <p>Find out more on our <a href="{% url 'about' %}#loyalty">GLOW points loyalty programme</a>, and what they mean!</p>
             <!-- Add to Bag form -->
             <form class="add-to-bag-form" data-product-id="{{ product.id }}">
