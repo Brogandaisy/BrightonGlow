@@ -43,10 +43,6 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
-            {% if product.price %}
-            <p>Earn {{ product.price|calculate_points }} points</p>
-            {% else %}
-            <p>Earn 0 points</p>
             {% endif %}
                       <!-- Add to Bag form -->
             <form class="add-to-bag-form" data-product-id="{{ product.id }}">
