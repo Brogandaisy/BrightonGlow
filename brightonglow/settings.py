@@ -22,7 +22,7 @@ pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- SECURITY SETTINGS ---
-DEBUG = False 
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'brightonglow-a60ca67bc04b.herokuapp.com',
