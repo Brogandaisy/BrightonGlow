@@ -170,7 +170,7 @@ else:
 # --- EMAIL CONFIGURATION ---
 if os.getenv('DEVELOPMENT') == 'True':
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'brightonglowskincare@gmail.com'
+    DEFAULT_FROM_EMAIL = 'brogandaisy@gmail.com'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
