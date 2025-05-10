@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',  # AWS S3 Storage
     'accounts',
-    'products.apps.ProductsConfig',
+    'products',
     'orders',
     'payments',
     'bag',

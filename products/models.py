@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Avg
 from django.contrib.auth.models import User
+from decimal import Decimal, InvalidOperation
 
 
 class Category(models.Model):
@@ -31,8 +32,14 @@ class Product(models.Model):
 
     def average_rating(self):
         result = self.reviews.aggregate(avg=Avg('rating'))['avg']
-        return round(
-            result, 1) if result else None  # return None if no reviews
+        return round(result, 1) if result else None
+
+    @property
+    def loyalty_points(self):
+        try:
+            return int(Decimal(self.price)) // 10
+        except (InvalidOperation, ValueError, TypeError):
+            return 0
 
     def __str__(self):
         return self.name

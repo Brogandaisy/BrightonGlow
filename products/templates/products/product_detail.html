@@ -1,4 +1,3 @@
-{% load product_extras %}
 {% extends 'base.html' %}
 {% load static %}
 
@@ -43,6 +42,7 @@ Infused with natural ingredients for deep hydration, lasting glow, and effortles
             </p>
             <p>{{ product.description }}</p>    
             <p><strong>£{{ product.price }}</strong></p>
+            <p>Earn {{ product.loyalty_points }} points</p>
                       <!-- Add to Bag form -->
             <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                 {% csrf_token %}
