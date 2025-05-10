@@ -146,7 +146,7 @@ def webhook(request):
                         f"Total: £{order.total_price:.2f}\n\n"
                         f"Your order is now being processed.\n"
                         f"Thank you for shopping with us at Brighton GLOW! ✨",
-                        'brightonglowskincare@gmail.com',
+                        'brogandaisy@gmail.com',
                         [customer_email],
                         fail_silently=False,
                     )

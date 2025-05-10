@@ -36,7 +36,7 @@ def register(request):
                     'Welcome to BrightonGlow!',
                     'Thank you for registering!',
                     'Visit our website to explore our full range of skincare!',
-                    'brightonglowskincare@gmail.com',
+                    'brogandaisy@gmail.com',
                     [email],
                     fail_silently=False,
                 )
