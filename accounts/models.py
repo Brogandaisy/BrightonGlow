@@ -31,6 +31,8 @@ class Customer(models.Model):
         max_length=20, choices=SKIN_TYPES, blank=True, null=True
     )
 
+    loyalty_points = models.IntegerField(default=0)
+
     def __str__(self):
         return (
             f"{self.full_name} ({self.user.username})"

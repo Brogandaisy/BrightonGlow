@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order, OrderItem
 from bag.bag import Bag
 from django.core.mail import send_mail
+from accounts.models import Customer
+
 
 # Set Stripe API key
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -103,6 +105,18 @@ def webhook(request):
                     order = Order.objects.get(id=order_id)
                     order.status = "PAID"
 
+                    if order.user:
+                        try:
+                            customer = Customer.objects.get(user=order.user)
+                            points_earned = int(order.total_price // 10)
+                            customer.loyalty_points += points_earned
+                            customer.save()
+                            print(
+                                f"Added {points_earned} loyalty points to "
+                                f"{order.user.username}"
+                                )
+                        except Customer.DoesNotExist:
+                            print("No customer profile found for this user")
                     if customer_email:
                         order.email = customer_email
 
