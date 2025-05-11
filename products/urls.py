@@ -2,6 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+        path(
+        'skin-quiz/',
+        views.skin_quiz,
+        name='skin_quiz'),
     path(
         'products/', views.products_home, name='products_home'
     ),
@@ -27,10 +31,6 @@ urlpatterns = [
         'products/<int:product_id>/review/<int:review_id>/edit/',
         views.edit_review,
         name='edit_review'),
-    path(
-        'skin-quiz/',
-        views.skin_quiz,
-        name='skin_quiz'),
     path(
         'products/<int:product_id>/review/<int:review_id>/delete/',
         views.delete_review,
