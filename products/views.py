@@ -147,8 +147,17 @@ def skin_quiz(request):
                 form.cleaned_data['q2'],
                 form.cleaned_data['q3'],
             ]
-            skin_type = Counter(answers).most_common(1)[0][0]
-            return redirect(f'/products/?skin_type={skin_type}')
+
+            dominant = Counter(answers).most_common(1)[0][0]
+
+            redirect_map = {
+                'acne': '/products/products/?skin_type=2',
+                'dry': '/products/products/?skin_type=1',
+                'sensitive': '/products/products/?skin_type=4',
+                'ageing': '/products/category/Serums/',
+            }
+
+            return redirect(redirect_map.get(dominant, '/products/products/'))
     else:
         form = SkinQuizForm()
 

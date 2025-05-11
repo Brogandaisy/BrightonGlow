@@ -28,8 +28,11 @@ urlpatterns = [
         views.edit_review,
         name='edit_review'),
     path(
+        'skin-quiz/',
+        views.skin_quiz,
+        name='skin_quiz'),
+    path(
         'products/<int:product_id>/review/<int:review_id>/delete/',
         views.delete_review,
         name='delete_review'),
-    path('skinquiz/', views.skin_quiz, name='skin_quiz'),
 ]

@@ -16,6 +16,21 @@ SKIN_TYPES = [
     ('acne', 'Acne-prone'),
     ('dry', 'Dry'),
     ('sensitive', 'Sensitive'),
+    ('ageing', 'Ageing'),
+]
+
+SKIN_CONCERNS = [
+    ('acne', 'Spots or Acne'),
+    ('dry', 'Dry Skin'),
+    ('sensitive', 'Sensitive Skin'),
+    ('ageing', 'Ageing or Fine Lines'),
+]
+
+SKIN_FEEL = [
+    ('acne', 'Oily'),
+    ('dry', 'Dry or Tight'),
+    ('sensitive', 'Red, or Sore'),
+    ('normal', 'Normal'),
 ]
 
 
@@ -27,11 +42,11 @@ class SkinQuizForm(forms.Form):
     )
     q2 = forms.ChoiceField(
         label="What’s your biggest skin concern?",
-        choices=SKIN_TYPES,
+        choices=SKIN_CONCERNS,
         widget=forms.RadioSelect
     )
     q3 = forms.ChoiceField(
         label="How does your skin feel after cleansing?",
-        choices=SKIN_TYPES,
+        choices=SKIN_FEEL,
         widget=forms.RadioSelect
     )
