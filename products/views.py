@@ -4,6 +4,8 @@ from .models import SkinType, Product, Category, Review
 from .forms import ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import SkinQuizForm
+from collections import Counter
 
 from django.db.models import Q
 
@@ -134,3 +136,20 @@ def delete_review(request, product_id, review_id):
 
     return render(
         request, 'products/delete_review.html', {'review': review})
+
+
+def skin_quiz(request):
+    if request.method == 'POST':
+        form = SkinQuizForm(request.POST)
+        if form.is_valid():
+            answers = [
+                form.cleaned_data['q1'],
+                form.cleaned_data['q2'],
+                form.cleaned_data['q3'],
+            ]
+            skin_type = Counter(answers).most_common(1)[0][0]
+            return redirect(f'/products/?skin_type={skin_type}')
+    else:
+        form = SkinQuizForm()
+
+    return render(request, 'products/skin_quiz.html', {'form': form})

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<header style="padding-top: 60px;">
+<div class="container py-5">
+  <h2>Find Your Perfect Skincare Match</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="custom-btn-primary" type="submit">Get Recommendations</button>
+  </form>
+</div>
+</header>
+{% endblock %}

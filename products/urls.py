@@ -31,4 +31,5 @@ urlpatterns = [
         'products/<int:product_id>/review/<int:review_id>/delete/',
         views.delete_review,
         name='delete_review'),
+    path('skinquiz/', views.skin_quiz, name='skin_quiz'),
 ]
