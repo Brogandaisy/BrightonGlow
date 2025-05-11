@@ -333,8 +333,16 @@ img {
 
 /* ---------------------------------------------------------------------- Skin Quiz */
 
-.skin-quiz {
-    font-family: "Comfortaa", serif;
+form.skin-quiz-form input[type="radio"] {
+    accent-color: #7F5539; 
+    margin-right: 8px;
+}
+
+form.skin-quiz-form label {
+    color: #7F5539;
+    font-family: "Comfortaa", serif;    
+    font-weight: 200;
+    font-style: normal;
 }
 
 /* ---------------------------------------------------------------------- Footer */

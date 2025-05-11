@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<header style="padding-top: 80px; padding-bottom: 30px">
+<header style="padding-top: 100px; padding-bottom: 30px">
 <div class="container py-5 background-white skin-quiz">
   <h2>Find Your Perfect Brighton GLOW Skincare Match</h2>
-  <form method="post">
+  <form method="post" class="skin-quiz-form">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="custom-btn-primary" type="submit">Get Recommendations</button>
