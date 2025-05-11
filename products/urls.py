@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-        path(
+    path(
         'skin-quiz/',
         views.skin_quiz,
         name='skin_quiz'),
