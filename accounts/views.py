@@ -85,7 +85,17 @@ def profile(request):
         .exclude(status="PENDING")
         .order_by('-created_at')
     )
-    return render(request, 'accounts/profile.html', {'orders': orders})
+    
+    customer = getattr(request.user, "customer", None)
+
+    return render(
+        request,
+        'accounts/profile.html',
+        {
+            'orders': orders,
+            'customer': customer
+        }
+    )
 
 
 @login_required
