@@ -4,8 +4,7 @@ from .models import Customer
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = (
-        'user', 'full_name', 'email', 'phone', 'skin_type', 'created_at'
-    )
-    list_filter = ('skin_type', 'address_country', 'created_at')
-    search_fields = ('user__username', 'email', 'full_name', 'phone')
+    list_display = ('user', 'full_name', 'email',
+                    'loyalty_points', 'skin_type')
+    list_editable = ('loyalty_points',)
+    search_fields = ('user__username', 'email', 'full_name')

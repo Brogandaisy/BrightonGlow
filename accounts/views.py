@@ -85,7 +85,7 @@ def profile(request):
         .exclude(status="PENDING")
         .order_by('-created_at')
     )
-    
+
     customer = getattr(request.user, "customer", None)
 
     return render(
