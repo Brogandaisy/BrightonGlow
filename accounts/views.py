@@ -85,7 +85,11 @@ def profile(request):
         .exclude(status="PENDING")
         .order_by('-created_at')
     )
-    return render(request, 'accounts/profile.html', {'orders': orders})
+    customer = request.user.customer
+    return render(request, 'accounts/profile.html', {
+        'orders': orders,
+        'customer': customer,
+    })
 
 
 @login_required

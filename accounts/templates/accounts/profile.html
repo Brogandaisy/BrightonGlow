@@ -23,7 +23,7 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
         <a href="{% url 'update_profile' %}" class="custom-btn-primary">Update Profile</a>
         <br>
         <br>
-        <p><strong>Your GLOW Points:</strong> {{ request.user.customer.loyalty_points }}</p>
+        <p><strong>Your GLOW Loyalty Points:</strong> {{ customer.loyalty_points }}</p>
         <p>Find out more on our <a href="{% url 'about' %}#loyalty">GLOW points loyalty programme</a>, and what they mean!</p>
     </div>
   </div>
