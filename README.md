@@ -236,10 +236,37 @@ The Profile view function retrieves and displays the user's profile and order hi
           orders = Order.objects.filter(user=request.user).exclude(status="PENDING").order_by('-  created_at')
           return render(request, 'accounts/profile.html', {'orders': orders})
 
+#### - Brighton GLOW includes a custom-built Loyalty Points System to reward customers for every purchase.
+
+Earning Points:
+- Customers earn 1 GLOW Point for every £10 spent on successful orders.
+- When a Stripe payment is confirmed (checkout.session.completed), the order is marked as PAID and points are awarded.
+- points_earned = int(order.total_price // 10)
+
+Customer Points:
+- Points are saved to the user’s profile in the Customer.loyalty_points field.
+- Customers can view their current points on their profile page after logging in.
+- {{ customer.loyalty_points }}
+
+Point Displays:
+- Admin users can adjust points manually through the Django admin panel, via the Customer model.
+- Each product displays how many points it earns
+- Earn {{ product.price|calculate_points }} points
+
+Having a point scheme on an e-commerce site can enhance sales, increase spend and make a fun and enjoyable shopping experience for users. This scheme is basic, but shows potential for improvements when the company becomes larger and has a greater customer base. At the moment it requires a manual point update in the admin panel, and email communication to update the customer when their gift is on the way.
+
+#### - Skin Quiz
+The Brighton GLOW Skin Quiz helps customers discover skincare products tailored to their skin type and concerns. Accessible via the /skin-quiz/ URL, the quiz presents three multiple-choice questions using Django’s RadioSelect inputs, covering skin type, main skin concerns, and how the user’s skin feels after cleansing. Behind the scenes, the responses are collected and processed using Python’s Counter to identify the most frequent answer. 
+
+Based on the result, users are redirected to the appropriate product listing page. For example, users selecting mostly “ageing” are redirected to the Serums category, while “acne” responses are mapped to products for oily skin. The quiz is implemented using Django forms and views, and includes SEO-optimized meta titles and descriptions for the quiz page.
+
+![BrightonGLOW Skin Quiz](/static/images/readme/skinquiz.png)
+
 ## Authentication & User Accounts
 #### - User Registration & Welcome Email: New users can create a free user account and they will receive an automatic email upon signing up, welcoming them to BrightonGLOW.
 
 I set up Django’s built-in email service using Gmail’s SMTP server by configuring the necessary settings in settings.py, allowing the system to automatically send a welcome email to new users upon registration, ensuring they receive a confirmation message from brightonglowskincare@gmail.com as soon as their account is created.
+*Changed to brogandaisy@gmail.com post submission, due to google deleting brightonglowskincare@gmail.com for misuse and potential fraud.
 
         def register(request):
             """Handles user registration and sends a welcome email."""
@@ -271,6 +298,10 @@ I set up Django’s built-in email service using Gmail’s SMTP server by config
 #### - Login & Logout: Users can log in to access their profile, order history, and profile information.
 
 #### - Users can update their personal information, including full name, email, address and even their skin type preference. Allowing for customised offers from the shop.
+
+#### - Users can now delete their accounts, completing full CRUD (Create, Read, Update, Delete) functionality.
+
+#### - Users can now add an optional second address line when updating their profile. In addition, phone numbers are validated to UK mobile formats, and postcodes are restricted to valid UK formats, improving data consistency and delivery accuracy.
 
 ![BrightonGLOW Skin Type Update](/static/images/readme/bgskintype.png)
 
@@ -340,6 +371,7 @@ Logged-in users have full CRUD (Create, Read, Update, Delete) functionality for 
 #### Update: Users can edit their account details, adjust product quantities in their shopping bag, and update their shipping information before checkout.
 
 #### Delete: Users can remove items from their shopping bag.
+They can now also delete their account entirely, ensuring full control over their data and profile.
 
 Only admin users have enhanced privileges, such as adding, editing, or deleting products, managing orders, and accessing the Django admin panel to oversee customer transactions.
 
