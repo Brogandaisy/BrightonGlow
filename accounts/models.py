@@ -21,7 +21,8 @@ class Customer(models.Model):
         )]
     )
     email = models.EmailField(unique=True, blank=True, null=True)
-    address_line1 = models.CharField(max_length=255, blank=True, null=True)
+    address_line_1 = models.CharField(max_length=255, blank=True, null=True)
+    address_line_2 = models.CharField(max_length=255, blank=True, null=True)
     address_county = models.CharField(max_length=255, blank=True, null=True)
     address_country = models.CharField(max_length=255, blank=True, null=True)
     address_postcode = models.CharField(
