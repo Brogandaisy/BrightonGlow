@@ -59,6 +59,7 @@ login skincare account, Brighton GLOW login, sign in skincare, track skincare or
                       </div>
                       <div class="modal-body">
                           <p><strong>Order Date:</strong> {{ order.created_at|date:"d M Y, H:i" }}</p>
+                          <p><strong>GLOW Points Earned:</strong> {{ order.loyalty_points_earned }}</p>
                           <strong>Status:</strong> 
                           <span class="badge 
                               {% if order.status == 'PAID' %}bg-success

@@ -32,6 +32,9 @@ class Order(models.Model):
     shipping_postcode = models.CharField(max_length=20, blank=True, null=True)
     shipping_country = models.CharField(max_length=50, blank=True, null=True)
 
+    def loyalty_points_earned(self):
+        return int(self.total_price // 10)
+
     def __str__(self):
         return (
             f"Order {self.id} - "
