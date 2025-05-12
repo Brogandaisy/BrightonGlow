@@ -67,12 +67,7 @@ def register(request):
 @login_required
 def update_profile(request):
     """Allows users to update their profile information."""
-
-    customer, created = Customer.objects.get_or_create(
-        user=request.user,
-        defaults={'email': request.user.email}
-    )
-
+    customer = request.user.customer
     form = CustomerProfileForm(request.POST or None, instance=customer)
 
     if request.method == 'POST' and form.is_valid():
