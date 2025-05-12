@@ -29,6 +29,6 @@ class CustomerProfileForm(forms.ModelForm):
 
     class Meta:
         model = Customer
-        fields = ['full_name', 'phone', 'email', 'address_line1',
-                  'address_county', 'address_country', 'address_postcode',
-                  'skin_type']
+        fields = ['full_name', 'phone', 'email', 'address_line_1',
+                  'address_line_2', 'address_county', 'address_country',
+                  'address_postcode', 'skin_type']
