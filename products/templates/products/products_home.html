@@ -63,7 +63,7 @@ skincare products, Brighton skincare, hydrating cleanser, vitamin C serum, anti-
                         <form class="add-to-bag-form" data-product-id="{{ product.id }}">
                             {% csrf_token %}
                             <button class="custom-btn-primary" type="button" onclick="decrement('{{ product.id }}')">-</button>
-                            <span id="quantity-{{ product.id }}" clas="text-white">1</span>
+                            <span id="quantity-{{ product.id }}" class="text-white">1</span>
                             <button class="custom-btn-primary" type="button" onclick="increment('{{ product.id }}')">+</button>
                         
                             <input type="hidden" name="quantity" id="quantity-input-{{ product.id }}" value="1">
