@@ -1,14 +1,25 @@
 {% extends "base.html" %}
+
+{% block title %}Find Your Glow | Brighton GLOW Skin Quiz{% endblock %}
+
+{% block meta_description %}
+Take the Brighton GLOW Skin Quiz to discover your perfect skincare match. Quick, easy, and personalised for dry, sensitive, oily or ageing skin types.
+{% endblock %}
+
+{% block meta_keywords %} {{ block.super }}
+skin quiz, skincare quiz, Brighton GLOW quiz, best skincare match, oily skin, dry skin, sensitive skin, ageing skin, skincare recommendation
+{% endblock %}
+
 {% block content %}
 
 <header style="padding-top: 100px; padding-bottom: 30px">
-  <div class="container py-5 background-white skin-quiz">
-    <h2>Find Your Perfect Brighton GLOW Skincare Match</h2>
-    <form method="post" class="skin-quiz-form">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="custom-btn-primary" type="submit">Get Recommendations</button>
-    </form>
-  </div>
+<div class="container py-5 background-white skin-quiz">
+  <h2>Find Your Perfect Brighton GLOW Skincare Match</h2>
+  <form method="post" class="skin-quiz-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="custom-btn-primary" type="submit">Get Recommendations</button>
+  </form>
+</div>
 </header>
 {% endblock %}
