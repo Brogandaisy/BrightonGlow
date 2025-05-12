@@ -67,7 +67,12 @@ def register(request):
 @login_required
 def update_profile(request):
     """Allows users to update their profile information."""
-    customer = request.user.customer
+
+    customer, created = Customer.objects.get_or_create(
+        user=request.user,
+        defaults={'email': request.user.email}
+    )
+
     form = CustomerProfileForm(request.POST or None, instance=customer)
 
     if request.method == 'POST' and form.is_valid():
@@ -85,11 +90,7 @@ def profile(request):
         .exclude(status="PENDING")
         .order_by('-created_at')
     )
-    customer = request.user.customer
-    return render(request, 'accounts/profile.html', {
-        'orders': orders,
-        'customer': customer,
-    })
+    return render(request, 'accounts/profile.html', {'orders': orders})
 
 
 @login_required
