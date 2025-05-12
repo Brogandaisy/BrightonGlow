@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
+postcode_validator = RegexValidator(
+    regex=r'^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$',
+    message="Enter a valid UK postcode."
+)
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -10,14 +15,18 @@ class Customer(models.Model):
         max_length=15,
         blank=True,
         null=True,
-        validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$',
-                                   message="Enter a valid phone number.")]
+        validators=[RegexValidator(
+            regex=r'^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$',
+            message="Enter a valid UK phone number starting with 07 or +44."
+        )]
     )
     email = models.EmailField(unique=True, blank=True, null=True)
     address_line1 = models.CharField(max_length=255, blank=True, null=True)
     address_county = models.CharField(max_length=255, blank=True, null=True)
     address_country = models.CharField(max_length=255, blank=True, null=True)
-    address_postcode = models.CharField(max_length=20, blank=True, null=True)
+    address_postcode = models.CharField(
+        max_length=20, blank=True, null=True, validators=[postcode_validator]
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     SKIN_TYPES = [
