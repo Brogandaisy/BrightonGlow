@@ -262,6 +262,31 @@ Based on the result, users are redirected to the appropriate product listing pag
 
 ![BrightonGLOW Skin Quiz](/static/images/readme/skinquiz.png)
 
+#### - Reviews
+I added a reviews feature so that users can leave feedback on individual products. This helps other customers make informed decisions based on real experiences, and adds more interaction to the site.
+
+            class ReviewForm(forms.ModelForm):
+                class Meta:
+                    model = Review
+                    fields = ['rating', 'comment']
+                    widgets = {
+                        'rating': forms.Select(choices=[(i, i) for i in range(1, 6)]),
+                        'comment': forms.Textarea(attrs={'rows': 4}),
+                    }
+
+To leave a review, users must be logged in. If they aren’t, they’ll see a message encouraging them to log in before writing one. Once logged in, they can leave a review using a dropdown menu to select a rating from 1 to 5, and a required text box to describe their experience. Users can also go back and edit or delete their review if needed.
+
+Each product shows an average rating, which is calculated automatically based on all reviews for that product. This rating appears at the top of the product page before the main description. I used a simple method in my Product model to handle this:
+
+
+          def average_rating(self):
+              result = self.reviews.aggregate(avg=Avg('rating'))['avg']
+              return round(result, 1) if result else None
+
+This takes all the related reviews, calculates the average rating using Django’s Avg() function, and rounds it to 1 decimal place. If there are no reviews yet, it returns None.
+
+![BrightonGLOW Reviews](/static/images/readme/bgreviews.png)
+
 ## Authentication & User Accounts
 #### - User Registration & Welcome Email: New users can create a free user account and they will receive an automatic email upon signing up, welcoming them to BrightonGLOW.
 
@@ -573,6 +598,32 @@ Ensured users could view their past orders and track statuses.
 
 - Admin & Order Management:
 Tested admin access to manage products and update order statuses.
+
+Test Examples:
+
+Profile Form:
+Expected: When a logged-in user enters valid info and submits the form, their details are saved, and they are redirected to the profile page.
+Testing: Filled in valid fields for full name, phone number, address, and selected a skin type, then clicked "Save Changes".
+Result: Redirected to profile page. Updated info displayed as expected.
+Fix: No fix needed; happy flow works.
+
+Skin Quiz:
+Expected: When a user selects “Sensitive” for most answers, they are redirected to /products/products/?skin_type=sensitive.
+Testing: Chose “Sensitive” for all 3 quiz questions and clicked “Get Recommendations”.
+Result: User redirected to correct URL and shown matching product list.
+Fix: No fix needed; logic works correctly.
+
+Phone Number Update Profile:
+Expected: If the user enters 12345 as their phone number, the system should reject the form and display “Enter a valid UK phone number starting with 07 or +44.”
+Testing: Typed 12345 into the phone field, submitted the profile update form.
+Result: Validation error appeared correctly next to the phone field.
+Fix: RegexValidator on phone field worked. No code change needed.
+
+Loyalty Points Admin:
+Expected: Admin can manually update a user’s loyalty_points value from the Django admin.
+Testing: Logged into Django admin → Accounts → Customer → Selected user → Updated points from 20 to 5.
+Result: Value saved, reflected immediately on customer profile page.
+Fix: No fix needed; model field editable and visible in admin.
 
 ### Testing Across Different Devices
 I tested the responsiveness of the website across different screen sizes to ensure proper layout and usability.
