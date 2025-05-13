@@ -19,16 +19,6 @@ def checkout(request):
     return render(request, 'orders/checkout.html')
 
 
-def about(request):
-    """Displays the about page with featured products."""
-    featured_products = Product.objects.order_by('?')[:3]
-    return render(
-        request,
-        "about.html",
-        {"featured_products": featured_products},
-    )
-
-
 def contact(request):
     """Renders the contact page."""
     return render(request, 'contact.html')
