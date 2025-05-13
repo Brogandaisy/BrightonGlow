@@ -32,7 +32,7 @@ urlpatterns = [
         name="payment_error",
     ),  # Payment error page
     path("webhook/", webhook, name="stripe-webhook"),  # Stripe webhook
-    path("about/", views.about, name="about"),
+    path("about/", include("about.urls")),
     path("contact/", views.contact, name="contact"),
     path("privacy-policy/", views.privacy_policy, name="privacy_policy"),
     re_path(
