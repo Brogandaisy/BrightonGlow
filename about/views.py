@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import AboutPage
+from products.models import Product
 
 
 def about_view(request):
