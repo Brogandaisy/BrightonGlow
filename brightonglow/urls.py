@@ -7,6 +7,8 @@ from payments.views import webhook
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import custom_404_view, custom_500_view
+from about.views import about_page
+
 
 urlpatterns = [
     path("", views.home, name="home"),  # Homepage
@@ -32,7 +34,7 @@ urlpatterns = [
         name="payment_error",
     ),  # Payment error page
     path("webhook/", webhook, name="stripe-webhook"),  # Stripe webhook
-    path("about/", include("about.urls")),
+    path("about/", about_page, name="about"),
     path("contact/", views.contact, name="contact"),
     path("privacy-policy/", views.privacy_policy, name="privacy_policy"),
     re_path(
