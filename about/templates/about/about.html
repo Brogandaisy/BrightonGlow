@@ -3,11 +3,29 @@
 {% block title %}About Us | Brighton GLOW Skincare{% endblock %}
 
 {% block content %}
-<header style="padding-top: 60px;">
-<div class="container py-5 background-white">
-    <h1>{{ about.header }}</h1>
-    <h3>{{ about.sub_heading }}</h3>
-    <p>{{ about.content }}</p>
-</div>
+<header style="padding-top: 100px;">
+    <div class="container my-5 background-white">
+        <div class="row align-items-center">
+            <!-- Image Column -->
+            <div class="col-md-6 mb-4 mb-md-0 img">
+                {% if about.image %}
+                <img src="{{ about.image.url }}" alt="{{ about.heading }}" class="img-fluid mb-4">
+                {% endif %}
+            </div>
+    
+            <!-- Details Column -->
+            <div class="col-md-6 about-blurb">
+                <h1>{{ about.header }}</h1>
+                <h3>{{ about.sub_heading }}</h3>
+                <p>{{ about.content|linebreaks }}</p>
+    
+                <h5>Ready to glow? Shop now & let your skin shine!</h5>
+                <br>
+                <a class="btn custom-btn-primary" href="{% url 'products_home' %}">Shop Skincare</a>
+    
+            </div>
+        </div>
+    </div>
+    
 </header>
 {% endblock %}
