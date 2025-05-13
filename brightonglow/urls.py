@@ -45,6 +45,7 @@ urlpatterns = [
         serve,
         {"document_root": settings.BASE_DIR, "path": "robots.txt"},
     ),
+    path('faqs/', include('faqs.urls')),
 ]
 
 handler404 = custom_404_view
