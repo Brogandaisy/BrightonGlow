@@ -601,29 +601,62 @@ Tested admin access to manage products and update order statuses.
 
 Test Examples:
 
-Profile Form:
-Expected: When a logged-in user enters valid info and submits the form, their details are saved, and they are redirected to the profile page.
-Testing: Filled in valid fields for full name, phone number, address, and selected a skin type, then clicked "Save Changes".
-Result: Redirected to profile page. Updated info displayed as expected.
-Fix: No fix needed; happy flow works.
-
-Skin Quiz:
-Expected: When a user selects “Sensitive” for most answers, they are redirected to /products/products/?skin_type=sensitive.
-Testing: Chose “Sensitive” for all 3 quiz questions and clicked “Get Recommendations”.
-Result: User redirected to correct URL and shown matching product list.
-Fix: No fix needed; logic works correctly.
-
-Phone Number Update Profile:
-Expected: If the user enters 12345 as their phone number, the system should reject the form and display “Enter a valid UK phone number starting with 07 or +44.”
-Testing: Typed 12345 into the phone field, submitted the profile update form.
-Result: Validation error appeared correctly next to the phone field.
-Fix: RegexValidator on phone field worked. No code change needed.
-
-Loyalty Points Admin:
-Expected: Admin can manually update a user’s loyalty_points value from the Django admin.
-Testing: Logged into Django admin → Accounts → Customer → Selected user → Updated points from 20 to 5.
-Result: Value saved, reflected immediately on customer profile page.
-Fix: No fix needed; model field editable and visible in admin.
+<table>
+  <thead>
+    <tr>
+      <th>Test Name</th>
+      <th>Expected Result</th>
+      <th>Testing</th>
+      <th>Test Result</th>
+      <th>Fix</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Profile Form</td>
+      <td>When a logged-in user enters valid info and submits the form, their details are saved, and they are redirected to the profile page.</td>
+      <td>Filled in valid fields for full name, phone number, address, and selected a skin type, then clicked "Save Changes".</td>
+      <td>Redirected to profile page. Updated info displayed as expected.</td>
+      <td>No fix needed; happy flow works.</td>
+    </tr>
+    <tr>
+       <td>Skin Quiz</td>
+      <td>When a user selects “Sensitive” for most answers, they are redirected to /products/products/?skin_type=sensitive.</td>
+      <td>Chose “Sensitive” for all 3 quiz questions and clicked “Get Recommendations”.</td>
+      <td>User redirected to correct URL and shown matching product list.</td>
+      <td>No fix needed; logic works correctly.</td>
+    </tr>
+    <tr>
+      <td>Phone Number Update Profile</td>
+      <td>If the user enters 12345 as their phone number, the system should reject the form and display “Enter a valid UK phone number starting with 07 or +44.”</td>
+      <td>Typed 12345 into the phone field, submitted the profile update form.</td>
+      <td>Validation error appeared correctly next to the phone field.</td>
+      <td>RegexValidator on phone field worked. No code change needed.</td>
+    </tr>
+    <tr>
+    <td>Loyalty Points Admin</td>
+      <td>Admin can manually update a user’s loyalty_points value from the Django admin.</td>
+      <td>Logged into Django admin > Accounts > Customer > Selected user > Updated points from 20 to 5.</td>
+      <td>Value saved, reflected immediately on customer profile page.</td>
+      <td>No fix needed; model field editable and visible in admin.</td>
+    </tr>
+    <tr>
+    <td>Nav Bar</td>
+      <td>When navbar titles are clicked, it takes the user to the page described.</td>
+      <td>Click on each navbar title, check the route result is the correct page, linked to the title.</td>
+      <td>Almost all pages loaded their page template, one page 'About' returned a 500 Server Error - due to spelling mistake in urls.py.</td>
+      <td>Fixed spelling mistake in urls.py, and re-tested About Page, which returned the correct page template.</td>
+    </tr>
+    <tr>
+    <td>Product View Button Navigation</td>
+      <td>Clicking "View" under any product redirects to the product detail page.</td>
+      <td>Click on each navbar title, check the route result is the correct page, linked to the title.</td>
+      <td>On homepage, click the "View" button below "Retinal Serum". It should navigate to /products/products/7/</td>
+      <td>Ensure href is correct and the route /products/products/<id>/ returns the expected product details view.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Testing Across Different Devices
 I tested the responsiveness of the website across different screen sizes to ensure proper layout and usability.
