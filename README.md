@@ -236,6 +236,33 @@ The Profile view function retrieves and displays the user's profile and order hi
           orders = Order.objects.filter(user=request.user).exclude(status="PENDING").order_by('-  created_at')
           return render(request, 'accounts/profile.html', {'orders': orders})
 
+#### - FAQs Management: Admins can manage Frequently Asked Questions directly from the Django admin panel. 
+This functionality allows for easy addition, editing, and deletion of FAQ entries without touching the codebase. The custom model stores each question and answer pair. This helps keep the FAQ page up-to-date and relevant for users.
+
+Models.py
+
+            class FAQ(models.Model):
+                question = models.CharField(max_length=255)
+                answer = models.TextField()
+                is_active = models.BooleanField(default=True)
+            
+                def __str__(self):
+                    return self.question
+
+Template: FAQs
+
+
+          <div class="container my-5 background-white">
+              <h2>Frequently Asked Questions</h2>
+              <br>
+              {% for faq in faqs %}
+                <div class="faq-item mb-4">
+                  <h5>{{ faq.question }}</h5>
+                  <p>{{ faq.answer }}</p>
+                </div>
+              {% endfor %}
+            </div>
+
 #### - Brighton GLOW includes a custom-built Loyalty Points System to reward customers for every purchase.
 
 Earning Points:
